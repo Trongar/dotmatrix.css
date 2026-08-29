@@ -4,29 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEONet — IRC / BBS Network</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 8: Magenta synthwave / vaporwave -->
   <style>
     :root {
-      --crt-bg: #1a0a2e;
-      --crt-surface: #2a1245;
-      --crt-surface-2: #3a1a55;
-      --crt-border: #4a2070;
-      --crt-border-light: #6a4090;
-      --crt-border-dark: #0a0420;
-      --crt-text: #f0e6ff;
-      --crt-text-muted: #9080b0;
-      --crt-accent: #ff00aa;
-      --crt-accent-dim: #aa0077;
-      --crt-accent-alt: #00f0ff;
-      --crt-danger: #ff3060;
-      --crt-success: #00ff88;
-      --crt-font-size: 13px;
-      --crt-border-width: 2px;
-      --crt-scanlines: 2;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(255, 0, 170, 0.06);
-      --crt-max-width: 1500px;
+      --dm-bg: #1a0a2e;
+      --dm-surface: #2a1245;
+      --dm-surface-2: #3a1a55;
+      --dm-border: #4a2070;
+      --dm-border-light: #6a4090;
+      --dm-border-dark: #0a0420;
+      --dm-text: #f0e6ff;
+      --dm-text-muted: #9080b0;
+      --dm-accent: #ff00aa;
+      --dm-accent-dim: #aa0077;
+      --dm-accent-alt: #00f0ff;
+      --dm-danger: #ff3060;
+      --dm-success: #00ff88;
+      --dm-font-size: 13px;
+      --dm-border-width: 2px;
+      --dm-scanlines: 2;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(255, 0, 170, 0.06);
+      --dm-max-width: 1500px;
       color-scheme: dark;
     }
 
@@ -35,59 +35,59 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px var(--crt-space-md);
-      background: var(--crt-accent-dim);
-      color: var(--crt-bg);
+      padding: 4px var(--dm-space-md);
+      background: var(--dm-accent-dim);
+      color: var(--dm-bg);
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.1em;
-      border: var(--crt-border-width) solid var(--crt-border);
+      border: var(--dm-border-width) solid var(--dm-border);
       border-left: none;
       border-right: none;
     }
-    .bbs-bar .blink { animation: crt-blink 0.8s step-end infinite; }
+    .bbs-bar .blink { animation: dm-blink 0.8s step-end infinite; }
 
     /* IRC-style 3-column layout */
     .irc-shell {
       display: grid;
       grid-template-columns: 200px 1fr 280px;
       gap: 0;
-      margin: var(--crt-space-md) 0;
-      border: var(--crt-border-width) solid var(--crt-border);
+      margin: var(--dm-space-md) 0;
+      border: var(--dm-border-width) solid var(--dm-border);
       min-height: 600px;
     }
     .channel-list {
-      background: var(--crt-surface);
-      border-right: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-sm);
+      background: var(--dm-surface);
+      border-right: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-sm);
       font-size: 0.85rem;
     }
     .channel-list h3 {
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       letter-spacing: 0.15em;
-      margin: var(--crt-space-md) 0 var(--crt-space-xs);
+      margin: var(--dm-space-md) 0 var(--dm-space-xs);
       text-transform: uppercase;
     }
     .channel-list h3:first-child { margin-top: 0; }
     .channel-list ul { list-style: none; padding: 0; margin: 0; }
     .channel-list li {
       padding: 2px 6px;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       cursor: pointer;
     }
-    .channel-list li:hover { background: var(--crt-bg); color: var(--crt-accent); }
-    .channel-list li.active { background: var(--crt-accent); color: var(--crt-bg); font-weight: 700; }
+    .channel-list li:hover { background: var(--dm-bg); color: var(--dm-accent); }
+    .channel-list li.active { background: var(--dm-accent); color: var(--dm-bg); font-weight: 700; }
     .channel-list li .count { float: right; font-size: 0.75rem; }
 
     .chat-pane {
       display: flex;
       flex-direction: column;
-      background: var(--crt-bg);
+      background: var(--dm-bg);
     }
     .chat-header {
-      padding: var(--crt-space-sm) var(--crt-space-md);
-      border-bottom: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--dm-space-sm) var(--dm-space-md);
+      border-bottom: var(--dm-border-width) solid var(--dm-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -95,55 +95,55 @@
     .chat-header h2 {
       margin: 0;
       font-size: 1rem;
-      color: var(--crt-accent-alt);
+      color: var(--dm-accent-alt);
     }
     .chat-header .topic {
       font-size: 0.8rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       font-style: italic;
     }
     .chat-messages {
       flex: 1;
-      padding: var(--crt-space-sm) var(--crt-space-md);
+      padding: var(--dm-space-sm) var(--dm-space-md);
       overflow-y: auto;
       font-size: 0.85rem;
       line-height: 1.5;
     }
     .msg { margin-bottom: 4px; }
-    .msg time { color: var(--crt-text-muted); font-size: 0.75rem; margin-right: var(--crt-space-xs); }
+    .msg time { color: var(--dm-text-muted); font-size: 0.75rem; margin-right: var(--dm-space-xs); }
     .msg .nick { font-weight: 700; }
-    .msg .nick.op { color: var(--crt-success); }
-    .msg .nick.voice { color: var(--crt-accent-alt); }
-    .msg .nick.user { color: var(--crt-accent); }
-    .msg.system { color: var(--crt-text-muted); font-style: italic; padding-left: var(--crt-space-md); }
-    .msg .highlight { background: var(--crt-accent-dim); color: var(--crt-bg); padding: 0 4px; }
+    .msg .nick.op { color: var(--dm-success); }
+    .msg .nick.voice { color: var(--dm-accent-alt); }
+    .msg .nick.user { color: var(--dm-accent); }
+    .msg.system { color: var(--dm-text-muted); font-style: italic; padding-left: var(--dm-space-md); }
+    .msg .highlight { background: var(--dm-accent-dim); color: var(--dm-bg); padding: 0 4px; }
 
     .chat-input {
       display: flex;
-      padding: var(--crt-space-sm);
-      border-top: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-surface);
-      gap: var(--crt-space-xs);
+      padding: var(--dm-space-sm);
+      border-top: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      gap: var(--dm-space-xs);
     }
     .chat-input input {
       flex: 1;
       margin: 0;
-      font-family: var(--crt-font);
+      font-family: var(--dm-font);
     }
     .chat-input button { margin: 0; }
 
     /* Right sidebar — user list / who-is-online */
     .user-list {
-      background: var(--crt-surface);
-      border-left: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-sm);
+      background: var(--dm-surface);
+      border-left: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-sm);
       font-size: 0.85rem;
     }
     .user-list h3 {
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       letter-spacing: 0.15em;
-      margin: 0 0 var(--crt-space-xs);
+      margin: 0 0 var(--dm-space-xs);
     }
     .user-list .user {
       padding: 2px 4px;
@@ -153,48 +153,48 @@
     .user-list .user .status {
       font-size: 0.7rem;
     }
-    .user-list .user .status.online { color: var(--crt-success); }
-    .user-list .user .status.away { color: var(--crt-accent-alt); }
-    .user-list .user .status.offline { color: var(--crt-text-muted); }
+    .user-list .user .status.online { color: var(--dm-success); }
+    .user-list .user .status.away { color: var(--dm-accent-alt); }
+    .user-list .user .status.offline { color: var(--dm-text-muted); }
 
     /* Forum thread section */
     .thread {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-md);
-      background: var(--crt-surface);
-      margin-bottom: var(--crt-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-md);
+      background: var(--dm-surface);
+      margin-bottom: var(--dm-space-md);
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 3px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 3px 0 var(--dm-border-dark);
     }
     .thread .meta {
       display: flex;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
       align-items: center;
       font-size: 0.8rem;
-      color: var(--crt-text-muted);
-      margin-bottom: var(--crt-space-sm);
+      color: var(--dm-text-muted);
+      margin-bottom: var(--dm-space-sm);
     }
     .thread .avatar {
       width: 32px;
       height: 32px;
-      border: 2px solid var(--crt-border);
+      border: 2px solid var(--dm-border);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      color: var(--crt-bg);
-      background: var(--crt-accent-alt);
+      color: var(--dm-bg);
+      background: var(--dm-accent-alt);
     }
-    .thread h3 { margin: var(--crt-space-sm) 0; font-size: 1.1rem; }
+    .thread h3 { margin: var(--dm-space-sm) 0; font-size: 1.1rem; }
     .thread .stats {
       display: flex;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
       font-size: 0.8rem;
-      color: var(--crt-text-muted);
-      border-top: 1px solid var(--crt-border);
-      padding-top: var(--crt-space-sm);
-      margin-top: var(--crt-space-sm);
+      color: var(--dm-text-muted);
+      border-top: 1px solid var(--dm-border);
+      padding-top: var(--dm-space-sm);
+      margin-top: var(--dm-space-sm);
     }
 
     /* ── Responsive (desktop-first: IRC channels become horizontal tabs, users inline) */
@@ -208,7 +208,7 @@
       .irc-shell { grid-template-columns: 1fr; min-height: auto; }
       .channel-list {
         border-right: none;
-        border-bottom: 1px solid var(--crt-border);
+        border-bottom: 1px solid var(--dm-border);
         max-height: 100px;
         overflow-x: auto;
         overflow-y: hidden;
@@ -223,7 +223,7 @@
       .chat-messages { font-size: 0.8rem; }
       header h1 { font-size: 1.2rem; }
       header nav ul { flex-wrap: wrap; font-size: 0.8rem; }
-      .thread { padding: var(--crt-space-sm); }
+      .thread { padding: var(--dm-space-sm); }
       .thread h3 { font-size: 1rem; }
     }
   </style>
@@ -233,7 +233,7 @@
   <div class="bbs-bar">
     <span>◆ NEONet v2.4.1 — ONLINE</span>
     <span class="blink">● 1,247 USERS CONNECTED</span>
-    <span>UPTIME: 142d 08h 22m · SYSOP: <a href="#" style="color: var(--crt-bg); border-bottom-color: var(--crt-bg);">@neon_witch</a></span>
+    <span>UPTIME: 142d 08h 22m · SYSOP: <a href="#" style="color: var(--dm-bg); border-bottom-color: var(--dm-bg);">@neon_witch</a></span>
   </div>
 
   <header>
@@ -252,7 +252,7 @@
   <main>
     <section>
       <h2>#retro-computing · 142 users</h2>
-      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+      <p style="color: var(--dm-text-muted); font-size: 0.9rem;">
         Topic: discussing the new PixelForge v0.1 framework. Be kind, no bots.
       </p>
 
@@ -286,10 +286,10 @@
           <div class="chat-messages">
             <div class="msg system">[14:21] — @pixel_farmer joined #retro-computing</div>
             <div class="msg"><time>14:21</time><span class="nick op">@sysop</span> welcome @pixel_farmer</div>
-            <div class="msg"><time>14:22</time><span class="nick user">@retro_owl</span> anyone tried the new <span class="highlight">crt.css</span> framework? it's classless</div>
+            <div class="msg"><time>14:22</time><span class="nick user">@retro_owl</span> anyone tried the new <span class="highlight">dotmatrix.css</span> framework? it's classless</div>
             <div class="msg"><time>14:23</time><span class="nick voice">@neon_witch</span> just dropped 0.1.0. 6KB gzipped, semantic html only</div>
             <div class="msg"><time>14:24</time><span class="nick user">@pixel_farmer</span> nice. does it do the scanline overlay thing?</div>
-            <div class="msg"><time>14:24</time><span class="nick voice">@neon_witch</span> yep, controllable via --crt-scanlines var. 0-2 intensity</div>
+            <div class="msg"><time>14:24</time><span class="nick voice">@neon_witch</span> yep, controllable via --dm-scanlines var. 0-2 intensity</div>
             <div class="msg"><time>14:25</time><span class="nick user">@crash_override</span> my browser doesn't respect font-variant-emoji yet. emoji still colorful in chrome 130</div>
             <div class="msg"><time>14:25</time><span class="nick voice">@neon_witch</span> try chrome 131+. it's there</div>
             <div class="msg"><time>14:26</time><span class="nick user">@retro_owl</span> built my BBS in an hour. link in thread 👀</div>
@@ -324,9 +324,9 @@
     </section>
 
     <!-- Forum threads section -->
-    <section id="forums" style="margin-top: var(--crt-space-xl);">
+    <section id="forums" style="margin-top: var(--dm-space-xl);">
       <h2>Active threads</h2>
-      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+      <p style="color: var(--dm-text-muted); font-size: 0.9rem;">
         Long-form discussions from the forums. Reply by email or jump into IRC.
       </p>
 
@@ -350,11 +350,11 @@
 
       <article class="thread" data-texture="hatch">
         <div class="meta">
-          <span class="avatar" style="background: var(--crt-success);">PF</span>
+          <span class="avatar" style="background: var(--dm-success);">PF</span>
           <strong>@pixel_farmer</strong>
           <span>· posted 5h ago · <a href="#">#show-and-tell</a></span>
         </div>
-        <h3>I rebuilt my BBS with crt.css in an hour</h3>
+        <h3>I rebuilt my BBS with dotmatrix.css in an hour</h3>
         <p>
           See attached screenshot. Custom theme overrides, ~10 lines of CSS variables changed the entire look from green CRT to magenta synthwave. The framework is so easy to theme I almost feel guilty.
         </p>
@@ -367,7 +367,7 @@
 
       <article class="thread" data-texture="hatch">
         <div class="meta">
-          <span class="avatar" style="background: var(--crt-danger);">CO</span>
+          <span class="avatar" style="background: var(--dm-danger);">CO</span>
           <strong>@crash_override</strong>
           <span>· posted 1d ago · <a href="#">#help</a></span>
         </div>
@@ -384,7 +384,7 @@
   </main>
 
   <footer>
-    <p>NEONet · <a href="../showcase/index.html">← back to showcase</a> · <span style="color: var(--crt-accent-alt);">● SERVER OK</span></p>
+    <p>NEONet · <a href="../showcase/index.html">← back to showcase</a> · <span style="color: var(--dm-accent-alt);">● SERVER OK</span></p>
   </footer>
 </body>
 </html>

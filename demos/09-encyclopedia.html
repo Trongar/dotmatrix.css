@@ -4,40 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PixelEncyclopedia — Personal Computer (PC)</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 9: Azul/marrón clásico 90s — Encarta vibes -->
   <style>
     :root {
-      --crt-bg: #f8f4e8;
-      --crt-surface: #ece4d0;
-      --crt-surface-2: #e0d8c0;
-      --crt-border: #2c4a7c;
-      --crt-border-light: #5478b0;
-      --crt-border-dark: #142850;
-      --crt-text: #1a2540;
-      --crt-text-muted: #5a6a85;
-      --crt-accent: #1e4a8c;
-      --crt-accent-dim: #143666;
-      --crt-accent-alt: #b8860b;
-      --crt-danger: #8b1a1a;
-      --crt-success: #2a5a2a;
-      --crt-font: 'Times New Roman', 'Liberation Serif', serif;
-      --crt-heading-font: 'Times New Roman', 'Liberation Serif', serif;
-      --crt-font-size: 15px;
-      --crt-line-height: 1.65;
-      --crt-border-width: 1px;
-      --crt-scanlines: 0;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(30, 74, 140, 0.08);
-      --crt-max-width: 1300px;
+      --dm-bg: #f8f4e8;
+      --dm-surface: #ece4d0;
+      --dm-surface-2: #e0d8c0;
+      --dm-border: #2c4a7c;
+      --dm-border-light: #5478b0;
+      --dm-border-dark: #142850;
+      --dm-text: #1a2540;
+      --dm-text-muted: #5a6a85;
+      --dm-accent: #1e4a8c;
+      --dm-accent-dim: #143666;
+      --dm-accent-alt: #b8860b;
+      --dm-danger: #8b1a1a;
+      --dm-success: #2a5a2a;
+      --dm-font: 'Times New Roman', 'Liberation Serif', serif;
+      --dm-heading-font: 'Times New Roman', 'Liberation Serif', serif;
+      --dm-font-size: 15px;
+      --dm-line-height: 1.65;
+      --dm-border-width: 1px;
+      --dm-scanlines: 0;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(30, 74, 140, 0.08);
+      --dm-max-width: 1300px;
     }
     /* Header — like Encarta's masthead */
     .encarta-masthead {
-      background: var(--crt-accent);
+      background: var(--dm-accent);
       color: #f8f4e8;
-      padding: var(--crt-space-md) var(--crt-space-lg);
-      border: var(--crt-border-width) solid var(--crt-accent-dim);
-      margin-bottom: var(--crt-space-md);
+      padding: var(--dm-space-md) var(--dm-space-lg);
+      border: var(--dm-border-width) solid var(--dm-accent-dim);
+      margin-bottom: var(--dm-space-md);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -50,155 +50,155 @@
       letter-spacing: 0;
       text-transform: none;
     }
-    .encarta-masthead .search { display: flex; gap: var(--crt-space-xs); }
-    .encarta-masthead input { margin: 0; background: #f8f4e8; color: var(--crt-text); }
+    .encarta-masthead .search { display: flex; gap: var(--dm-space-xs); }
+    .encarta-masthead input { margin: 0; background: #f8f4e8; color: var(--dm-text); }
 
     .alpha-bar {
       display: flex;
       gap: 2px;
       justify-content: center;
-      padding: var(--crt-space-sm);
-      background: var(--crt-surface);
-      border: var(--crt-border-width) solid var(--crt-border);
-      margin-bottom: var(--crt-space-md);
+      padding: var(--dm-space-sm);
+      background: var(--dm-surface);
+      border: var(--dm-border-width) solid var(--dm-border);
+      margin-bottom: var(--dm-space-md);
       font-size: 0.9rem;
     }
     .alpha-bar a {
       padding: 2px 6px;
       border-bottom: none;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       font-weight: 700;
     }
-    .alpha-bar a.disabled { color: var(--crt-text-muted); pointer-events: none; }
+    .alpha-bar a.disabled { color: var(--dm-text-muted); pointer-events: none; }
     .alpha-bar a[aria-current="page"] {
-      background: var(--crt-accent);
+      background: var(--dm-accent);
       color: #f8f4e8;
     }
 
     .encarta-shell {
       display: grid;
       grid-template-columns: 200px 1fr 220px;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
     }
 
     /* LEFT: topic tree */
     .topic-tree {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-sm);
-      background: var(--crt-surface);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-sm);
+      background: var(--dm-surface);
       align-self: start;
       position: sticky;
-      top: var(--crt-space-md);
+      top: var(--dm-space-md);
       font-size: 0.9rem;
     }
     .topic-tree h3 {
       font-size: 0.85rem;
-      color: var(--crt-accent);
-      margin: var(--crt-space-md) 0 var(--crt-space-xs);
-      border-bottom: 1px solid var(--crt-border);
+      color: var(--dm-accent);
+      margin: var(--dm-space-md) 0 var(--dm-space-xs);
+      border-bottom: 1px solid var(--dm-border);
       padding-bottom: 2px;
     }
     .topic-tree h3:first-child { margin-top: 0; }
     .topic-tree ul { list-style: none; padding: 0; }
     .topic-tree li { padding: 2px 0; }
     .topic-tree a { border-bottom: none; }
-    .topic-tree a[aria-current="page"] { color: var(--crt-accent-alt); font-weight: 700; }
+    .topic-tree a[aria-current="page"] { color: var(--dm-accent-alt); font-weight: 700; }
 
     /* CENTER: article */
     .article-body { max-width: 700px; }
     .article-body header {
-      border-bottom: 2px solid var(--crt-accent);
-      padding-bottom: var(--crt-space-sm);
-      margin-bottom: var(--crt-space-md);
+      border-bottom: 2px solid var(--dm-accent);
+      padding-bottom: var(--dm-space-sm);
+      margin-bottom: var(--dm-space-md);
     }
     .article-body .breadcrumb {
       font-size: 0.85rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
     .article-body h1 {
       font-size: 2.2rem;
       border: none;
-      margin: var(--crt-space-xs) 0;
+      margin: var(--dm-space-xs) 0;
       text-transform: none;
       letter-spacing: 0;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
     }
     .article-body .pronunciation {
       font-style: italic;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       font-size: 1rem;
-      margin-left: var(--crt-space-sm);
+      margin-left: var(--dm-space-sm);
     }
     .article-body h2 {
-      color: var(--crt-accent);
-      border-bottom: 1px solid var(--crt-border);
+      color: var(--dm-accent);
+      border-bottom: 1px solid var(--dm-border);
       padding-bottom: 2px;
-      margin-top: var(--crt-space-lg);
+      margin-top: var(--dm-space-lg);
     }
 
     /* Info box — like Encarta sidebar panels */
     .infobox {
       float: right;
       width: 260px;
-      border: 2px solid var(--crt-accent);
-      padding: var(--crt-space-sm);
-      background: var(--crt-surface);
-      margin: 0 0 var(--crt-space-md) var(--crt-space-md);
+      border: 2px solid var(--dm-accent);
+      padding: var(--dm-space-sm);
+      background: var(--dm-surface);
+      margin: 0 0 var(--dm-space-md) var(--dm-space-md);
       font-size: 0.85rem;
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 3px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 3px 0 var(--dm-border-dark);
     }
     .infobox h3 {
-      background: var(--crt-accent);
+      background: var(--dm-accent);
       color: #f8f4e8;
       padding: 4px 6px;
-      margin: -4px -6px var(--crt-space-xs);
+      margin: -4px -6px var(--dm-space-xs);
       font-size: 0.85rem;
       letter-spacing: 0.05em;
     }
     .infobox table { font-size: 0.8rem; }
-    .infobox th { background: var(--crt-bg); }
+    .infobox th { background: var(--dm-bg); }
 
     /* "See also" box */
     .see-also {
-      border: 1px dashed var(--crt-border);
-      padding: var(--crt-space-sm) var(--crt-space-md);
-      margin: var(--crt-space-md) 0;
-      background: var(--crt-surface);
+      border: 1px dashed var(--dm-border);
+      padding: var(--dm-space-sm) var(--dm-space-md);
+      margin: var(--dm-space-md) 0;
+      background: var(--dm-surface);
     }
     .see-also h3 {
       font-size: 0.85rem;
-      color: var(--crt-accent);
-      margin: 0 0 var(--crt-space-xs);
+      color: var(--dm-accent);
+      margin: 0 0 var(--dm-space-xs);
       text-transform: uppercase;
     }
-    .see-also ul { columns: 2; padding-left: var(--crt-space-md); margin: 0; }
+    .see-also ul { columns: 2; padding-left: var(--dm-space-md); margin: 0; }
 
     /* RIGHT: did you know + media gallery */
     .encarta-rail {
       font-size: 0.9rem;
     }
     .rail-card {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-md);
-      background: var(--crt-surface);
-      margin-bottom: var(--crt-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-md);
+      background: var(--dm-surface);
+      margin-bottom: var(--dm-space-md);
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 2px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 2px 0 var(--dm-border-dark);
     }
     .rail-card h3 {
       font-size: 0.95rem;
-      color: var(--crt-accent);
-      margin: 0 0 var(--crt-space-xs);
-      border-bottom: 2px solid var(--crt-accent);
+      color: var(--dm-accent);
+      margin: 0 0 var(--dm-space-xs);
+      border-bottom: 2px solid var(--dm-accent);
       padding-bottom: 4px;
     }
     .rail-card .dyd {
       font-style: italic;
-      padding: var(--crt-space-xs) 0;
-      border-bottom: 1px dashed var(--crt-border);
+      padding: var(--dm-space-xs) 0;
+      border-bottom: 1px dashed var(--dm-border);
       font-size: 0.85rem;
     }
     .rail-card .dyd:last-child { border-bottom: none; }
@@ -206,13 +206,13 @@
     .gallery-img {
       width: 100%;
       height: 60px;
-      background: var(--crt-accent-dim);
-      border: 1px solid var(--crt-border);
-      margin-bottom: var(--crt-space-xs);
+      background: var(--dm-accent-dim);
+      border: 1px solid var(--dm-border);
+      margin-bottom: var(--dm-space-xs);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--crt-surface);
+      color: var(--dm-surface);
       font-size: 0.7rem;
     }
 
@@ -222,23 +222,23 @@
       .topic-tree {
         position: static;
         border-right: none;
-        border-bottom: 1px solid var(--crt-border);
+        border-bottom: 1px solid var(--dm-border);
       }
       .infobox {
         float: none;
         width: 100%;
-        margin: var(--crt-space-md) 0;
+        margin: var(--dm-space-md) 0;
       }
       .encarta-rail {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: var(--crt-space-md);
+        gap: var(--dm-space-md);
       }
       .alpha-bar { flex-wrap: wrap; }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
-      .encarta-masthead { flex-direction: column; gap: var(--crt-space-sm); padding: var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
+      .encarta-masthead { flex-direction: column; gap: var(--dm-space-sm); padding: var(--dm-space-md); }
       .encarta-masthead h1 { font-size: 1.4rem; }
       .encarta-masthead .search { width: 100%; }
       .encarta-masthead input { width: 100% !important; }
@@ -253,7 +253,7 @@
     <h1>◆ PixelEncyclopedia™ 2026 Edition</h1>
     <form class="search">
       <input type="search" placeholder="Search 42,118 articles..." style="width: 240px;">
-      <button type="submit" style="background: #f8f4e8; color: var(--crt-accent);">GO</button>
+      <button type="submit" style="background: #f8f4e8; color: var(--dm-accent);">GO</button>
     </form>
   </header>
 
@@ -306,7 +306,7 @@
             <a href="#">Home</a> » <a href="#">Technology</a> » <a href="#">Computers</a> » Personal computer
           </p>
           <h1>Personal computer<span class="pronunciation">(pur'-suhn-ul kum-pyoo'tur) <em>n.</em></span></h1>
-          <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+          <p style="color: var(--dm-text-muted); font-size: 0.9rem;">
             Updated: 2026-08-12 · Last reviewed by: <a href="#">Editorial Board</a>
           </p>
         </header>
@@ -322,7 +322,7 @@
             <tr><th>OS</th><td>Windows, macOS, Linux</td></tr>
             <tr><th>Users worldwide</th><td>~2.5 billion</td></tr>
           </table>
-          <p style="margin-top: var(--crt-space-xs);">
+          <p style="margin-top: var(--dm-space-xs);">
             <strong>See also:</strong><br>
             <a href="#">Microcomputer</a> · <a href="#">Workstation</a> · <a href="#">Desktop</a>
           </p>
@@ -429,7 +429,7 @@
           </ol>
         </section>
 
-        <footer style="border-top: 1px solid var(--crt-border); padding-top: var(--crt-space-sm); margin-top: var(--crt-space-lg); font-size: 0.85rem; color: var(--crt-text-muted);">
+        <footer style="border-top: 1px solid var(--dm-border); padding-top: var(--dm-space-sm); margin-top: var(--dm-space-lg); font-size: 0.85rem; color: var(--dm-text-muted);">
           <p>
             Citation: <em>Personal computer.</em> (2026). In PixelEncyclopedia. Retrieved 14:42, August 29, 2026.
           </p>
@@ -463,14 +463,14 @@
           <div class="gallery-img">[IMG: Apple II]</div>
           <div class="gallery-img">[IMG: IBM PC 5150]</div>
           <div class="gallery-img">[IMG: Macintosh 128K]</div>
-          <p style="text-align: center; margin: var(--crt-space-sm) 0 0; font-size: 0.85rem;">
+          <p style="text-align: center; margin: var(--dm-space-sm) 0 0; font-size: 0.85rem;">
             <a href="#">View all 24 images →</a>
           </p>
         </div>
 
         <div class="rail-card">
           <h3>◆ RELATED ARTICLES</h3>
-          <ul style="padding-left: var(--crt-space-md); font-size: 0.85rem;">
+          <ul style="padding-left: var(--dm-space-md); font-size: 0.85rem;">
             <li><a href="#">Microprocessor</a></li>
             <li><a href="#">Apple Inc.</a></li>
             <li><a href="#">Microsoft Windows</a></li>

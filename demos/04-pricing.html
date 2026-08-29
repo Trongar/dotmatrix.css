@@ -4,69 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PixelForge — Pricing</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 4: Verde Nintendo — NES vibes -->
   <style>
     :root {
-      --crt-bg: #d0d0c0;
-      --crt-surface: #c0c0b0;
-      --crt-surface-2: #b0b0a0;
-      --crt-border: #404040;
-      --crt-border-light: #6a6a6a;
-      --crt-border-dark: #1a1a1a;
-      --crt-text: #202020;
-      --crt-text-muted: #606060;
-      --crt-accent: #4caf50;
-      --crt-accent-dim: #2e7d32;
-      --crt-accent-alt: #ff9800;
-      --crt-danger: #d32f2f;
-      --crt-border-width: 3px;
-      --crt-pixel: 3px;
-      --crt-scanlines: 2;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(76, 175, 80, 0.12);
+      --dm-bg: #d0d0c0;
+      --dm-surface: #c0c0b0;
+      --dm-surface-2: #b0b0a0;
+      --dm-border: #404040;
+      --dm-border-light: #6a6a6a;
+      --dm-border-dark: #1a1a1a;
+      --dm-text: #202020;
+      --dm-text-muted: #606060;
+      --dm-accent: #4caf50;
+      --dm-accent-dim: #2e7d32;
+      --dm-accent-alt: #ff9800;
+      --dm-danger: #d32f2f;
+      --dm-border-width: 3px;
+      --dm-pixel: 3px;
+      --dm-scanlines: 2;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(76, 175, 80, 0.12);
     }
     /* Pricing layout — desktop-first */
     .pricing-toggle {
       display: flex;
       justify-content: center;
-      gap: var(--crt-space-sm);
-      margin: var(--crt-space-lg) 0;
+      gap: var(--dm-space-sm);
+      margin: var(--dm-space-lg) 0;
     }
     .pricing-toggle button {
       font-size: 0.85rem;
       padding: 6px 14px;
     }
     .pricing-toggle button[aria-pressed="true"] {
-      background: var(--crt-accent);
-      color: var(--crt-bg);
+      background: var(--dm-accent);
+      color: var(--dm-bg);
     }
     .tiers {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--crt-space-md);
-      margin: var(--crt-space-lg) 0;
+      gap: var(--dm-space-md);
+      margin: var(--dm-space-lg) 0;
     }
     .tier {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-lg);
-      background: var(--crt-surface);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-lg);
+      background: var(--dm-surface);
       position: relative;
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 4px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 4px 0 var(--dm-border-dark);
     }
     .tier.featured {
-      border-color: var(--crt-accent);
-      background: var(--crt-bg);
-      box-shadow: 6px 6px 0 var(--crt-accent-dim);
+      border-color: var(--dm-accent);
+      background: var(--dm-bg);
+      box-shadow: 6px 6px 0 var(--dm-accent-dim);
     }
     .tier .badge {
       position: absolute;
       top: -12px;
-      right: var(--crt-space-md);
-      background: var(--crt-accent);
-      color: var(--crt-bg);
+      right: var(--dm-space-md);
+      background: var(--dm-accent);
+      color: var(--dm-bg);
       padding: 2px 8px;
       font-size: 0.7rem;
       font-weight: 700;
@@ -79,24 +79,24 @@
     .tier .price {
       font-size: 2.4rem;
       font-weight: 700;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       line-height: 1;
-      margin: var(--crt-space-sm) 0;
+      margin: var(--dm-space-sm) 0;
     }
     .tier .price small {
       font-size: 0.85rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       font-weight: 400;
     }
     .tier .desc {
       font-size: 0.85rem;
-      color: var(--crt-text-muted);
-      margin-bottom: var(--crt-space-md);
+      color: var(--dm-text-muted);
+      margin-bottom: var(--dm-space-md);
     }
     .tier ul {
       list-style: none;
       padding: 0;
-      margin: var(--crt-space-md) 0;
+      margin: var(--dm-space-md) 0;
     }
     .tier li {
       padding: 4px 0;
@@ -104,32 +104,32 @@
     }
     .tier li::before {
       content: '✓ ';
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       font-weight: 700;
     }
     .tier li.no::before {
       content: '✗ ';
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
     .tier button {
       width: 100%;
-      margin-top: var(--crt-space-md);
+      margin-top: var(--dm-space-md);
     }
     .compare-table th, .compare-table td { font-size: 0.85rem; }
     .compare-table td.center { text-align: center; }
-    .compare-table .yes { color: var(--crt-accent); font-weight: 700; }
-    .compare-table .no { color: var(--crt-text-muted); }
+    .compare-table .yes { color: var(--dm-accent); font-weight: 700; }
+    .compare-table .no { color: var(--dm-text-muted); }
 
-    .faq { margin-top: var(--crt-space-xl); }
+    .faq { margin-top: var(--dm-space-xl); }
     .faq summary { font-size: 1rem; }
 
     /* ── Responsive (desktop-first: tiers stack but keep weight) */
     @media (max-width: 900px) {
-      .tiers { grid-template-columns: 1fr; max-width: 500px; margin: var(--crt-space-lg) auto; }
+      .tiers { grid-template-columns: 1fr; max-width: 500px; margin: var(--dm-space-lg) auto; }
       .pricing-toggle { flex-wrap: wrap; }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
       .pricing-toggle button { font-size: 0.75rem; padding: 4px 10px; }
       .compare-table th, .compare-table td { padding: 4px 6px; font-size: 0.75rem; }
       .compare-table { display: block; overflow-x: auto; white-space: nowrap; }
@@ -152,7 +152,7 @@
   <main>
     <section>
       <h2>Pick your tier</h2>
-      <p style="text-align: center; color: var(--crt-text-muted);">
+      <p style="text-align: center; color: var(--dm-text-muted);">
         All plans include the full framework, all themes, and unlimited updates.
       </p>
 
@@ -264,7 +264,7 @@
       </details>
     </section>
 
-    <section style="text-align: center; padding: var(--crt-space-xl); border: var(--crt-border-width) solid var(--crt-border); margin-top: var(--crt-space-xl); background: var(--crt-surface);">
+    <section style="text-align: center; padding: var(--dm-space-xl); border: var(--dm-border-width) solid var(--dm-border); margin-top: var(--dm-space-xl); background: var(--dm-surface);">
       <h2 style="margin-top: 0;">Still on the fence?</h2>
       <p>Start free. Upgrade when you're ready.</p>
       <button type="submit">START FREE TRIAL →</button>

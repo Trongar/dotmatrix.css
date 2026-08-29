@@ -4,35 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign in · Terminal Auth</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 2: Cyan/blue terminal — solo overrides de variables -->
   <style>
     :root {
-      --crt-bg: #0a1929;
-      --crt-surface: #0f2236;
-      --crt-surface-2: #142b48;
-      --crt-border: #1e3a5f;
-      --crt-border-light: #2e5a8f;
-      --crt-border-dark: #0a1220;
-      --crt-text: #c8e6ff;
-      --crt-text-muted: #5e8bb5;
-      --crt-accent: #00d4ff;
-      --crt-accent-dim: #0099bb;
-      --crt-accent-alt: #ffd700;
-      --crt-danger: #ff5577;
-      --crt-success: #00ff88;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(0, 212, 255, 0.08);
+      --dm-bg: #0a1929;
+      --dm-surface: #0f2236;
+      --dm-surface-2: #142b48;
+      --dm-border: #1e3a5f;
+      --dm-border-light: #2e5a8f;
+      --dm-border-dark: #0a1220;
+      --dm-text: #c8e6ff;
+      --dm-text-muted: #5e8bb5;
+      --dm-accent: #00d4ff;
+      --dm-accent-dim: #0099bb;
+      --dm-accent-alt: #ffd700;
+      --dm-danger: #ff5577;
+      --dm-success: #00ff88;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(0, 212, 255, 0.08);
       color-scheme: dark;
     }
     /* Auth-specific layout — no toques al framework */
     .auth-shell {
       max-width: 480px;
-      margin: var(--crt-space-xl) auto;
-      border: var(--crt-border-width) solid var(--crt-accent);
-      padding: var(--crt-space-xl);
-      background: var(--crt-surface);
-      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 0 20px rgba(0, 212, 255, 0.1);
+      margin: var(--dm-space-xl) auto;
+      border: var(--dm-border-width) solid var(--dm-accent);
+      padding: var(--dm-space-xl);
+      background: var(--dm-surface);
+      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 0 20px rgba(0, 212, 255, 0.1);
     }
     .auth-shell h1 {
       margin-top: 0;
@@ -41,32 +41,32 @@
     .auth-tabs {
       display: flex;
       gap: 0;
-      margin-bottom: var(--crt-space-lg);
-      border-bottom: var(--crt-border-width) solid var(--crt-border);
+      margin-bottom: var(--dm-space-lg);
+      border-bottom: var(--dm-border-width) solid var(--dm-border);
     }
     .auth-tabs a {
       flex: 1;
       text-align: center;
-      padding: var(--crt-space-sm);
+      padding: var(--dm-space-sm);
       border-bottom: 3px solid transparent;
-      margin-bottom: calc(-1 * var(--crt-border-width));
-      color: var(--crt-text-muted);
+      margin-bottom: calc(-1 * var(--dm-border-width));
+      color: var(--dm-text-muted);
     }
     .auth-tabs a[aria-current="page"] {
-      color: var(--crt-accent);
-      border-bottom-color: var(--crt-accent);
+      color: var(--dm-accent);
+      border-bottom-color: var(--dm-accent);
     }
     .divider {
       text-align: center;
-      color: var(--crt-text-muted);
-      margin: var(--crt-space-md) 0;
+      color: var(--dm-text-muted);
+      margin: var(--dm-space-md) 0;
       font-size: 0.85rem;
       letter-spacing: 0.2em;
     }
     .input-icon {
       display: block;
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       margin-bottom: 2px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -74,40 +74,40 @@
     .otp-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: var(--crt-space-sm);
-      margin: var(--crt-space-md) 0;
+      gap: var(--dm-space-sm);
+      margin: var(--dm-space-md) 0;
     }
     .otp-grid input {
       text-align: center;
       font-size: 1.4rem;
-      padding: var(--crt-space-sm) 0;
+      padding: var(--dm-space-sm) 0;
       margin-bottom: 0;
     }
     .error-banner {
-      border: 1px solid var(--crt-danger);
+      border: 1px solid var(--dm-danger);
       background: rgba(255, 85, 119, 0.1);
-      padding: var(--crt-space-sm) var(--crt-space-md);
-      color: var(--crt-danger);
+      padding: var(--dm-space-sm) var(--dm-space-md);
+      color: var(--dm-danger);
       font-size: 0.85rem;
-      margin-bottom: var(--crt-space-md);
+      margin-bottom: var(--dm-space-md);
     }
     .help-row {
       display: flex;
       justify-content: space-between;
       font-size: 0.85rem;
-      margin-top: var(--crt-space-md);
+      margin-top: var(--dm-space-md);
     }
 
     /* ── Responsive (desktop-first: shells get wider, font smaller) */
     @media (max-width: 900px) {
       .auth-shell {
         max-width: 100%;
-        margin: var(--crt-space-lg) auto;
+        margin: var(--dm-space-lg) auto;
       }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
-      .auth-shell { padding: var(--crt-space-lg) var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
+      .auth-shell { padding: var(--dm-space-lg) var(--dm-space-md); }
       .otp-grid { gap: 4px; }
       .otp-grid input { font-size: 1.2rem; }
     }
@@ -127,7 +127,7 @@
       </nav>
 
       <h2>Welcome back</h2>
-      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+      <p style="color: var(--dm-text-muted); font-size: 0.9rem;">
         Sign in to access your terminal session.
       </p>
 
@@ -167,7 +167,7 @@
     <!-- 2FA STEP — shown as separate card for the mock -->
     <div class="auth-shell" data-texture="dots">
       <h2>Two-factor authentication</h2>
-      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+      <p style="color: var(--dm-text-muted); font-size: 0.9rem;">
         Enter the 6-digit code from your authenticator app.
       </p>
 
@@ -181,7 +181,7 @@
           <input type="text" maxlength="1" value="">
         </div>
 
-        <p style="font-size: 0.85rem; color: var(--crt-text-muted); text-align: center;">
+        <p style="font-size: 0.85rem; color: var(--dm-text-muted); text-align: center;">
           Code expires in <mark>00:42</mark>
         </p>
 
@@ -195,7 +195,7 @@
     <!-- SIGN UP CARD -->
     <div class="auth-shell" data-texture="dots">
       <h2>Create your account</h2>
-      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+      <p style="color: var(--dm-text-muted); font-size: 0.9rem;">
         Free forever. No credit card required.
       </p>
 
@@ -209,7 +209,7 @@
         <label for="su-pw">Password</label>
         <input type="password" id="su-pw" placeholder="min 12 characters">
 
-        <p style="font-size: 0.8rem; color: var(--crt-text-muted);">
+        <p style="font-size: 0.8rem; color: var(--dm-text-muted);">
           Strength: <progress value="35" max="100" style="display:inline-block; width: 60%; vertical-align: middle;"></progress> weak
         </p>
 

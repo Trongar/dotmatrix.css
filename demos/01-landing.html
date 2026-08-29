@@ -4,32 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PixelForge — Build retro UIs in minutes</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 1: Verde CRT clásico (default + overrides mínimos) -->
   <style>
     :root {
-      --crt-bg: #f0f0e8;
-      --crt-surface: #e0e0d0;
-      --crt-surface-2: #d0d0c0;
-      --crt-border: #8a8a7a;
-      --crt-border-light: #c8c8b8;
-      --crt-border-dark: #5a5a4a;
-      --crt-text: #1a1a1a;
-      --crt-text-muted: #606060;
-      --crt-accent: #006600;
-      --crt-accent-alt: #aa6600;
-      --crt-danger: #cc0000;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(0, 80, 0, 0.1);
+      --dm-bg: #f0f0e8;
+      --dm-surface: #e0e0d0;
+      --dm-surface-2: #d0d0c0;
+      --dm-border: #8a8a7a;
+      --dm-border-light: #c8c8b8;
+      --dm-border-dark: #5a5a4a;
+      --dm-text: #1a1a1a;
+      --dm-text-muted: #606060;
+      --dm-accent: #006600;
+      --dm-accent-alt: #aa6600;
+      --dm-danger: #cc0000;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(0, 80, 0, 0.1);
     }
     /* Demo-only layouts — no toques al framework */
     .hero {
       text-align: center;
-      padding: var(--crt-space-xl) var(--crt-space-md);
-      border: var(--crt-border-width) solid var(--crt-border);
-      margin: var(--crt-space-lg) 0;
-      background: var(--crt-surface);
-      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 4px 0 var(--crt-border-dark);
+      padding: var(--dm-space-xl) var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      margin: var(--dm-space-lg) 0;
+      background: var(--dm-surface);
+      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 4px 0 var(--dm-border-dark);
     }
     .hero h1 {
       font-size: 2.4rem;
@@ -38,27 +38,27 @@
     }
     .hero p {
       font-size: 1.1rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       max-width: 600px;
-      margin: var(--crt-space-md) auto var(--crt-space-lg);
+      margin: var(--dm-space-md) auto var(--dm-space-lg);
     }
     .hero .cta-row {
       display: flex;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
       justify-content: center;
       flex-wrap: wrap;
     }
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--crt-space-md);
-      margin: var(--crt-space-lg) 0;
+      gap: var(--dm-space-md);
+      margin: var(--dm-space-lg) 0;
     }
     .feature {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-md);
-      background: var(--crt-surface);
-      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 2px 0 var(--crt-border-dark);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-md);
+      background: var(--dm-surface);
+      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 2px 0 var(--dm-border-dark);
     }
     .feature h3 {
       margin-top: 0;
@@ -71,25 +71,25 @@
     .logo-row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--crt-space-lg);
+      gap: var(--dm-space-lg);
       justify-content: center;
       align-items: center;
-      padding: var(--crt-space-md);
-      color: var(--crt-text-muted);
+      padding: var(--dm-space-md);
+      color: var(--dm-text-muted);
       font-weight: 700;
       letter-spacing: 0.1em;
     }
     .testimonial {
-      border-left: 4px solid var(--crt-accent);
-      padding: var(--crt-space-md);
-      background: var(--crt-surface);
-      margin: var(--crt-space-md) 0;
+      border-left: 4px solid var(--dm-accent);
+      padding: var(--dm-space-md);
+      background: var(--dm-surface);
+      margin: var(--dm-space-md) 0;
     }
     .testimonial cite {
       display: block;
-      margin-top: var(--crt-space-sm);
+      margin-top: var(--dm-space-sm);
       font-size: 0.85rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
 
     /* ── Responsive (desktop-first: stack only when grids break) */
@@ -100,8 +100,8 @@
       .hero h1 { font-size: 1.8rem; }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
-      .hero { padding: var(--crt-space-lg) var(--crt-space-sm); }
+      body { padding: var(--dm-space-md); }
+      .hero { padding: var(--dm-space-lg) var(--dm-space-sm); }
       .hero h1 { font-size: 1.4rem; }
       .hero .cta-row { flex-direction: column; align-items: stretch; }
       .hero .cta-row a, .hero .cta-row button { width: 100%; text-align: center; }
@@ -132,7 +132,7 @@
         <button type="submit">GET STARTED FREE</button>
         <a role="button" href="#docs">READ THE DOCS</a>
       </div>
-      <p style="margin-top: var(--crt-space-md); font-size: 0.8rem; color: var(--crt-text-muted);">
+      <p style="margin-top: var(--dm-space-md); font-size: 0.8rem; color: var(--dm-text-muted);">
         v0.1.0 · ~6KB gzipped · MIT licensed
       </p>
     </section>

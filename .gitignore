@@ -21,8 +21,11 @@ build/
 .DS_Store
 Thumbs.db
 
-# Package files
-package.json
+# Lockfiles (keep package.json, ignore lockfiles for now since we have no deps)
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# Env / secrets
+.env
+.env.local

@@ -4,40 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard · RetroCRM</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 3: Ámbar retro computer — desktop app curado estilo 2005 -->
   <style>
     :root {
-      --crt-bg: #1a1208;
-      --crt-surface: #2a1f12;
-      --crt-surface-2: #382816;     /* NEW: deeper panel surface */
-      --crt-border: #6a4a20;
-      --crt-border-light: #8a6a40;  /* NEW: highlight border */
-      --crt-border-dark: #2a1810;
-      --crt-text: #ffcb6a;
-      --crt-text-muted: #b08840;
-      --crt-accent: #ffb000;
-      --crt-accent-dim: #cc8800;
-      --crt-accent-alt: #ff8c00;
-      --crt-danger: #ff5530;
-      --crt-success: #88cc44;
-      --crt-font-size: 13px;
-      --crt-border-width: 2px;
-      --crt-pixel: 3px;
-      --crt-max-width: 1500px;
-      --crt-space-md: 14px;
-      --crt-space-lg: 22px;
-      --crt-space-xl: 36px;
-      --crt-radius: 4px;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(255, 176, 0, 0.08);
+      --dm-bg: #1a1208;
+      --dm-surface: #2a1f12;
+      --dm-surface-2: #382816;     /* NEW: deeper panel surface */
+      --dm-border: #6a4a20;
+      --dm-border-light: #8a6a40;  /* NEW: highlight border */
+      --dm-border-dark: #2a1810;
+      --dm-text: #ffcb6a;
+      --dm-text-muted: #b08840;
+      --dm-accent: #ffb000;
+      --dm-accent-dim: #cc8800;
+      --dm-accent-alt: #ff8c00;
+      --dm-danger: #ff5530;
+      --dm-success: #88cc44;
+      --dm-font-size: 13px;
+      --dm-border-width: 2px;
+      --dm-pixel: 3px;
+      --dm-max-width: 1500px;
+      --dm-space-md: 14px;
+      --dm-space-lg: 22px;
+      --dm-space-xl: 36px;
+      --dm-radius: 4px;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(255, 176, 0, 0.08);
       color-scheme: dark;
     }
 
     /* ── Window chrome — recuerda al título de ventana de Mac OS X / Win XP */
     .window-titlebar {
       background: linear-gradient(180deg, #3a2818 0%, #2a1f12 100%);
-      border-bottom: 2px solid var(--crt-border);
+      border-bottom: 2px solid var(--dm-border);
       padding: 6px 12px;
       display: flex;
       align-items: center;
@@ -62,7 +62,7 @@
       text-align: center;
       font-size: 0.85rem;
       font-weight: 700;
-      color: var(--crt-text);
+      color: var(--dm-text);
       letter-spacing: 0.05em;
     }
 
@@ -72,30 +72,30 @@
       gap: 6px;
       align-items: center;
       padding: 8px 12px;
-      background: linear-gradient(180deg, var(--crt-surface-2) 0%, var(--crt-surface) 100%);
-      border-bottom: 1px solid var(--crt-border);
+      background: linear-gradient(180deg, var(--dm-surface-2) 0%, var(--dm-surface) 100%);
+      border-bottom: 1px solid var(--dm-border);
     }
     .topbar .brand {
       font-weight: 700;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       letter-spacing: 0.05em;
       padding-right: 12px;
-      border-right: 1px solid var(--crt-border);
+      border-right: 1px solid var(--dm-border);
       margin-right: 4px;
     }
     .topbar .tool-group {
       display: flex;
       gap: 2px;
       padding-right: 10px;
-      border-right: 1px solid var(--crt-border);
+      border-right: 1px solid var(--dm-border);
     }
     .topbar .tool-group:last-child { border-right: none; }
     .topbar button.tool {
       padding: 4px 10px;
       font-size: 0.75rem;
-      background: var(--crt-surface);
-      border: 1px solid var(--crt-border);
-      color: var(--crt-text);
+      background: var(--dm-surface);
+      border: 1px solid var(--dm-border);
+      color: var(--dm-text);
     }
     .topbar input[type="search"] {
       flex: 1;
@@ -108,14 +108,14 @@
       gap: 8px;
       align-items: center;
       padding-left: 12px;
-      border-left: 1px solid var(--crt-border);
+      border-left: 1px solid var(--dm-border);
       font-size: 0.85rem;
     }
     .topbar .avatar {
       width: 24px; height: 24px;
       border-radius: 50%;
-      background: var(--crt-accent);
-      color: var(--crt-bg);
+      background: var(--dm-accent);
+      color: var(--dm-bg);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -129,28 +129,28 @@
       grid-template-columns: 240px 1fr;
       gap: 0;
       margin: 0;
-      border: 1px solid var(--crt-border);
+      border: 1px solid var(--dm-border);
       border-top: none;
       min-height: 700px;
-      background: var(--crt-bg);
+      background: var(--dm-bg);
     }
 
     /* ── Sidebar — como SourceTree, Slack, Finder */
     .sidebar {
-      background: var(--crt-surface);
-      border-right: 1px solid var(--crt-border);
+      background: var(--dm-surface);
+      border-right: 1px solid var(--dm-border);
       padding: 0;
       overflow-y: auto;
     }
     .sidebar-section {
-      border-bottom: 1px solid var(--crt-border);
+      border-bottom: 1px solid var(--dm-border);
     }
     .sidebar-section h3 {
       font-size: 0.7rem;
       letter-spacing: 0.15em;
       padding: 10px 14px 4px;
       margin: 0;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       display: flex;
       justify-content: space-between;
       cursor: pointer;
@@ -174,25 +174,25 @@
       align-items: center;
       padding: 6px 14px 6px 28px;
       font-size: 0.85rem;
-      color: var(--crt-text);
+      color: var(--dm-text);
       border-bottom: none;
       border-left: 3px solid transparent;
       transition: background 0.05s;
     }
     .sidebar nav a:hover {
       background: rgba(255, 176, 0, 0.08);
-      border-left-color: var(--crt-accent-dim);
-      color: var(--crt-accent);
+      border-left-color: var(--dm-accent-dim);
+      color: var(--dm-accent);
     }
     .sidebar nav a[aria-current="page"] {
       background: rgba(255, 176, 0, 0.18);
-      border-left-color: var(--crt-accent);
-      color: var(--crt-accent);
+      border-left-color: var(--dm-accent);
+      color: var(--dm-accent);
       font-weight: 700;
     }
     .sidebar nav .count {
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       background: rgba(255, 176, 0, 0.1);
       padding: 1px 6px;
       border-radius: 8px;
@@ -202,17 +202,17 @@
 
     /* ── Main pane — el área de contenido con padding generoso */
     .main-pane {
-      padding: var(--crt-space-lg);
+      padding: var(--dm-space-lg);
       overflow-y: auto;
-      background: var(--crt-bg);
+      background: var(--dm-bg);
     }
-    .main-pane > * + * { margin-top: var(--crt-space-lg); }
+    .main-pane > * + * { margin-top: var(--dm-space-lg); }
     .page-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       padding-bottom: 12px;
-      border-bottom: 2px solid var(--crt-border);
+      border-bottom: 2px solid var(--dm-border);
       margin-bottom: 0;
     }
     .page-header h1 {
@@ -222,7 +222,7 @@
       letter-spacing: 0.05em;
     }
     .page-header .subtitle {
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       font-size: 0.85rem;
       margin-top: 4px;
     }
@@ -231,37 +231,37 @@
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
     }
     .kpi {
-      background: linear-gradient(180deg, var(--crt-surface-2) 0%, var(--crt-surface) 100%);
-      border: 1px solid var(--crt-border);
-      border-top: 3px solid var(--crt-accent);
+      background: linear-gradient(180deg, var(--dm-surface-2) 0%, var(--dm-surface) 100%);
+      border: 1px solid var(--dm-border);
+      border-top: 3px solid var(--dm-accent);
       padding: 16px 18px;
       position: relative;
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 2px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 2px 0 var(--dm-border-dark);
     }
-    .kpi.danger { border-top-color: var(--crt-danger); }
-    .kpi.success { border-top-color: var(--crt-success); }
-    .kpi.warning { border-top-color: var(--crt-accent-alt); }
+    .kpi.danger { border-top-color: var(--dm-danger); }
+    .kpi.success { border-top-color: var(--dm-success); }
+    .kpi.warning { border-top-color: var(--dm-accent-alt); }
     .kpi .label {
       font-size: 0.7rem;
       text-transform: uppercase;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       letter-spacing: 0.12em;
       display: flex;
       justify-content: space-between;
     }
     .kpi .icon {
       font-size: 1rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
     .kpi .value {
       font-size: 2.2rem;
       font-weight: 700;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       line-height: 1.1;
       margin: 6px 0 4px;
       font-variant-numeric: tabular-nums;
@@ -272,8 +272,8 @@
       align-items: center;
       gap: 4px;
     }
-    .kpi .delta.up { color: var(--crt-success); }
-    .kpi .delta.down { color: var(--crt-danger); }
+    .kpi .delta.up { color: var(--dm-success); }
+    .kpi .delta.down { color: var(--dm-danger); }
     .kpi .spark {
       position: absolute;
       bottom: 8px;
@@ -285,31 +285,31 @@
     }
     .kpi .spark span {
       width: 3px;
-      background: var(--crt-accent);
+      background: var(--dm-accent);
       opacity: 0.4;
     }
 
     /* ── Panel — como card de Bootstrap clásico */
     .panel {
-      background: var(--crt-surface);
-      border: 1px solid var(--crt-border);
+      background: var(--dm-surface);
+      border: 1px solid var(--dm-border);
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 2px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 2px 0 var(--dm-border-dark);
     }
     .panel > header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 10px 16px;
-      background: linear-gradient(180deg, var(--crt-surface-2) 0%, var(--crt-surface) 100%);
-      border-bottom: 1px solid var(--crt-border);
+      background: linear-gradient(180deg, var(--dm-surface-2) 0%, var(--dm-surface) 100%);
+      border-bottom: 1px solid var(--dm-border);
     }
     .panel > header h2 {
       margin: 0;
       font-size: 0.9rem;
       letter-spacing: 0.05em;
-      color: var(--crt-text);
+      color: var(--dm-text);
     }
     .panel > header .tabs {
       display: flex;
@@ -319,15 +319,15 @@
       font-size: 0.75rem;
       padding: 4px 10px;
       background: transparent;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       border: 1px solid transparent;
       cursor: pointer;
     }
     .panel > header .tab.active {
-      background: var(--crt-bg);
-      color: var(--crt-accent);
-      border-color: var(--crt-border);
-      border-bottom-color: var(--crt-bg);
+      background: var(--dm-bg);
+      color: var(--dm-accent);
+      border-color: var(--dm-border);
+      border-bottom-color: var(--dm-bg);
       margin-bottom: -1px;
     }
     .panel > .body { padding: 16px; }
@@ -335,7 +335,7 @@
     .two-col {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
     }
 
     /* ── Chart — CSS bars con gridlines */
@@ -346,8 +346,8 @@
       position: relative;
       height: 200px;
       padding: 20px 0 30px 40px;
-      border-left: 1px solid var(--crt-border);
-      border-bottom: 1px solid var(--crt-border);
+      border-left: 1px solid var(--dm-border);
+      border-bottom: 1px solid var(--dm-border);
       background:
         radial-gradient(circle, rgba(255, 176, 0, 0.06) 1.5px, transparent 1.5px),
         linear-gradient(0deg, transparent 24%, rgba(255, 176, 0, 0.05) 25%, transparent 26%),
@@ -364,15 +364,15 @@
     }
     .chart .bar {
       flex: 1;
-      background: linear-gradient(180deg, var(--crt-accent) 0%, var(--crt-accent-dim) 100%);
-      border: 1px solid var(--crt-accent-dim);
+      background: linear-gradient(180deg, var(--dm-accent) 0%, var(--dm-accent-dim) 100%);
+      border: 1px solid var(--dm-accent-dim);
       border-bottom: none;
       position: relative;
       min-height: 4px;
       transition: filter 0.1s;
     }
     .chart .bar:hover { filter: brightness(1.3); }
-    .chart .bar.peak { background: linear-gradient(180deg, var(--crt-accent-alt) 0%, var(--crt-danger) 100%); }
+    .chart .bar.peak { background: linear-gradient(180deg, var(--dm-accent-alt) 0%, var(--dm-danger) 100%); }
     .chart .bar::after {
       content: attr(data-val);
       position: absolute;
@@ -380,7 +380,7 @@
       left: 0; right: 0;
       text-align: center;
       font-size: 0.65rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       font-variant-numeric: tabular-nums;
     }
     .chart .x-labels {
@@ -394,7 +394,7 @@
       flex: 1;
       text-align: center;
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
     .chart .y-labels {
       position: absolute;
@@ -404,18 +404,18 @@
       flex-direction: column-reverse;
       justify-content: space-between;
       font-size: 0.65rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       padding-right: 6px;
       text-align: right;
     }
     .chart-summary {
       display: flex;
-      gap: var(--crt-space-lg);
-      padding-top: var(--crt-space-sm);
+      gap: var(--dm-space-lg);
+      padding-top: var(--dm-space-sm);
       font-size: 0.8rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
-    .chart-summary strong { color: var(--crt-accent); font-size: 1rem; }
+    .chart-summary strong { color: var(--dm-accent); font-size: 1rem; }
 
     /* ── Activity feed — con timestamps y avatares */
     .feed-item {
@@ -431,44 +431,44 @@
     .feed-item .avatar {
       width: 26px; height: 26px;
       border-radius: 50%;
-      background: var(--crt-accent-dim);
-      color: var(--crt-bg);
+      background: var(--dm-accent-dim);
+      color: var(--dm-bg);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.7rem;
       font-weight: 700;
     }
-    .feed-item .avatar.bot { background: var(--crt-success); }
-    .feed-item .avatar.user { background: var(--crt-accent); }
+    .feed-item .avatar.bot { background: var(--dm-success); }
+    .feed-item .avatar.user { background: var(--dm-accent); }
     .feed-item .when {
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       white-space: nowrap;
     }
-    .feed-item .who { font-weight: 700; color: var(--crt-accent); }
+    .feed-item .who { font-weight: 700; color: var(--dm-accent); }
 
     /* ── Status bar — como abajo de toda app vieja */
     .statusbar {
       display: flex;
       justify-content: space-between;
       padding: 4px 12px;
-      background: linear-gradient(180deg, var(--crt-surface) 0%, var(--crt-surface-2) 100%);
-      border-top: 1px solid var(--crt-border);
+      background: linear-gradient(180deg, var(--dm-surface) 0%, var(--dm-surface-2) 100%);
+      border-top: 1px solid var(--dm-border);
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
     .statusbar .item {
       display: flex;
       gap: 6px;
       align-items: center;
       padding: 0 10px;
-      border-right: 1px solid var(--crt-border);
+      border-right: 1px solid var(--dm-border);
     }
     .statusbar .item:last-child { border-right: none; }
     .statusbar .item.online::before {
       content: '●';
-      color: var(--crt-success);
+      color: var(--dm-success);
     }
 
     /* ── Responsive (desktop-first: keep density, collapse grids) */
@@ -487,7 +487,7 @@
       .sidebar {
         position: static;
         border-right: none;
-        border-bottom: 1px solid var(--crt-border);
+        border-bottom: 1px solid var(--dm-border);
         max-height: 200px;
         overflow-y: auto;
       }
@@ -499,14 +499,14 @@
       .sidebar nav a { padding: 6px 10px; }
       .kpi-row { grid-template-columns: repeat(2, 1fr); }
       .two-col { grid-template-columns: 1fr; }
-      .main-pane { padding: var(--crt-space-md); }
-      .page-header { flex-direction: column; align-items: flex-start; gap: var(--crt-space-sm); }
+      .main-pane { padding: var(--dm-space-md); }
+      .page-header { flex-direction: column; align-items: flex-start; gap: var(--dm-space-sm); }
     }
     @media (max-width: 600px) {
       .window-titlebar { padding: 4px 8px; }
       .kpi-row { grid-template-columns: 1fr; }
       .kpi .value { font-size: 1.6rem; }
-      .panel > header { flex-direction: column; align-items: flex-start; gap: var(--crt-space-xs); }
+      .panel > header { flex-direction: column; align-items: flex-start; gap: var(--dm-space-xs); }
       .panel > header .tabs { width: 100%; overflow-x: auto; }
       .statusbar { flex-wrap: wrap; gap: 2px; }
       .statusbar .item { font-size: 0.65rem; padding: 0 4px; }
@@ -689,7 +689,7 @@
             <div class="chart-summary">
               <span>Peak: <strong>$52.1K</strong></span>
               <span>Avg: <strong>$42.8K</strong></span>
-              <span>Trend: <strong style="color: var(--crt-success);">▲ 18%</strong></span>
+              <span>Trend: <strong style="color: var(--dm-success);">▲ 18%</strong></span>
               <span>Target: <strong>$50K</strong></span>
             </div>
           </div>

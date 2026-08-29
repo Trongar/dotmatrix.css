@@ -4,106 +4,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRT.css — Stress Test Showcase</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <style>
     :root {
-      --crt-bg: #f4ecd8;
-      --crt-surface: #ebe0c5;
-      --crt-surface-2: #e0d2ad;
-      --crt-border: #8b7355;
-      --crt-border-light: #b8a382;
-      --crt-border-dark: #5a4a35;
-      --crt-text: #2d1f12;
-      --crt-text-muted: #6b5a40;
-      --crt-accent: #6b3410;
-      --crt-accent-dim: #4a2308;
-      --crt-accent-alt: #a06020;
-      --crt-danger: #8b0000;
-      --crt-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
-      --crt-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
-      --crt-font-size: 15px;
-      --crt-line-height: 1.7;
-      --crt-border-width: 2px;
-      --crt-scanlines: 0;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(120, 70, 30, 0.15);
-      --crt-max-width: 1300px;
+      --dm-bg: #f4ecd8;
+      --dm-surface: #ebe0c5;
+      --dm-surface-2: #e0d2ad;
+      --dm-border: #8b7355;
+      --dm-border-light: #b8a382;
+      --dm-border-dark: #5a4a35;
+      --dm-text: #2d1f12;
+      --dm-text-muted: #6b5a40;
+      --dm-accent: #6b3410;
+      --dm-accent-dim: #4a2308;
+      --dm-accent-alt: #a06020;
+      --dm-danger: #8b0000;
+      --dm-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --dm-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --dm-font-size: 15px;
+      --dm-line-height: 1.7;
+      --dm-border-width: 2px;
+      --dm-scanlines: 0;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(120, 70, 30, 0.15);
+      --dm-max-width: 1300px;
     }
     .intro {
       text-align: center;
-      padding: var(--crt-space-xl) var(--crt-space-md);
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-surface);
-      margin-bottom: var(--crt-space-xl);
-      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 6px 0 var(--crt-border-dark);
+      padding: var(--dm-space-xl) var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      margin-bottom: var(--dm-space-xl);
+      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 6px 0 var(--dm-border-dark);
     }
     .intro h1 {
-      margin: 0 0 var(--crt-space-sm);
+      margin: 0 0 var(--dm-space-sm);
       font-size: 2.2rem;
       border: none;
       font-style: italic;
     }
     .intro .lede {
       max-width: 720px;
-      margin: var(--crt-space-md) auto;
-      color: var(--crt-text-muted);
+      margin: var(--dm-space-md) auto;
+      color: var(--dm-text-muted);
       font-size: 1.1rem;
     }
     .intro .stats {
       display: flex;
-      gap: var(--crt-space-xl);
+      gap: var(--dm-space-xl);
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: var(--crt-space-lg);
-      padding: var(--crt-space-md);
-      border-top: 1px dashed var(--crt-border);
+      margin-top: var(--dm-space-lg);
+      padding: var(--dm-space-md);
+      border-top: 1px dashed var(--dm-border);
     }
     .intro .stats div { text-align: center; }
     .intro .stats .num {
       font-size: 2.2rem;
       font-weight: 700;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       line-height: 1;
     }
     .intro .stats .lbl {
       font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
 
     /* Demo card grid */
     .demo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: var(--crt-space-lg);
+      gap: var(--dm-space-lg);
     }
     .demo-card {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-md);
-      background: var(--crt-bg);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-md);
+      background: var(--dm-bg);
       display: flex;
       flex-direction: column;
-      color: var(--crt-text);
+      color: var(--dm-text);
       transition: transform 0.1s, box-shadow 0.1s;
       text-decoration: none;
-      border-bottom: var(--crt-border-width) solid var(--crt-border);
+      border-bottom: var(--dm-border-width) solid var(--dm-border);
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 4px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 4px 0 var(--dm-border-dark);
     }
     .demo-card:hover {
       transform: translate(-2px, -2px);
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        5px 6px 0 var(--crt-border-dark);
-      color: var(--crt-text);
+        inset 0 1px 0 var(--dm-border-light),
+        5px 6px 0 var(--dm-border-dark);
+      color: var(--dm-text);
     }
     .demo-card .num {
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       letter-spacing: 0.15em;
-      font-family: var(--crt-font);
+      font-family: var(--dm-font);
     }
     .demo-card .theme-label {
       display: inline-block;
@@ -111,80 +111,80 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       padding: 1px 6px;
-      border: 1px solid var(--crt-border);
+      border: 1px solid var(--dm-border);
       margin-top: 2px;
-      background: var(--crt-surface);
+      background: var(--dm-surface);
     }
     .demo-card h2 {
-      margin: var(--crt-space-xs) 0;
+      margin: var(--dm-space-xs) 0;
       font-size: 1.25rem;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
     }
     .demo-card p {
       font-size: 0.88rem;
-      color: var(--crt-text-muted);
-      margin: var(--crt-space-xs) 0;
+      color: var(--dm-text-muted);
+      margin: var(--dm-space-xs) 0;
       flex: 1;
     }
     .demo-card .textures {
       list-style: none;
       padding: 0;
-      margin: var(--crt-space-sm) 0 0;
+      margin: var(--dm-space-sm) 0 0;
       font-size: 0.75rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       display: flex;
       flex-wrap: wrap;
       gap: 4px;
     }
     .demo-card .textures li {
       font-family: monospace;
-      background: var(--crt-surface);
-      border: 1px solid var(--crt-border);
+      background: var(--dm-surface);
+      border: 1px solid var(--dm-border);
       padding: 1px 6px;
       font-size: 0.7rem;
     }
     .demo-card .textures li.bevel {
-      background: var(--crt-surface-2);
-      border-color: var(--crt-border-dark);
+      background: var(--dm-surface-2);
+      border-color: var(--dm-border-dark);
     }
     .demo-card .swatch {
       display: inline-block;
       width: 12px; height: 12px;
       vertical-align: middle;
       margin-right: 4px;
-      border: 1px solid var(--crt-border);
+      border: 1px solid var(--dm-border);
     }
 
     /* Texture showcase section */
     .texture-showcase {
-      margin: var(--crt-space-xl) 0;
-      padding: var(--crt-space-lg);
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-surface);
-      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 4px 0 var(--crt-border-dark);
+      margin: var(--dm-space-xl) 0;
+      padding: var(--dm-space-lg);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 4px 0 var(--dm-border-dark);
     }
     .texture-tiles {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: var(--crt-space-md);
-      margin-top: var(--crt-space-md);
+      gap: var(--dm-space-md);
+      margin-top: var(--dm-space-md);
     }
     .tex-tile {
-      padding: var(--crt-space-md);
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-bg);
+      padding: var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-bg);
       text-align: center;
-      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 2px 0 var(--crt-border-dark);
+      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 2px 0 var(--dm-border-dark);
     }
     .tex-tile code {
       font-size: 0.75rem;
       display: block;
-      margin-top: var(--crt-space-xs);
-      color: var(--crt-accent);
+      margin-top: var(--dm-space-xs);
+      color: var(--dm-accent);
     }
     .tex-tile strong {
       font-size: 0.8rem;
-      color: var(--crt-text);
+      color: var(--dm-text);
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
@@ -193,27 +193,27 @@
     .bevel-compare {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--crt-space-md);
-      margin-top: var(--crt-space-md);
+      gap: var(--dm-space-md);
+      margin-top: var(--dm-space-md);
     }
     .bevel-compare > div {
-      padding: var(--crt-space-md);
-      border: 1px solid var(--crt-border);
-      background: var(--crt-bg);
+      padding: var(--dm-space-md);
+      border: 1px solid var(--dm-border);
+      background: var(--dm-bg);
     }
     .bevel-compare code {
       font-size: 0.8rem;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       display: block;
-      margin-top: var(--crt-space-xs);
+      margin-top: var(--dm-space-xs);
     }
 
     /* Philosophy section */
     .philosophy {
-      margin: var(--crt-space-xl) 0;
-      padding: var(--crt-space-lg);
-      border: var(--crt-border-width) dashed var(--crt-border);
-      background: var(--crt-surface);
+      margin: var(--dm-space-xl) 0;
+      padding: var(--dm-space-lg);
+      border: var(--dm-border-width) dashed var(--dm-border);
+      background: var(--dm-surface);
     }
     .philosophy p {
       font-size: 1rem;
@@ -225,13 +225,13 @@
       .texture-tiles { grid-template-columns: repeat(4, 1fr); }
       .bevel-compare { grid-template-columns: 1fr; }
       .intro h1 { font-size: 1.6rem; }
-      .intro .stats { gap: var(--crt-space-md); }
+      .intro .stats { gap: var(--dm-space-md); }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
-      .intro { padding: var(--crt-space-lg) var(--crt-space-sm); }
+      body { padding: var(--dm-space-md); }
+      .intro { padding: var(--dm-space-lg) var(--dm-space-sm); }
       .texture-tiles { grid-template-columns: repeat(2, 1fr); }
-      .intro .stats { flex-direction: column; gap: var(--crt-space-sm); padding: var(--crt-space-sm); }
+      .intro .stats { flex-direction: column; gap: var(--dm-space-sm); padding: var(--dm-space-sm); }
       header nav ul { flex-direction: column; gap: 2px; }
       header nav li { margin: 0; }
     }
@@ -241,12 +241,12 @@
 
   <header>
     <h1>CRT.CSS · STRESS TEST</h1>
-    <p style="color: var(--crt-text-muted); margin: var(--crt-space-xs) 0 0; font-style: italic;">
+    <p style="color: var(--dm-text-muted); margin: var(--dm-space-xs) 0 0; font-style: italic;">
       10 real-world app mocks · 10 unique themes · 1 CSS file · 0 JavaScript
     </p>
     <nav>
       <ul>
-        <li><a href="../crt.css">View framework</a></li>
+        <li><a href="../dotmatrix.css">View framework</a></li>
         <li><a href="../README.md">README</a></li>
         <li><a href="../CHANGELOG.md">Changelog</a></li>
       </ul>
@@ -257,7 +257,7 @@
     <section class="intro" data-texture="paper">
       <h1>◆ What happens when you build 10 real apps<br>with one 8KB classless framework?</h1>
       <p class="lede">
-        Every demo below uses the <strong>exact same</strong> <code>crt.css</code> file linked from the root.
+        Every demo below uses the <strong>exact same</strong> <code>dotmatrix.css</code> file linked from the root.
         Differences are <strong>CSS variable overrides</strong> + <strong>data-texture attributes</strong> in each <code>&lt;style&gt;</code> block.
         Same HTML semantics, same components, radically different vibes.
       </p>
@@ -275,10 +275,10 @@
     <section class="texture-showcase" data-texture="dots">
       <h2>◆ The texture system</h2>
       <p>
-        crt.css ships with <strong>8 textures</strong> and <strong>2 bevels</strong>. Apply them with a single HTML attribute — no classes, no extra CSS.
+        dotmatrix.css ships with <strong>8 textures</strong> and <strong>2 bevels</strong>. Apply them with a single HTML attribute — no classes, no extra CSS.
       </p>
 
-      <h3 style="margin-top: var(--crt-space-lg); font-size: 0.95rem;">Textures</h3>
+      <h3 style="margin-top: var(--dm-space-lg); font-size: 0.95rem;">Textures</h3>
       <div class="texture-tiles">
         <div class="tex-tile" data-texture="paper">
           <strong>paper</strong>
@@ -314,16 +314,16 @@
         </div>
       </div>
 
-      <h3 style="margin-top: var(--crt-space-lg); font-size: 0.95rem;">Bevels</h3>
+      <h3 style="margin-top: var(--dm-space-lg); font-size: 0.95rem;">Bevels</h3>
       <div class="bevel-compare">
         <div data-bevel="out">
           <strong>Raised panel</strong>
-          <p style="font-size: 0.85rem; margin: var(--crt-space-xs) 0;">Looks like it's sticking out toward you. Perfect for cards, callouts, buttons.</p>
+          <p style="font-size: 0.85rem; margin: var(--dm-space-xs) 0;">Looks like it's sticking out toward you. Perfect for cards, callouts, buttons.</p>
           <code>data-bevel="out"</code>
         </div>
         <div data-bevel="in">
           <strong>Sunken panel</strong>
-          <p style="font-size: 0.85rem; margin: var(--crt-space-xs) 0;">Looks pressed into the surface. Perfect for input areas, terminals, wells.</p>
+          <p style="font-size: 0.85rem; margin: var(--dm-space-xs) 0;">Looks pressed into the surface. Perfect for input areas, terminals, wells.</p>
           <code>data-bevel="in"</code>
         </div>
       </div>
@@ -332,7 +332,7 @@
     <!-- THE 10 DEMOS -->
     <section>
       <h2>The 10 demos</h2>
-      <p style="color: var(--crt-text-muted);">Each card shows the textures and bevels applied to that demo. Click to explore.</p>
+      <p style="color: var(--dm-text-muted);">Each card shows the textures and bevels applied to that demo. Click to explore.</p>
 
       <div class="demo-grid">
 
@@ -462,7 +462,7 @@
         <strong>Zero changes to the framework. Zero new classes. Zero JavaScript.</strong>
       </p>
       <p>
-        The textures system follows the same philosophy as the rest of crt.css: <strong>semantic, opt-in, zero-cost</strong>.
+        The textures system follows the same philosophy as the rest of dotmatrix.css: <strong>semantic, opt-in, zero-cost</strong>.
         The 8 textures + 2 bevels add ~1.2 KB to the framework. They use <code>radial-gradient</code> and <code>repeating-linear-gradient</code> — no extra HTTP requests, no PNG sprites, no JS lazy-loading.
       </p>
       <p>
@@ -472,7 +472,7 @@
   </main>
 
   <footer>
-    <p>Stress test for <a href="../README.md">crt-design-system</a> · Framework at <a href="../crt.css">crt.css</a></p>
+    <p>Stress test for <a href="../README.md">dotmatrix.css</a> · Framework at <a href="../dotmatrix.css">dotmatrix.css</a></p>
   </footer>
 </body>
 </html>

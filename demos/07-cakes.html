@@ -4,48 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sweetcrumbs — Handmade Cakes & Pastries</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 7: Rosa chicle + crema — bakery vibes -->
   <style>
     :root {
-      --crt-bg: #fff5e6;
-      --crt-surface: #ffe8d6;
-      --crt-surface-2: #ffddc0;
-      --crt-border: #d9a3b0;
-      --crt-border-light: #f0c4cf;
-      --crt-border-dark: #a06a78;
-      --crt-text: #4a2c3a;
-      --crt-text-muted: #8a6075;
-      --crt-accent: #e91e63;
-      --crt-accent-dim: #ad1457;
-      --crt-accent-alt: #ff80ab;
-      --crt-danger: #c2185b;
-      --crt-success: #2e7d32;
-      --crt-font: 'Quicksand', 'Comfortaa', 'Trebuchet MS', sans-serif;
-      --crt-heading-font: 'Pacifico', 'Brush Script MT', cursive;
-      --crt-font-size: 14px;
-      --crt-border-width: 2px;
-      --crt-radius: 0px;
-      --crt-scanlines: 0;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(233, 30, 99, 0.08);
-      --crt-max-width: 1400px;
+      --dm-bg: #fff5e6;
+      --dm-surface: #ffe8d6;
+      --dm-surface-2: #ffddc0;
+      --dm-border: #d9a3b0;
+      --dm-border-light: #f0c4cf;
+      --dm-border-dark: #a06a78;
+      --dm-text: #4a2c3a;
+      --dm-text-muted: #8a6075;
+      --dm-accent: #e91e63;
+      --dm-accent-dim: #ad1457;
+      --dm-accent-alt: #ff80ab;
+      --dm-danger: #c2185b;
+      --dm-success: #2e7d32;
+      --dm-font: 'Quicksand', 'Comfortaa', 'Trebuchet MS', sans-serif;
+      --dm-heading-font: 'Pacifico', 'Brush Script MT', cursive;
+      --dm-font-size: 14px;
+      --dm-border-width: 2px;
+      --dm-radius: 0px;
+      --dm-scanlines: 0;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(233, 30, 99, 0.08);
+      --dm-max-width: 1400px;
     }
     /* Decorative header */
     .bakery-header {
       text-align: center;
-      padding: var(--crt-space-xl) var(--crt-space-md);
-      background: var(--crt-surface);
-      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--dm-space-xl) var(--dm-space-md);
+      background: var(--dm-surface);
+      border: var(--dm-border-width) solid var(--dm-border);
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 4px 0 var(--crt-border-dark);
-      margin-bottom: var(--crt-space-lg);
+        inset 0 1px 0 var(--dm-border-light),
+        0 4px 0 var(--dm-border-dark);
+      margin-bottom: var(--dm-space-lg);
     }
     .bakery-header h1 {
-      font-family: var(--crt-heading-font);
+      font-family: var(--dm-heading-font);
       font-size: 3rem;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       margin: 0;
       border: none;
       text-transform: none;
@@ -53,52 +53,52 @@
     }
     .bakery-header p {
       font-size: 1.1rem;
-      color: var(--crt-text-muted);
-      margin: var(--crt-space-sm) 0 0;
+      color: var(--dm-text-muted);
+      margin: var(--dm-space-sm) 0 0;
       font-style: italic;
     }
 
     .nav-pills {
       display: flex;
       justify-content: center;
-      gap: var(--crt-space-sm);
-      padding: var(--crt-space-md) 0;
+      gap: var(--dm-space-sm);
+      padding: var(--dm-space-md) 0;
       flex-wrap: wrap;
     }
     .nav-pills a {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-xs) var(--crt-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-xs) var(--dm-space-md);
       font-size: 0.9rem;
-      background: var(--crt-bg);
+      background: var(--dm-bg);
     }
     .nav-pills a[aria-current="page"] {
-      background: var(--crt-accent);
-      color: var(--crt-bg);
-      border-color: var(--crt-accent-dim);
+      background: var(--dm-accent);
+      color: var(--dm-bg);
+      border-color: var(--dm-accent-dim);
     }
 
     .featured-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--crt-space-md);
-      margin: var(--crt-space-lg) 0;
+      gap: var(--dm-space-md);
+      margin: var(--dm-space-lg) 0;
     }
     .cake-card {
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-bg);
-      padding: var(--crt-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-bg);
+      padding: var(--dm-space-md);
       text-align: center;
       position: relative;
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 4px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 4px 0 var(--dm-border-dark);
     }
     .cake-card .badge-new {
       position: absolute;
       top: 8px;
       right: 8px;
-      background: var(--crt-accent-alt);
-      color: var(--crt-bg);
+      background: var(--dm-accent-alt);
+      color: var(--dm-bg);
       padding: 2px 8px;
       font-size: 0.65rem;
       font-weight: 700;
@@ -108,7 +108,7 @@
     .cake-art {
       width: 120px;
       height: 120px;
-      margin: 0 auto var(--crt-space-md);
+      margin: 0 auto var(--dm-space-md);
       position: relative;
     }
     .cake-art .plate {
@@ -117,14 +117,14 @@
       left: 10px;
       right: 10px;
       height: 12px;
-      background: var(--crt-surface);
-      border: 2px solid var(--crt-border);
+      background: var(--dm-surface);
+      border: 2px solid var(--dm-border);
     }
     .cake-art .layer {
       position: absolute;
       left: 20px;
       right: 20px;
-      border: 2px solid var(--crt-border);
+      border: 2px solid var(--dm-border);
     }
     .cake-art .layer-1 {
       bottom: 12px;
@@ -148,8 +148,8 @@
       transform: translateX(-50%);
       width: 14px;
       height: 14px;
-      background: var(--crt-danger);
-      border: 2px solid var(--crt-border);
+      background: var(--dm-danger);
+      border: 2px solid var(--dm-border);
       border-radius: 50%;
     }
     .cake-art .candle {
@@ -159,7 +159,7 @@
       transform: translateX(-50%);
       width: 4px;
       height: 10px;
-      background: var(--crt-accent-alt);
+      background: var(--dm-accent-alt);
     }
     /* Variant: cupcake */
     .cake-art.cupcake .layer-1 { bottom: 12px; height: 18px; left: 35px; right: 35px; }
@@ -172,48 +172,48 @@
     .cake-art.pie .layer-2 { bottom: 26px; height: 30px; left: 25px; right: 25px; background: #b8860b; border-radius: 50% 50% 0 0; }
 
     .cake-card h3 {
-      font-family: var(--crt-heading-font);
+      font-family: var(--dm-heading-font);
       font-size: 1.3rem;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       text-transform: none;
       letter-spacing: 0;
-      margin: var(--crt-space-sm) 0 var(--crt-space-xs);
+      margin: var(--dm-space-sm) 0 var(--dm-space-xs);
     }
     .cake-card .desc {
       font-size: 0.85rem;
-      color: var(--crt-text-muted);
-      margin-bottom: var(--crt-space-sm);
+      color: var(--dm-text-muted);
+      margin-bottom: var(--dm-space-sm);
       min-height: 3em;
     }
     .cake-card .price {
       font-size: 1.3rem;
       font-weight: 700;
-      color: var(--crt-accent);
-      margin-bottom: var(--crt-space-sm);
+      color: var(--dm-accent);
+      margin-bottom: var(--dm-space-sm);
     }
     .cake-card button {
       width: 100%;
-      background: var(--crt-accent);
-      color: var(--crt-bg);
+      background: var(--dm-accent);
+      color: var(--dm-bg);
     }
     .cake-card button:hover {
-      background: var(--crt-accent-alt);
-      border-color: var(--crt-accent-alt);
+      background: var(--dm-accent-alt);
+      border-color: var(--dm-accent-alt);
     }
 
     .order-layout {
       display: grid;
       grid-template-columns: 1fr 360px;
-      gap: var(--crt-space-lg);
-      margin-top: var(--crt-space-xl);
+      gap: var(--dm-space-lg);
+      margin-top: var(--dm-space-xl);
     }
     .order-form {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-lg);
-      background: var(--crt-bg);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-lg);
+      background: var(--dm-bg);
     }
     .order-form fieldset {
-      margin-bottom: var(--crt-space-md);
+      margin-bottom: var(--dm-space-md);
     }
     .order-form fieldset label {
       display: block;
@@ -222,20 +222,20 @@
     .order-form .row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
     }
 
     .cart {
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-surface);
-      padding: var(--crt-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      padding: var(--dm-space-md);
       align-self: start;
       position: sticky;
-      top: var(--crt-space-md);
+      top: var(--dm-space-md);
     }
     .cart h3 {
-      font-family: var(--crt-heading-font);
-      color: var(--crt-accent);
+      font-family: var(--dm-heading-font);
+      color: var(--dm-accent);
       text-transform: none;
       letter-spacing: 0;
       margin-top: 0;
@@ -244,8 +244,8 @@
     .cart .item {
       display: flex;
       justify-content: space-between;
-      padding: var(--crt-space-xs) 0;
-      border-bottom: 1px dashed var(--crt-border);
+      padding: var(--dm-space-xs) 0;
+      border-bottom: 1px dashed var(--dm-border);
       font-size: 0.9rem;
     }
     .cart .item:last-of-type { border-bottom: none; }
@@ -254,22 +254,22 @@
       justify-content: space-between;
       font-size: 1.2rem;
       font-weight: 700;
-      color: var(--crt-accent);
-      margin-top: var(--crt-space-md);
-      padding-top: var(--crt-space-sm);
-      border-top: 2px solid var(--crt-border);
+      color: var(--dm-accent);
+      margin-top: var(--dm-space-md);
+      padding-top: var(--dm-space-sm);
+      border-top: 2px solid var(--dm-border);
     }
 
     /* ── Responsive (desktop-first: keep cakes delightful at any size) */
     @media (max-width: 900px) {
-      .featured-grid { grid-template-columns: 1fr; max-width: 400px; margin: var(--crt-space-md) auto; }
+      .featured-grid { grid-template-columns: 1fr; max-width: 400px; margin: var(--dm-space-md) auto; }
       .order-layout { grid-template-columns: 1fr; }
       .cart { position: static; }
       .order-form .row { grid-template-columns: 1fr; }
-      .nav-pills { padding: var(--crt-space-sm); }
+      .nav-pills { padding: var(--dm-space-sm); }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
       .bakery-header h1 { font-size: 2.2rem; }
       .nav-pills a { font-size: 0.8rem; padding: 4px 10px; }
       .cake-art { width: 100px; height: 100px; }
@@ -391,7 +391,7 @@
           <legend>Custom message on cake</legend>
           <label for="o-msg">Message (max 40 chars)</label>
           <input type="text" id="o-msg" maxlength="40" placeholder="Happy birthday Maria!">
-          <p style="font-size: 0.8rem; color: var(--crt-text-muted); margin: 0;">
+          <p style="font-size: 0.8rem; color: var(--dm-text-muted); margin: 0;">
             We'll pipe it in chocolate or pink icing — your choice on delivery.
           </p>
         </fieldset>
@@ -420,7 +420,7 @@
           <span>Apple Crumble × 1</span>
           <span>$18.000</span>
         </div>
-        <div class="item" style="color: var(--crt-text-muted); font-size: 0.85rem;">
+        <div class="item" style="color: var(--dm-text-muted); font-size: 0.85rem;">
           <span>Gift wrapping</span>
           <span>+$5.000</span>
         </div>
@@ -428,7 +428,7 @@
           <span>Total</span>
           <span>$73.000</span>
         </p>
-        <p style="font-size: 0.75rem; color: var(--crt-text-muted); margin-top: var(--crt-space-sm);">
+        <p style="font-size: 0.75rem; color: var(--dm-text-muted); margin-top: var(--dm-space-sm);">
           Delivery in Bogotá: free over $50.000 · otherwise $8.000
         </p>
       </aside>

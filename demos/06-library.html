@@ -4,113 +4,113 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Olde Books — Library Catalog</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 6: Pergamino / vintage brown -->
   <style>
     :root {
-      --crt-bg: #efe2c2;
-      --crt-surface: #e3d4ad;
-      --crt-surface-2: #d8c79a;
-      --crt-border: #6b4a2a;
-      --crt-border-light: #a08560;
-      --crt-border-dark: #3d2810;
-      --crt-text: #2d1f12;
-      --crt-text-muted: #5d4530;
-      --crt-accent: #6b3410;
-      --crt-accent-dim: #4a2308;
-      --crt-accent-alt: #a06020;
-      --crt-danger: #8b1a1a;
-      --crt-success: #4a6b1a;
-      --crt-font: 'Bookman Old Style', 'Iowan Old Style', 'Georgia', serif;
-      --crt-heading-font: 'Bookman Old Style', 'Trajan Pro', 'Georgia', serif;
-      --crt-font-size: 14px;
-      --crt-border-width: 2px;
-      --crt-scanlines: 0;
-      --crt-texture: 2;
-      --crt-texture-color: rgba(80, 50, 20, 0.18);
-      --crt-max-width: 1400px;
+      --dm-bg: #efe2c2;
+      --dm-surface: #e3d4ad;
+      --dm-surface-2: #d8c79a;
+      --dm-border: #6b4a2a;
+      --dm-border-light: #a08560;
+      --dm-border-dark: #3d2810;
+      --dm-text: #2d1f12;
+      --dm-text-muted: #5d4530;
+      --dm-accent: #6b3410;
+      --dm-accent-dim: #4a2308;
+      --dm-accent-alt: #a06020;
+      --dm-danger: #8b1a1a;
+      --dm-success: #4a6b1a;
+      --dm-font: 'Bookman Old Style', 'Iowan Old Style', 'Georgia', serif;
+      --dm-heading-font: 'Bookman Old Style', 'Trajan Pro', 'Georgia', serif;
+      --dm-font-size: 14px;
+      --dm-border-width: 2px;
+      --dm-scanlines: 0;
+      --dm-texture: 2;
+      --dm-texture-color: rgba(80, 50, 20, 0.18);
+      --dm-max-width: 1400px;
     }
 
     .library-shell {
       display: grid;
       grid-template-columns: 200px 1fr;
-      gap: var(--crt-space-lg);
-      margin: var(--crt-space-md) 0;
+      gap: var(--dm-space-lg);
+      margin: var(--dm-space-md) 0;
     }
     .filters {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-md);
-      background: var(--crt-surface);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-md);
+      background: var(--dm-surface);
       align-self: start;
       position: sticky;
-      top: var(--crt-space-md);
+      top: var(--dm-space-md);
     }
     .filters h3 {
       font-size: 0.8rem;
       letter-spacing: 0.1em;
-      margin-top: var(--crt-space-md);
-      margin-bottom: var(--crt-space-xs);
-      color: var(--crt-accent);
-      border-bottom: 1px solid var(--crt-border);
+      margin-top: var(--dm-space-md);
+      margin-bottom: var(--dm-space-xs);
+      color: var(--dm-accent);
+      border-bottom: 1px solid var(--dm-border);
       padding-bottom: 2px;
     }
     .filters h3:first-child { margin-top: 0; }
     .filters ul { list-style: none; padding: 0; }
     .filters li { margin: 2px 0; font-size: 0.9rem; }
-    .filters li a { border-bottom: none; color: var(--crt-text); }
-    .filters li a:hover { color: var(--crt-accent); }
-    .filters .count { color: var(--crt-text-muted); font-size: 0.8em; }
-    .filters input[type="search"] { margin: 0 0 var(--crt-space-sm); }
+    .filters li a { border-bottom: none; color: var(--dm-text); }
+    .filters li a:hover { color: var(--dm-accent); }
+    .filters .count { color: var(--dm-text-muted); font-size: 0.8em; }
+    .filters input[type="search"] { margin: 0 0 var(--dm-space-sm); }
 
     .toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: var(--crt-space-sm) var(--crt-space-md);
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-surface);
-      margin-bottom: var(--crt-space-md);
+      padding: var(--dm-space-sm) var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      margin-bottom: var(--dm-space-md);
     }
-    .toolbar .results { font-size: 0.9rem; color: var(--crt-text-muted); }
-    .toolbar .sort { display: flex; gap: var(--crt-space-sm); align-items: center; }
+    .toolbar .results { font-size: 0.9rem; color: var(--dm-text-muted); }
+    .toolbar .sort { display: flex; gap: var(--dm-space-sm); align-items: center; }
     .toolbar .sort select { width: auto; display: inline-block; margin: 0; padding: 2px 24px 2px 6px; font-size: 0.85rem; }
 
     .book-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
     }
     .book {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-sm);
-      background: var(--crt-bg);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-sm);
+      background: var(--dm-bg);
       text-align: center;
       transition: transform 0.1s, box-shadow 0.1s;
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 3px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 3px 0 var(--dm-border-dark);
     }
     .book:hover {
       transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0 var(--crt-border);
+      box-shadow: 4px 4px 0 var(--dm-border);
     }
     /* CSS-only "spine" art */
     .book .spine {
       width: 60px;
       height: 120px;
-      margin: 0 auto var(--crt-space-sm);
-      border: 2px solid var(--crt-border);
+      margin: 0 auto var(--dm-space-sm);
+      border: 2px solid var(--dm-border);
       display: flex;
       align-items: center;
       justify-content: center;
       writing-mode: vertical-rl;
-      font-family: var(--crt-heading-font);
+      font-family: var(--dm-heading-font);
       font-size: 0.85rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       padding: 6px 0;
     }
-    .book .spine.dark { background: var(--crt-accent); color: var(--crt-bg); border-color: var(--crt-accent-dim); }
+    .book .spine.dark { background: var(--dm-accent); color: var(--dm-bg); border-color: var(--dm-accent-dim); }
     .book .spine.brown { background: #8b4513; color: #f4e9d0; }
     .book .spine.burgundy { background: #6b1f1f; color: #f4e9d0; }
     .book .spine.forest { background: #2d4a2d; color: #f4e9d0; }
@@ -118,45 +118,45 @@
     .book .spine.tan { background: #b08960; color: #2d1f12; }
 
     .book .title {
-      font-family: var(--crt-heading-font);
+      font-family: var(--dm-heading-font);
       font-size: 0.9rem;
       font-weight: 700;
-      margin: var(--crt-space-xs) 0 2px;
+      margin: var(--dm-space-xs) 0 2px;
       min-height: 2.5em;
     }
     .book .author {
       font-size: 0.8rem;
       font-style: italic;
-      color: var(--crt-text-muted);
-      margin-bottom: var(--crt-space-xs);
+      color: var(--dm-text-muted);
+      margin-bottom: var(--dm-space-xs);
     }
     .book .meta {
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       display: flex;
       justify-content: space-between;
-      border-top: 1px dashed var(--crt-border);
+      border-top: 1px dashed var(--dm-border);
       padding-top: 4px;
-      margin-top: var(--crt-space-xs);
+      margin-top: var(--dm-space-xs);
     }
-    .book .meta .status.avail { color: var(--crt-success); }
-    .book .meta .status.out { color: var(--crt-danger); }
+    .book .meta .status.avail { color: var(--dm-success); }
+    .book .meta .status.out { color: var(--dm-danger); }
 
     .pagination {
       display: flex;
       justify-content: center;
-      gap: var(--crt-space-xs);
-      margin: var(--crt-space-xl) 0;
+      gap: var(--dm-space-xs);
+      margin: var(--dm-space-xl) 0;
     }
     .pagination a, .pagination span {
       padding: 4px 10px;
-      border: 1px solid var(--crt-border);
+      border: 1px solid var(--dm-border);
       font-size: 0.85rem;
     }
     .pagination a[aria-current="page"] {
-      background: var(--crt-accent);
-      color: var(--crt-bg);
-      border-color: var(--crt-accent-dim);
+      background: var(--dm-accent);
+      color: var(--dm-bg);
+      border-color: var(--dm-accent-dim);
     }
 
     /* ── Responsive (desktop-first: filters go on top as scrollable row) */
@@ -167,7 +167,7 @@
         max-height: none;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--crt-space-md);
+        gap: var(--dm-space-md);
       }
       .filters h3 { grid-column: 1 / -1; }
       .filters input[type="search"] { grid-column: 1 / -1; }
@@ -175,10 +175,10 @@
       .book-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
       .filters { grid-template-columns: 1fr; }
       .filters ul { columns: 1; }
-      .book-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--crt-space-sm); }
+      .book-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--dm-space-sm); }
       .book .spine { width: 40px; height: 90px; font-size: 0.7rem; }
       .pagination { flex-wrap: wrap; }
     }
@@ -187,7 +187,7 @@
 <body data-texture-preset="vintage">
   <header>
     <h1 style="font-style: italic;">◆ OLDE BOOKS ◆</h1>
-    <p style="margin: 0; font-style: italic; color: var(--crt-text-muted);">
+    <p style="margin: 0; font-style: italic; color: var(--dm-text-muted);">
       A digital catalogue of antiquarian volumes · est. 1892
     </p>
     <nav>

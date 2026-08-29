@@ -4,145 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The History of Retro Computing · PixelForge Blog</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 5: Sepia lectura — paper / book vibes -->
   <style>
     :root {
-      --crt-bg: #f4ecd8;
-      --crt-surface: #ebe0c5;
-      --crt-surface-2: #e0d2ad;
-      --crt-border: #8b7355;
-      --crt-border-light: #b8a382;
-      --crt-border-dark: #5a4a35;
-      --crt-text: #3a2f20;
-      --crt-text-muted: #6b5a40;
-      --crt-accent: #8b4513;
-      --crt-accent-dim: #5d2f0c;
-      --crt-accent-alt: #b8860b;
-      --crt-danger: #8b0000;
-      --crt-success: #556b2f;
-      --crt-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
-      --crt-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
-      --crt-font-size: 16px;
-      --crt-line-height: 1.75;
-      --crt-border-width: 1px;
-      --crt-radius: 0px;
-      --crt-scanlines: 0;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(120, 70, 30, 0.15);
-      --crt-max-width: 1200px;
+      --dm-bg: #f4ecd8;
+      --dm-surface: #ebe0c5;
+      --dm-surface-2: #e0d2ad;
+      --dm-border: #8b7355;
+      --dm-border-light: #b8a382;
+      --dm-border-dark: #5a4a35;
+      --dm-text: #3a2f20;
+      --dm-text-muted: #6b5a40;
+      --dm-accent: #8b4513;
+      --dm-accent-dim: #5d2f0c;
+      --dm-accent-alt: #b8860b;
+      --dm-danger: #8b0000;
+      --dm-success: #556b2f;
+      --dm-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --dm-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --dm-font-size: 16px;
+      --dm-line-height: 1.75;
+      --dm-border-width: 1px;
+      --dm-radius: 0px;
+      --dm-scanlines: 0;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(120, 70, 30, 0.15);
+      --dm-max-width: 1200px;
     }
     .article-shell {
       display: grid;
       grid-template-columns: 220px 1fr 240px;
-      gap: var(--crt-space-xl);
-      margin: var(--crt-space-lg) 0;
+      gap: var(--dm-space-xl);
+      margin: var(--dm-space-lg) 0;
     }
     .toc {
-      border-right: 1px solid var(--crt-border);
-      padding-right: var(--crt-space-md);
+      border-right: 1px solid var(--dm-border);
+      padding-right: var(--dm-space-md);
       font-size: 0.85rem;
       position: sticky;
-      top: var(--crt-space-md);
+      top: var(--dm-space-md);
       align-self: start;
     }
     .toc h3 {
       font-size: 0.75rem;
       letter-spacing: 0.15em;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       margin-top: 0;
     }
-    .toc ol { padding-left: var(--crt-space-md); }
+    .toc ol { padding-left: var(--dm-space-md); }
     .toc li { margin-bottom: 4px; }
     .toc a { border-bottom: none; }
-    .toc a:hover { color: var(--crt-accent-alt); }
+    .toc a:hover { color: var(--dm-accent-alt); }
 
     article.body {
       font-size: 1rem;
       max-width: 700px;
     }
     article.body h2 {
-      margin-top: var(--crt-space-xl);
+      margin-top: var(--dm-space-xl);
       font-size: 1.4rem;
-      border-bottom: 1px solid var(--crt-border);
+      border-bottom: 1px solid var(--dm-border);
       padding-bottom: 4px;
     }
     article.body h3 {
-      margin-top: var(--crt-space-lg);
+      margin-top: var(--dm-space-lg);
       font-size: 1.15rem;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
     }
     article.body p {
-      margin-bottom: var(--crt-space-md);
+      margin-bottom: var(--dm-space-md);
     }
     article.body figure {
-      margin: var(--crt-space-lg) 0;
-      padding: var(--crt-space-md);
-      background: var(--crt-surface);
-      border: 1px solid var(--crt-border);
+      margin: var(--dm-space-lg) 0;
+      padding: var(--dm-space-md);
+      background: var(--dm-surface);
+      border: 1px solid var(--dm-border);
     }
     article.body figcaption {
       text-align: left;
       font-style: italic;
-      margin-top: var(--crt-space-sm);
+      margin-top: var(--dm-space-sm);
     }
     article.body blockquote {
       font-style: italic;
       font-size: 1.05rem;
-      color: var(--crt-text);
+      color: var(--dm-text);
       border-left-width: 2px;
-      padding: var(--crt-space-md) var(--crt-space-lg);
+      padding: var(--dm-space-md) var(--dm-space-lg);
     }
 
     aside.related {
       font-size: 0.85rem;
       position: sticky;
-      top: var(--crt-space-md);
+      top: var(--dm-space-md);
       align-self: start;
     }
     aside.related h3 {
       font-size: 0.75rem;
       letter-spacing: 0.15em;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       margin-top: 0;
     }
     .related-post {
-      padding: var(--crt-space-sm) 0;
-      border-bottom: 1px dashed var(--crt-border);
+      padding: var(--dm-space-sm) 0;
+      border-bottom: 1px dashed var(--dm-border);
     }
     .related-post:last-child { border-bottom: none; }
     .related-post time {
       display: block;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       font-size: 0.75rem;
     }
 
     .comments {
-      margin-top: var(--crt-space-xl);
-      padding-top: var(--crt-space-lg);
-      border-top: 1px solid var(--crt-border);
+      margin-top: var(--dm-space-xl);
+      padding-top: var(--dm-space-lg);
+      border-top: 1px solid var(--dm-border);
     }
     .comment {
-      padding: var(--crt-space-md) 0;
-      border-bottom: 1px solid var(--crt-border);
+      padding: var(--dm-space-md) 0;
+      border-bottom: 1px solid var(--dm-border);
     }
     .comment .author {
       font-weight: 700;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
     }
     .comment time {
       font-size: 0.8rem;
-      color: var(--crt-text-muted);
-      margin-left: var(--crt-space-sm);
+      color: var(--dm-text-muted);
+      margin-left: var(--dm-space-sm);
     }
     .comment .body {
       margin-top: 4px;
       font-size: 0.95rem;
     }
     .comment.reply {
-      margin-left: var(--crt-space-lg);
-      border-left: 2px solid var(--crt-border);
-      padding-left: var(--crt-space-md);
+      margin-left: var(--dm-space-lg);
+      border-left: 2px solid var(--dm-border);
+      padding-left: var(--dm-space-md);
     }
 
     /* ── Responsive (desktop-first: 3-col collapses but keeps reading width) */
@@ -151,18 +151,18 @@
       .toc {
         position: static;
         border-right: none;
-        border-bottom: 1px solid var(--crt-border);
-        padding: var(--crt-space-md);
+        border-bottom: 1px solid var(--dm-border);
+        padding: var(--dm-space-md);
       }
       .toc ol { columns: 2; }
       aside.related { position: static; }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
       .toc ol { columns: 1; }
       .article-body h1 { font-size: 1.6rem; }
       .article-body { font-size: 0.95rem; }
-      .comment.reply { margin-left: var(--crt-space-md); }
+      .comment.reply { margin-left: var(--dm-space-md); }
       .see-also ul { columns: 1; }
     }
   </style>
@@ -197,17 +197,17 @@
 
       <!-- ARTICLE BODY -->
       <article class="body" data-texture="paper">
-        <header style="border-bottom: 1px solid var(--crt-border); padding-bottom: var(--crt-space-md); margin-bottom: var(--crt-space-lg);">
-          <p style="color: var(--crt-text-muted); font-size: 0.85rem; margin: 0;">
+        <header style="border-bottom: 1px solid var(--dm-border); padding-bottom: var(--dm-space-md); margin-bottom: var(--dm-space-lg);">
+          <p style="color: var(--dm-text-muted); font-size: 0.85rem; margin: 0;">
             ESSAY · 14 MIN READ · <time datetime="2026-08-15">AUGUST 15, 2026</time>
           </p>
-          <h1 style="font-size: 2rem; line-height: 1.2; margin: var(--crt-space-sm) 0; border: none; padding: 0;">
+          <h1 style="font-size: 2rem; line-height: 1.2; margin: var(--dm-space-sm) 0; border: none; padding: 0;">
             The History of Retro Computing: From Mainframes to Pixel Art
           </h1>
-          <p style="font-size: 1.05rem; color: var(--crt-text-muted); margin: 0;">
+          <p style="font-size: 1.05rem; color: var(--dm-text-muted); margin: 0;">
             How a generation of engineers, hobbyists, and dreamers built the constraints we still romanticize today.
           </p>
-          <p style="margin-top: var(--crt-space-md); font-size: 0.85rem;">
+          <p style="margin-top: var(--dm-space-md); font-size: 0.85rem;">
             By <strong>Marisol Vega</strong> · <a href="#">Follow</a>
           </p>
         </header>
@@ -233,7 +233,7 @@
           </blockquote>
 
           <figure>
-            <pre style="text-align: center; background: #2a1f10; color: #ffb000; font-size: 0.7rem; line-height: 1; padding: var(--crt-space-md);">
+            <pre style="text-align: center; background: #2a1f10; color: #ffb000; font-size: 0.7rem; line-height: 1; padding: var(--dm-space-md);">
     ▄▄▄████▄▄▄
     ██░░░░░░██
     ██░░▄▄░░██
@@ -336,7 +336,7 @@
             <p class="body">Would love a follow-up on the demoscene. The Amiga's HAM mode produced 4096-color images in 1989 — that constraint <em>was</em> an art form.</p>
           </div>
 
-          <h3 style="margin-top: var(--crt-space-lg);">Leave a comment</h3>
+          <h3 style="margin-top: var(--dm-space-lg);">Leave a comment</h3>
           <form>
             <label for="c-name">Name</label>
             <input type="text" id="c-name" placeholder="your handle">
@@ -368,7 +368,7 @@
           <time>Jul 12, 2026</time>
         </div>
 
-        <h3 style="margin-top: var(--crt-space-xl);">NEWSLETTER</h3>
+        <h3 style="margin-top: var(--dm-space-xl);">NEWSLETTER</h3>
         <p style="font-size: 0.85rem;">One essay per month. No spam.</p>
         <form>
           <input type="email" placeholder="your@email.com">

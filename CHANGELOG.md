@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **5 texture presets** (`data-texture-preset="..."`):
   - `sepia`, `vintage`, `phosphor`, `subtle`, `strong`
 - **2 bevel effects** (`data-bevel="in"` / `data-bevel="out"`) for 3D pressed/raised look
-- **New CSS variables**: `--crt-texture`, `--crt-texture-color`, `--crt-surface-2`, `--crt-border-light`, `--crt-border-dark`
-- **Emoji monochrome rendering** via `font-variant-emoji: text` (default), override with `--crt-emoji-style`
+- **New CSS variables**: `--dm-texture`, `--dm-texture-color`, `--dm-surface-2`, `--dm-border-light`, `--dm-border-dark`
+- **Emoji monochrome rendering** via `font-variant-emoji: text` (default), override with `--dm-emoji-style`
 - **10 demo apps** in `demos/` showcasing the framework across wildly different themes
 - **Showcase hub** in `showcase/` linking all demos with texture/bevel previews
 - **Desktop-first responsive** in all demos (1100/900/700/600px breakpoints, max-width collapsing only)
@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Beveled surfaces use a 3-layer shadow system (inset highlight + inset shadow + outer drop) instead of flat borders
 
 ### Notes
-- `crt.css` size: 5.2 KB gzipped (was ~5 KB) — textures cost ~200 bytes total
+- `dotmatrix.css` size: 5.2 KB gzipped (was ~5 KB) — textures cost ~200 bytes total
 - All demos are desktop-first responsive: collapse to mobile gracefully without losing aesthetic density
 - HTML remains 100% semantic — `data-texture` and `data-bevel` are opt-in attributes, never classes
 

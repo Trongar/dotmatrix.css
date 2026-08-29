@@ -3,57 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>crt.css — Demo</title>
-  <link rel="stylesheet" href="crt.css">
+  <title>dotmatrix.css — Demo</title>
+  <link rel="stylesheet" href="dotmatrix.css">
   <style>
     :root {
-      --crt-bg: #f4ecd8;
-      --crt-surface: #ebe0c5;
-      --crt-surface-2: #e0d2ad;
-      --crt-border: #8b7355;
-      --crt-border-light: #b8a382;
-      --crt-border-dark: #5a4a35;
-      --crt-text: #2d1f12;
-      --crt-text-muted: #6b5a40;
-      --crt-accent: #6b3410;
-      --crt-accent-dim: #4a2308;
-      --crt-accent-alt: #a06020;
-      --crt-danger: #8b0000;
-      --crt-success: #4a6b1a;
-      --crt-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
-      --crt-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
-      --crt-font-size: 15px;
-      --crt-line-height: 1.7;
-      --crt-border-width: 2px;
-      --crt-radius: 0px;
-      --crt-scanlines: 0;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(120, 70, 30, 0.18);
-      --crt-max-width: 1200px;
+      --dm-bg: #f4ecd8;
+      --dm-surface: #ebe0c5;
+      --dm-surface-2: #e0d2ad;
+      --dm-border: #8b7355;
+      --dm-border-light: #b8a382;
+      --dm-border-dark: #5a4a35;
+      --dm-text: #2d1f12;
+      --dm-text-muted: #6b5a40;
+      --dm-accent: #6b3410;
+      --dm-accent-dim: #4a2308;
+      --dm-accent-alt: #a06020;
+      --dm-danger: #8b0000;
+      --dm-success: #4a6b1a;
+      --dm-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --dm-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --dm-font-size: 15px;
+      --dm-line-height: 1.7;
+      --dm-border-width: 2px;
+      --dm-radius: 0px;
+      --dm-scanlines: 0;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(120, 70, 30, 0.18);
+      --dm-max-width: 1200px;
     }
     .texture-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: var(--crt-space-md);
-      margin: var(--crt-space-md) 0;
+      gap: var(--dm-space-md);
+      margin: var(--dm-space-md) 0;
     }
     .texture-card {
-      padding: var(--crt-space-md);
-      border: var(--crt-border-width) solid var(--crt-border);
-      box-shadow: inset 0 1px 0 var(--crt-border-light);
+      padding: var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      box-shadow: inset 0 1px 0 var(--dm-border-light);
       min-height: 140px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .texture-card strong { color: var(--crt-accent); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
-    .texture-card code { font-family: var(--crt-font); font-size: 0.8rem; }
+    .texture-card strong { color: var(--dm-accent); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
+    .texture-card code { font-family: var(--dm-font); font-size: 0.8rem; }
 
     .intro-block {
-      padding: var(--crt-space-xl);
-      border: var(--crt-border-width) solid var(--crt-border);
-      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 4px 0 var(--crt-border-dark);
-      margin-bottom: var(--crt-space-xl);
+      padding: var(--dm-space-xl);
+      border: var(--dm-border-width) solid var(--dm-border);
+      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 4px 0 var(--dm-border-dark);
+      margin-bottom: var(--dm-space-xl);
       text-align: center;
     }
     .intro-block h1 {
@@ -63,24 +63,24 @@
     }
     .intro-block p {
       max-width: 700px;
-      margin: var(--crt-space-md) auto;
-      color: var(--crt-text-muted);
+      margin: var(--dm-space-md) auto;
+      color: var(--dm-text-muted);
       font-size: 1.05rem;
     }
 
     .two-up {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
     }
     .panel {
-      padding: var(--crt-space-md);
-      border: var(--crt-border-width) solid var(--crt-border);
-      box-shadow: inset 0 1px 0 var(--crt-border-light);
+      padding: var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      box-shadow: inset 0 1px 0 var(--dm-border-light);
     }
     .panel h3 {
       margin-top: 0;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
     }
 
     /* ── Responsive (desktop-first: two-up stacks, hero shrinks) */
@@ -90,9 +90,9 @@
       .intro-block h1 { font-size: 1.8rem; }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
       .texture-grid { grid-template-columns: 1fr; }
-      .intro-block { padding: var(--crt-space-lg) var(--crt-space-sm); }
+      .intro-block { padding: var(--dm-space-lg) var(--dm-space-sm); }
       .intro-block h1 { font-size: 1.4rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
@@ -112,7 +112,7 @@
       <p>Eight patterns baked into the framework. Apply any of them to any element with a single attribute. No new classes, no extra CSS.</p>
 
       <div class="texture-grid">
-        <div class="texture-card" data-texture="paper" style="background-color: var(--crt-bg);">
+        <div class="texture-card" data-texture="paper" style="background-color: var(--dm-bg);">
           <div>
             <strong>paper</strong><br>
             <small>newsprint grain</small>
@@ -120,7 +120,7 @@
           <code>data-texture="paper"</code>
         </div>
 
-        <div class="texture-card" data-texture="dots" style="background-color: var(--crt-bg);">
+        <div class="texture-card" data-texture="dots" style="background-color: var(--dm-bg);">
           <div>
             <strong>dots</strong><br>
             <small>graph paper</small>
@@ -128,7 +128,7 @@
           <code>data-texture="dots"</code>
         </div>
 
-        <div class="texture-card" data-texture="stripes" style="background-color: var(--crt-bg);">
+        <div class="texture-card" data-texture="stripes" style="background-color: var(--dm-bg);">
           <div>
             <strong>stripes</strong><br>
             <small>45° hatched</small>
@@ -136,7 +136,7 @@
           <code>data-texture="stripes"</code>
         </div>
 
-        <div class="texture-card" data-texture="hatch" style="background-color: var(--crt-bg);">
+        <div class="texture-card" data-texture="hatch" style="background-color: var(--dm-bg);">
           <div>
             <strong>hatch</strong><br>
             <small>cross-weave</small>
@@ -144,7 +144,7 @@
           <code>data-texture="hatch"</code>
         </div>
 
-        <div class="texture-card" data-texture="halftone" style="background-color: var(--crt-bg);">
+        <div class="texture-card" data-texture="halftone" style="background-color: var(--dm-bg);">
           <div>
             <strong>halftone</strong><br>
             <small>newsprint photo</small>
@@ -152,7 +152,7 @@
           <code>data-texture="halftone"</code>
         </div>
 
-        <div class="texture-card" data-texture="noise" style="background-color: var(--crt-bg);">
+        <div class="texture-card" data-texture="noise" style="background-color: var(--dm-bg);">
           <div>
             <strong>noise</strong><br>
             <small>xerox / photocopy</small>
@@ -160,7 +160,7 @@
           <code>data-texture="noise"</code>
         </div>
 
-        <div class="texture-card" data-texture="carbon" style="background-color: var(--crt-bg);">
+        <div class="texture-card" data-texture="carbon" style="background-color: var(--dm-bg);">
           <div>
             <strong>carbon</strong><br>
             <small>gradient + grain</small>
@@ -192,7 +192,7 @@
         <div class="panel" data-bevel="in">
           <h3>Sunken panel</h3>
           <p>data-bevel="in" — looks pressed in. Perfect for input areas, terminal windows, wells.</p>
-          <pre style="background: var(--crt-bg); margin: 0;">&gt; system.status
+          <pre style="background: var(--dm-bg); margin: 0;">&gt; system.status
 [OK] all services running</pre>
         </div>
       </div>
@@ -201,7 +201,7 @@
     <section>
       <h2>Typography</h2>
       <div class="two-up">
-        <article data-texture="paper" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+        <article data-texture="paper" style="padding: var(--dm-space-md); border: var(--dm-border-width) solid var(--dm-border);">
           <h3>Headings</h3>
           <p>Regular paragraph with <strong>bold</strong>, <em>italic</em>, and <mark>highlight</mark>. Links look <a href="#">like this</a>.</p>
           <blockquote>
@@ -210,9 +210,9 @@
           </blockquote>
         </article>
 
-        <article data-texture="dots" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+        <article data-texture="dots" style="padding: var(--dm-space-md); border: var(--dm-border-width) solid var(--dm-border);">
           <h3>Code</h3>
-          <p>Inline <code>var(--crt-accent)</code> renders with the accent color.</p>
+          <p>Inline <code>var(--dm-accent)</code> renders with the accent color.</p>
           <pre><code>// Boot sequence
 function init() {
   console.log('[OK] System ready');
@@ -224,7 +224,7 @@ function init() {
 
     <section>
       <h2>Forms — semantic, accessible</h2>
-      <article data-texture="carbon" style="padding: var(--crt-space-lg); border: var(--crt-border-width) solid var(--crt-border);">
+      <article data-texture="carbon" style="padding: var(--dm-space-lg); border: var(--dm-border-width) solid var(--dm-border);">
         <form>
           <fieldset>
             <legend>Contact Info</legend>
@@ -258,10 +258,10 @@ function init() {
       <h2>Components</h2>
 
       <div class="two-up">
-        <article data-texture="paper" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+        <article data-texture="paper" style="padding: var(--dm-space-md); border: var(--dm-border-width) solid var(--dm-border);">
           <h3>Details / Accordion</h3>
           <details open>
-            <summary>What is crt.css?</summary>
+            <summary>What is dotmatrix.css?</summary>
             <p>A classless CSS framework that turns semantic HTML into a retro pixel-art interface.</p>
           </details>
           <details>
@@ -270,14 +270,14 @@ function init() {
           </details>
         </article>
 
-        <article data-texture="dots" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+        <article data-texture="dots" style="padding: var(--dm-space-md); border: var(--dm-border-width) solid var(--dm-border);">
           <h3>Progress & Meter</h3>
           <label>Download progress</label>
           <progress value="70" max="100">70%</progress>
           <label>Disk usage</label>
           <meter value="0.6" min="0" max="1">60%</meter>
 
-          <h3 style="margin-top: var(--crt-space-md);">Status badges</h3>
+          <h3 style="margin-top: var(--dm-space-md);">Status badges</h3>
           <p>
             <mark>CONFIRMED</mark>
             <mark>RUMORED</mark>
@@ -286,8 +286,8 @@ function init() {
         </article>
       </div>
 
-      <h3 style="margin-top: var(--crt-space-lg);">Tables — striped, dense</h3>
-      <table data-texture="dots" style="background: var(--crt-bg);">
+      <h3 style="margin-top: var(--dm-space-lg);">Tables — striped, dense</h3>
+      <table data-texture="dots" style="background: var(--dm-bg);">
         <caption>CSS framework comparison</caption>
         <thead>
           <tr>
@@ -299,7 +299,7 @@ function init() {
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>crt.css</strong></td><td>Pixel/8-bit</td><td>Yes</td><td>7KB</td><td>8</td></tr>
+          <tr><td><strong>dotmatrix.css</strong></td><td>Pixel/8-bit</td><td>Yes</td><td>7KB</td><td>8</td></tr>
           <tr><td>NES.css</td><td>8-bit</td><td>No</td><td>23KB</td><td>0</td></tr>
           <tr><td>Pico CSS</td><td>Modern</td><td>Yes</td><td>10KB</td><td>0</td></tr>
           <tr><td>Water.css</td><td>Minimal</td><td>Yes</td><td>2KB</td><td>0</td></tr>
@@ -309,7 +309,7 @@ function init() {
   </main>
 
   <footer>
-    <p>crt.css — classless pixel-art CSS framework with textures.</p>
+    <p>dotmatrix.css — classless pixel-art CSS framework with textures.</p>
     <p>Written in semantic HTML. Styled by the browser. No JavaScript required.</p>
   </footer>
 </body>

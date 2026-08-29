@@ -1,4 +1,4 @@
-# crt-design-system
+# dotmatrix.css
 
 **Classless pixel-art CSS framework** — write semantic HTML, get a retro CRT interface for free.
 
@@ -22,25 +22,25 @@
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/crt.css@0.2.0/crt.css">
+<link rel="stylesheet" href="https://unpkg.com/dotmatrix.css@0.2.0/dotmatrix.css">
 ```
 
 ### npm
 
 ```bash
-npm install crt.css
+npm install dotmatrix.css
 ```
 
 ```javascript
-import 'crt.css/crt.css';
+import 'dotmatrix.css/dotmatrix.css';
 ```
 
 ### Manual
 
-Download [`crt.css`](./crt.css) and link it:
+Download [`dotmatrix.css`](./dotmatrix.css) and link it:
 
 ```html
-<link rel="stylesheet" href="crt.css">
+<link rel="stylesheet" href="dotmatrix.css">
 ```
 
 ## Usage
@@ -51,7 +51,7 @@ Just write semantic HTML:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="crt.css">
+  <link rel="stylesheet" href="dotmatrix.css">
 </head>
 <body>
   <header>
@@ -138,12 +138,12 @@ Override CSS variables to create your own theme:
 
 ```css
 :root {
-  --crt-bg: #1a1a2e;
-  --crt-accent: #ff6b6b;
-  --crt-text: #eaeaea;
-  --crt-font-size: 14px;
-  --crt-texture: 1;
-  --crt-texture-color: rgba(255, 100, 100, 0.15);
+  --dm-bg: #1a1a2e;
+  --dm-accent: #ff6b6b;
+  --dm-text: #eaeaea;
+  --dm-font-size: 14px;
+  --dm-texture: 1;
+  --dm-texture-color: rgba(255, 100, 100, 0.15);
 }
 ```
 
@@ -152,51 +152,51 @@ All available variables:
 ```css
 :root {
   /* Colors */
-  --crt-bg: #f0f0e8;
-  --crt-surface: #e8e8e0;
-  --crt-surface-2: #dcdcd0;          /* NEW: deeper surface variant */
-  --crt-border: #b0b0a0;
-  --crt-border-light: #d0d0c0;      /* NEW: bevel highlight */
-  --crt-border-dark: #808070;       /* NEW: bevel shadow */
-  --crt-text: #1a1a1a;
-  --crt-text-muted: #666655;
-  --crt-accent: #006600;
-  --crt-accent-dim: #004400;
-  --crt-accent-alt: #aa6600;
-  --crt-danger: #cc0000;
-  --crt-success: #006600;
+  --dm-bg: #f0f0e8;
+  --dm-surface: #e8e8e0;
+  --dm-surface-2: #dcdcd0;          /* NEW: deeper surface variant */
+  --dm-border: #b0b0a0;
+  --dm-border-light: #d0d0c0;      /* NEW: bevel highlight */
+  --dm-border-dark: #808070;       /* NEW: bevel shadow */
+  --dm-text: #1a1a1a;
+  --dm-text-muted: #666655;
+  --dm-accent: #006600;
+  --dm-accent-dim: #004400;
+  --dm-accent-alt: #aa6600;
+  --dm-danger: #cc0000;
+  --dm-success: #006600;
 
   /* Typography */
-  --crt-font: 'Courier New', monospace;
-  --crt-font-size: 13px;
-  --crt-line-height: 1.6;
-  --crt-heading-font: 'Courier New', monospace;
+  --dm-font: 'Courier New', monospace;
+  --dm-font-size: 13px;
+  --dm-line-height: 1.6;
+  --dm-heading-font: 'Courier New', monospace;
 
   /* Spacing */
-  --crt-space-xs: 4px;
-  --crt-space-sm: 8px;
-  --crt-space-md: 16px;
-  --crt-space-lg: 24px;
-  --crt-space-xl: 32px;
-  --crt-space-2xl: 48px;
+  --dm-space-xs: 4px;
+  --dm-space-sm: 8px;
+  --dm-space-md: 16px;
+  --dm-space-lg: 24px;
+  --dm-space-xl: 32px;
+  --dm-space-2xl: 48px;
 
   /* Borders */
-  --crt-border-width: 2px;
-  --crt-radius: 0px;
-  --crt-pixel: 2px;                  /* stepped shadow offset */
+  --dm-border-width: 2px;
+  --dm-radius: 0px;
+  --dm-pixel: 2px;                  /* stepped shadow offset */
 
   /* Effects */
-  --crt-scanlines: 1;                /* 0-2, scanline intensity */
-  --crt-texture: 0;                  /* 0-2, texture intensity */
-  --crt-texture-color: rgba(0,0,0,0.08);
-  --crt-emoji-style: text;           /* text | emoji | unicode */
-  --crt-max-width: 800px;
+  --dm-scanlines: 1;                /* 0-2, scanline intensity */
+  --dm-texture: 0;                  /* 0-2, texture intensity */
+  --dm-texture-color: rgba(0,0,0,0.08);
+  --dm-emoji-style: text;           /* text | emoji | unicode */
+  --dm-max-width: 800px;
 }
 ```
 
 ## Demos
 
-See crt.css in action across 10 real-world apps:
+See dotmatrix.css in action across 10 real-world apps:
 
 1. **[Landing page](demos/01-landing.html)** — marketing site
 2. **[Auth flows](demos/02-auth.html)** — sign-in / sign-up / 2FA
@@ -234,7 +234,7 @@ Each demo uses a different theme via CSS variable overrides. Same HTML semantics
 
 **Less is more.** You shouldn't need to add `class="btn btn-primary"` to every button. Your HTML tags already have semantic meaning — let them style themselves.
 
-crt.css exists because:
+dotmatrix.css exists because:
 1. Existing pixel-art frameworks (NES.css) require verbose class names
 2. Classless frameworks (Pico, Water) lack retro aesthetics
 3. Building retro UIs from scratch wastes tokens and time

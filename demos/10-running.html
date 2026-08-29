@@ -4,30 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stride — Running Tracker</title>
-  <link rel="stylesheet" href="../crt.css">
+  <link rel="stylesheet" href="../dotmatrix.css">
   <!-- TEMA 10: Verde fosforescente night mode — GPS/runner vibes -->
   <style>
     :root {
-      --crt-bg: #051410;
-      --crt-surface: #0a2418;
-      --crt-surface-2: #0f3022;
-      --crt-border: #1a4a30;
-      --crt-border-light: #2a6a48;
-      --crt-border-dark: #021008;
-      --crt-text: #b8ffd8;
-      --crt-text-muted: #5a8a70;
-      --crt-accent: #39ff14;
-      --crt-accent-dim: #20a00a;
-      --crt-accent-alt: #ffd700;
-      --crt-danger: #ff4444;
-      --crt-success: #39ff14;
-      --crt-font: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
-      --crt-font-size: 13px;
-      --crt-border-width: 1px;
-      --crt-scanlines: 1;
-      --crt-texture: 1;
-      --crt-texture-color: rgba(57, 255, 20, 0.06);
-      --crt-max-width: 1500px;
+      --dm-bg: #051410;
+      --dm-surface: #0a2418;
+      --dm-surface-2: #0f3022;
+      --dm-border: #1a4a30;
+      --dm-border-light: #2a6a48;
+      --dm-border-dark: #021008;
+      --dm-text: #b8ffd8;
+      --dm-text-muted: #5a8a70;
+      --dm-accent: #39ff14;
+      --dm-accent-dim: #20a00a;
+      --dm-accent-alt: #ffd700;
+      --dm-danger: #ff4444;
+      --dm-success: #39ff14;
+      --dm-font: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+      --dm-font-size: 13px;
+      --dm-border-width: 1px;
+      --dm-scanlines: 1;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(57, 255, 20, 0.06);
+      --dm-max-width: 1500px;
       color-scheme: dark;
     }
 
@@ -36,81 +36,81 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: var(--crt-space-sm) var(--crt-space-md);
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-surface);
-      margin-bottom: var(--crt-space-md);
+      padding: var(--dm-space-sm) var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      margin-bottom: var(--dm-space-md);
     }
     .runner-bar .greeting {
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       font-size: 0.9rem;
     }
-    .runner-bar .greeting strong { color: var(--crt-accent); }
+    .runner-bar .greeting strong { color: var(--dm-accent); }
 
     /* 4-column dashboard */
     .runner-shell {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: var(--crt-space-md);
-      margin-bottom: var(--crt-space-md);
+      gap: var(--dm-space-md);
+      margin-bottom: var(--dm-space-md);
     }
     .stat-card {
-      border: var(--crt-border-width) solid var(--crt-border);
-      padding: var(--crt-space-md);
-      background: var(--crt-surface);
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-md);
+      background: var(--dm-surface);
       position: relative;
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 2px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 2px 0 var(--dm-border-dark);
     }
     .stat-card .label {
       font-size: 0.7rem;
       text-transform: uppercase;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       letter-spacing: 0.15em;
     }
     .stat-card .value {
       font-size: 2.2rem;
       font-weight: 700;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
       line-height: 1.2;
       margin-top: 4px;
     }
     .stat-card .unit {
       font-size: 0.85rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
       margin-left: 2px;
     }
     .stat-card .trend {
       font-size: 0.75rem;
-      margin-top: var(--crt-space-xs);
+      margin-top: var(--dm-space-xs);
     }
-    .stat-card .trend.up { color: var(--crt-success); }
-    .stat-card .trend.down { color: var(--crt-danger); }
+    .stat-card .trend.up { color: var(--dm-success); }
+    .stat-card .trend.down { color: var(--dm-danger); }
 
     /* Main 2-col: map + activities */
     .main-cols {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: var(--crt-space-md);
+      gap: var(--dm-space-md);
     }
 
     /* GPS Map — CSS-only stylized map */
     .map-panel {
-      border: var(--crt-border-width) solid var(--crt-border);
-      background: var(--crt-surface);
-      padding: var(--crt-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      padding: var(--dm-space-md);
       box-shadow:
-        inset 0 1px 0 var(--crt-border-light),
-        0 2px 0 var(--crt-border-dark);
+        inset 0 1px 0 var(--dm-border-light),
+        0 2px 0 var(--dm-border-dark);
     }
     .map-panel > header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      border-bottom: 1px solid var(--crt-border);
-      padding-bottom: var(--crt-space-sm);
-      margin-bottom: var(--crt-space-md);
+      border-bottom: 1px solid var(--dm-border);
+      padding-bottom: var(--dm-space-sm);
+      margin-bottom: var(--dm-space-md);
     }
     .map-panel > header h2 { margin: 0; font-size: 1rem; }
 
@@ -118,13 +118,13 @@
       position: relative;
       width: 100%;
       height: 360px;
-      background-color: var(--crt-bg);
-      border: var(--crt-border-width) solid var(--crt-border);
+      background-color: var(--dm-bg);
+      border: var(--dm-border-width) solid var(--dm-border);
       overflow: hidden;
       background-image:
         radial-gradient(circle, rgba(57, 255, 20, 0.08) 1px, transparent 1px),
-        linear-gradient(var(--crt-border) 1px, transparent 1px) 0 0 / 30px 30px,
-        linear-gradient(90deg, var(--crt-border) 1px, transparent 1px) 0 0 / 30px 30px;
+        linear-gradient(var(--dm-border) 1px, transparent 1px) 0 0 / 30px 30px,
+        linear-gradient(90deg, var(--dm-border) 1px, transparent 1px) 0 0 / 30px 30px;
       background-size: 6px 6px, auto, auto;
     }
     /* CSS-drawn route path */
@@ -135,47 +135,47 @@
     }
     .gps-map svg .route-path {
       fill: none;
-      stroke: var(--crt-accent);
+      stroke: var(--dm-accent);
       stroke-width: 3;
       stroke-dasharray: 4 2;
-      filter: drop-shadow(0 0 4px var(--crt-accent));
+      filter: drop-shadow(0 0 4px var(--dm-accent));
     }
     .gps-map svg .route-filled {
       fill: rgba(57, 255, 20, 0.15);
       stroke: none;
     }
-    .gps-map svg .start-marker { fill: var(--crt-success); }
-    .gps-map svg .end-marker { fill: var(--crt-danger); }
+    .gps-map svg .start-marker { fill: var(--dm-success); }
+    .gps-map svg .end-marker { fill: var(--dm-danger); }
     .gps-map svg .label {
-      fill: var(--crt-accent);
+      fill: var(--dm-accent);
       font-size: 10px;
-      font-family: var(--crt-font);
+      font-family: var(--dm-font);
     }
     /* Map overlays */
     .map-legend {
       position: absolute;
-      bottom: var(--crt-space-sm);
-      left: var(--crt-space-sm);
-      background: var(--crt-bg);
-      border: 1px solid var(--crt-border);
+      bottom: var(--dm-space-sm);
+      left: var(--dm-space-sm);
+      background: var(--dm-bg);
+      border: 1px solid var(--dm-border);
       padding: 4px 8px;
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
+      color: var(--dm-text-muted);
     }
     .map-coords {
       position: absolute;
-      top: var(--crt-space-sm);
-      right: var(--crt-space-sm);
-      background: var(--crt-bg);
-      border: 1px solid var(--crt-border);
+      top: var(--dm-space-sm);
+      right: var(--dm-space-sm);
+      background: var(--dm-bg);
+      border: 1px solid var(--dm-border);
       padding: 4px 8px;
       font-size: 0.7rem;
-      color: var(--crt-accent);
+      color: var(--dm-accent);
     }
 
     /* Splits table */
     .splits {
-      margin-top: var(--crt-space-md);
+      margin-top: var(--dm-space-md);
     }
     .splits table { font-size: 0.8rem; }
 
@@ -184,50 +184,50 @@
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 2px;
-      margin-top: var(--crt-space-sm);
+      margin-top: var(--dm-space-sm);
     }
     .training-day {
       aspect-ratio: 1;
-      border: 1px solid var(--crt-border);
+      border: 1px solid var(--dm-border);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 0.7rem;
-      color: var(--crt-text-muted);
-      background: var(--crt-bg);
+      color: var(--dm-text-muted);
+      background: var(--dm-bg);
     }
-    .training-day.completed { background: var(--crt-accent-dim); color: var(--crt-bg); }
-    .training-day.today { border-color: var(--crt-accent-alt); border-width: 2px; color: var(--crt-accent-alt); }
+    .training-day.completed { background: var(--dm-accent-dim); color: var(--dm-bg); }
+    .training-day.today { border-color: var(--dm-accent-alt); border-width: 2px; color: var(--dm-accent-alt); }
     .training-day.rest { background: transparent; }
     .training-day .icon { font-size: 0.9rem; }
 
     /* Recent activities list */
     .activity {
-      padding: var(--crt-space-sm) 0;
-      border-bottom: 1px dashed var(--crt-border);
+      padding: var(--dm-space-sm) 0;
+      border-bottom: 1px dashed var(--dm-border);
       display: grid;
       grid-template-columns: 32px 1fr auto;
-      gap: var(--crt-space-sm);
+      gap: var(--dm-space-sm);
       align-items: center;
     }
     .activity:last-child { border-bottom: none; }
     .activity .icon {
       width: 32px;
       height: 32px;
-      border: 1px solid var(--crt-border);
+      border: 1px solid var(--dm-border);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      color: var(--crt-bg);
+      color: var(--dm-bg);
     }
-    .activity.run .icon { background: var(--crt-accent); }
-    .activity.long .icon { background: var(--crt-accent-alt); }
-    .activity.rest .icon { background: var(--crt-text-muted); }
-    .activity .name { font-weight: 700; color: var(--crt-accent); font-size: 0.9rem; }
-    .activity .stats { font-size: 0.75rem; color: var(--crt-text-muted); }
-    .activity .time { font-size: 0.75rem; color: var(--crt-text-muted); text-align: right; }
+    .activity.run .icon { background: var(--dm-accent); }
+    .activity.long .icon { background: var(--dm-accent-alt); }
+    .activity.rest .icon { background: var(--dm-text-muted); }
+    .activity .name { font-weight: 700; color: var(--dm-accent); font-size: 0.9rem; }
+    .activity .stats { font-size: 0.75rem; color: var(--dm-text-muted); }
+    .activity .time { font-size: 0.75rem; color: var(--dm-text-muted); text-align: right; }
 
     /* ── Responsive (desktop-first: stats 4→2→1, map full-width, calendar keeps grid) */
     @media (max-width: 1100px) {
@@ -238,7 +238,7 @@
       .splits { display: block; overflow-x: auto; }
     }
     @media (max-width: 600px) {
-      body { padding: var(--crt-space-md); }
+      body { padding: var(--dm-space-md); }
       .runner-shell { grid-template-columns: 1fr; }
       .stat-card .value { font-size: 1.6rem; }
       .gps-map { height: 240px; }
@@ -253,7 +253,7 @@
 <body>
   <div class="runner-bar">
     <span class="greeting">Good morning, <strong>Marisol</strong> · 2026-08-29 06:14</span>
-    <span style="color: var(--crt-success); font-size: 0.85rem;">● GPS LOCKED</span>
+    <span style="color: var(--dm-success); font-size: 0.85rem;">● GPS LOCKED</span>
   </div>
 
   <header>
@@ -300,7 +300,7 @@
       <article class="map-panel">
         <header>
           <h2>◆ LAST RUN · MORNING LOOP</h2>
-          <span style="font-size: 0.75rem; color: var(--crt-text-muted);">
+          <span style="font-size: 0.75rem; color: var(--dm-text-muted);">
             2026-08-29 · 06:14–07:02 · 8.4 km · 5:08/km
           </span>
         </header>
@@ -316,16 +316,16 @@
             <circle class="end-marker" cx="50" cy="280" r="6"/>
             <text class="label" x="60" y="275">START / FINISH</text>
             <!-- KM markers along route -->
-            <circle cx="130" cy="220" r="3" fill="var(--crt-accent-alt)"/>
+            <circle cx="130" cy="220" r="3" fill="var(--dm-accent-alt)"/>
             <text class="label" x="135" y="215">2K</text>
-            <circle cx="220" cy="140" r="3" fill="var(--crt-accent-alt)"/>
+            <circle cx="220" cy="140" r="3" fill="var(--dm-accent-alt)"/>
             <text class="label" x="225" y="135">4K</text>
-            <circle cx="320" cy="90" r="3" fill="var(--crt-accent-alt)"/>
+            <circle cx="320" cy="90" r="3" fill="var(--dm-accent-alt)"/>
             <text class="label" x="325" y="85">6K</text>
             <!-- Compass -->
             <g transform="translate(360, 30)">
-              <circle r="14" fill="none" stroke="var(--crt-accent)" stroke-width="1"/>
-              <path d="M 0 -10 L 3 0 L 0 10 L -3 0 Z" fill="var(--crt-accent)"/>
+              <circle r="14" fill="none" stroke="var(--dm-accent)" stroke-width="1"/>
+              <path d="M 0 -10 L 3 0 L 0 10 L -3 0 Z" fill="var(--dm-accent)"/>
               <text class="label" x="-3" y="-18">N</text>
             </g>
           </svg>
@@ -362,7 +362,7 @@
 
       <!-- RIGHT COLUMN -->
       <div>
-        <article class="map-panel" style="margin-bottom: var(--crt-space-md);">
+        <article class="map-panel" style="margin-bottom: var(--dm-space-md);">
           <header>
             <h2>◆ RECENT ACTIVITIES</h2>
             <a href="#" style="font-size: 0.75rem;">view all →</a>
@@ -412,9 +412,9 @@
         <article class="map-panel">
           <header>
             <h2>◆ AUGUST TRAINING</h2>
-            <span style="font-size: 0.75rem; color: var(--crt-text-muted);">17/31 days</span>
+            <span style="font-size: 0.75rem; color: var(--dm-text-muted);">17/31 days</span>
           </header>
-          <div style="font-size: 0.75rem; color: var(--crt-text-muted); display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 2px;">
+          <div style="font-size: 0.75rem; color: var(--dm-text-muted); display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 2px;">
             <div style="text-align:center;">M</div>
             <div style="text-align:center;">T</div>
             <div style="text-align:center;">W</div>
@@ -456,7 +456,7 @@
             <div class="training-day">30</div>
             <div class="training-day">31</div>
           </div>
-          <p style="margin-top: var(--crt-space-sm); font-size: 0.75rem; color: var(--crt-text-muted);">
+          <p style="margin-top: var(--dm-space-sm); font-size: 0.75rem; color: var(--dm-text-muted);">
             Goal: 180 km/month · Progress: 138.4 km (77%)
           </p>
           <progress value="138" max="180" style="margin-top: 4px;"></progress>
@@ -466,7 +466,7 @@
   </main>
 
   <footer>
-    <p>Stride v3.2.1 · <a href="../showcase/index.html">← back to showcase</a> · <span style="color: var(--crt-success);">● SYNC OK</span></p>
+    <p>Stride v3.2.1 · <a href="../showcase/index.html">← back to showcase</a> · <span style="color: var(--dm-success);">● SYNC OK</span></p>
   </footer>
 </body>
 </html>
