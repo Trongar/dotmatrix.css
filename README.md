@@ -1,4 +1,4 @@
-# crt.css
+# crt-design-system
 
 **Classless pixel-art CSS framework** — write semantic HTML, get a retro CRT interface for free.
 
