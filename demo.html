@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>crt.css — Demo</title>
+  <link rel="stylesheet" href="crt.css">
+</head>
+<body>
+  <header>
+    <h1>⚡ CRT.CSS DEMO</h1>
+    <p>Semantic HTML. Zero classes. Retro pixel interface.</p>
+    <nav>
+      <ul>
+        <li><a href="#typography">Typography</a></li>
+        <li><a href="#forms">Forms</a></li>
+        <li><a href="#tables">Tables</a></li>
+        <li><a href="#components">Components</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="typography">
+      <h2>Typography</h2>
+      
+      <h3>Headings</h3>
+      <p>Regular paragraph text with <strong>bold</strong>, <em>italic</em>, and <mark>highlighted</mark> content. Links look like <a href="#">this example</a>.</p>
+      
+      <h4>Smaller Heading</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      
+      <blockquote>
+        <p>"The best interface is no interface."</p>
+        <p>— Golden Krishna</p>
+      </blockquote>
+      
+      <p>Code snippets render as <code>inline-code</code> and blocks look like this:</p>
+      
+      <pre><code>// Boot sequence
+function init() {
+  console.log('[OK] System ready');
+  console.log('[OK] CRT.CSS loaded');
+}</code></pre>
+    </section>
+
+    <section id="lists">
+      <h2>Lists</h2>
+      
+      <h3>Unordered</h3>
+      <ul>
+        <li>Write semantic HTML</li>
+        <li>Link crt.css</li>
+        <li>Get retro UI for free</li>
+      </ul>
+      
+      <h3>Ordered</h3>
+      <ol>
+        <li>First step</li>
+        <li>Second step</li>
+        <li>Profit</li>
+      </ol>
+      
+      <h3>Definition</h3>
+      <dl>
+        <dt>Classless</dt>
+        <dd>No utility classes needed</dd>
+        
+        <dt>Semantic</dt>
+        <dd>Uses HTML tags as intended</dd>
+      </dl>
+    </section>
+
+    <section id="forms">
+      <h2>Forms</h2>
+      
+      <form>
+        <fieldset>
+          <legend>Contact Info</legend>
+          
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="John Connor">
+          
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="john@skynet.net">
+          
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••">
+          
+          <label for="bio">Bio</label>
+          <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+          
+          <label for="role">Role</label>
+          <select id="role">
+            <option>Developer</option>
+            <option>Designer</option>
+            <option>Hacker</option>
+          </select>
+          
+          <label for="date">Date</label>
+          <input type="date" id="date">
+        </fieldset>
+        
+        <fieldset>
+          <legend>Preferences</legend>
+          
+          <label>
+            <input type="checkbox"> Enable scanlines
+          </label>
+          
+          <label>
+            <input type="checkbox" checked> Light mode (default)
+          </label>
+          
+          <label>
+            <input type="radio" name="theme" checked> Green on cream
+          </label>
+          <label>
+            <input type="radio" name="theme"> Dark terminal
+          </label>
+          
+          <label for="volume">Volume</label>
+          <input type="range" id="volume" min="0" max="100" value="70">
+          
+          <label for="avatar">Avatar</label>
+          <input type="file" id="avatar" accept="image/*">
+        </fieldset>
+        
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+        <button disabled>Disabled</button>
+      </form>
+    </section>
+
+    <section id="tables">
+      <h2>Tables</h2>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Framework</th>
+            <th>Style</th>
+            <th>Classless</th>
+            <th>Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>crt.css</strong></td>
+            <td>Pixel/8-bit</td>
+            <td>Yes</td>
+            <td>6KB</td>
+          </tr>
+          <tr>
+            <td>NES.css</td>
+            <td>8-bit</td>
+            <td>No</td>
+            <td>23KB</td>
+          </tr>
+          <tr>
+            <td>Pico CSS</td>
+            <td>Modern</td>
+            <td>Yes</td>
+            <td>10KB</td>
+          </tr>
+          <tr>
+            <td>Water.css</td>
+            <td>Minimal</td>
+            <td>Yes</td>
+            <td>2KB</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="components">
+      <h2>Components</h2>
+      
+      <h3>Details / Accordion</h3>
+      <details>
+        <summary>What is crt.css?</summary>
+        <p>A classless CSS framework that turns semantic HTML into a retro pixel-art interface. Just write normal HTML and link the stylesheet.</p>
+      </details>
+      
+      <details>
+        <summary>Why "classless"?</summary>
+        <p>Because you shouldn't need to add <code>class="btn btn-primary"</code> to every button. Your HTML tags already have meaning — let them style themselves.</p>
+      </details>
+      
+      <details open>
+        <summary>Can I customize it?</summary>
+        <p>Yes! Override CSS variables on <code>:root</code> or use <code>data-theme="dark"</code> for a built-in dark theme.</p>
+      </details>
+      
+      <h3>Progress & Meter</h3>
+      <label>Download progress</label>
+      <progress value="70" max="100">70%</progress>
+      
+      <label>Disk usage</label>
+      <meter value="0.6" min="0" max="1">60%</meter>
+      
+      <h3>Dialog</h3>
+      <p>
+        <button onclick="document.querySelector('dialog').showModal()">Open Dialog</button>
+      </p>
+      
+      <dialog>
+        <h3>⚠ System Alert</h3>
+        <p>This is a modal dialog. Press ESC or click the button to close.</p>
+        <button onclick="this.closest('dialog').close()">Close</button>
+      </dialog>
+      
+      <h3>Images</h3>
+      <figure>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%2300ff41' width='200' height='100'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23000' font-family='monospace' font-size='20'%3EPIXEL ART%3C/text%3E%3C/svg%3E" alt="Pixel art placeholder">
+        <figcaption>Images render with pixelated edges</figcaption>
+      </figure>
+      
+      <h3>Horizontal Rule</h3>
+      <hr>
+      
+      <h3>Status Badges</h3>
+      <p>
+        <mark>CONFIRMED</mark>
+        <mark>RUMORED</mark>
+        <mark>EVENT</mark>
+      </p>
+    </section>
+
+    <section>
+      <h2>Nested Sections</h2>
+      
+      <article>
+        <header>
+          <h3>Article Title</h3>
+          <p><small>Posted on <time datetime="2026-08-28">Aug 28, 2026</time></small></p>
+        </header>
+        <p>Articles get bordered cards automatically. Headers are separated from content.</p>
+        <p>This is perfect for blog posts, changelogs, or activity feeds.</p>
+      </article>
+      
+      <article>
+        <header>
+          <h3>Another Article</h3>
+        </header>
+        <p>Multiple articles stack naturally. No classes needed for layout.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>crt.css — classless pixel-art CSS framework</p>
+    <p>Written in semantic HTML. Styled by the browser. No JavaScript required.</p>
+  </footer>
+</body>
+</html>
