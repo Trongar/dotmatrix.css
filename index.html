@@ -4,27 +4,150 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>dotmatrix.css</title>
-  <meta http-equiv="refresh" content="0; url=showcase/">
-  <link rel="canonical" href="https://trongar.github.io/dotmatrix.css/showcase/">
+  <link rel="stylesheet" href="dotmatrix.css">
   <style>
-    body {
-      font-family: 'Courier New', monospace;
-      background: #f0f0e8;
-      color: #1a1a1a;
-      max-width: 600px;
-      margin: 100px auto;
-      padding: 40px;
-      border: 2px solid #006600;
-      text-align: center;
+    :root {
+      --dm-bg: #f0f0e8;
+      --dm-surface: #e0e0d0;
+      --dm-surface-2: #d0d0c0;
+      --dm-border: #8a8a7a;
+      --dm-border-light: #c8c8b8;
+      --dm-border-dark: #5a5a4a;
+      --dm-text: #1a1a1a;
+      --dm-text-muted: #555555;
+      --dm-accent: #006600;
+      --dm-accent-dim: #004400;
+      --dm-accent-alt: #aa6600;
+      --dm-danger: #cc0000;
+      --dm-texture: 1;
+      --dm-texture-color: rgba(0, 80, 0, 0.1);
+      --dm-max-width: 760px;
     }
-    a { color: #006600; font-weight: 700; }
+    .landing {
+      text-align: center;
+      padding: var(--dm-space-xl) var(--dm-space-md);
+      border: var(--dm-border-width) solid var(--dm-border);
+      background: var(--dm-surface);
+      margin-bottom: var(--dm-space-lg);
+      box-shadow:
+        inset 0 1px 0 var(--dm-border-light),
+        0 6px 0 var(--dm-border-dark);
+    }
+    .landing h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      border: none;
+    }
+    .landing .tagline {
+      font-size: 1.05rem;
+      color: var(--dm-text-muted);
+      margin: var(--dm-space-md) auto var(--dm-space-lg);
+      max-width: 540px;
+    }
+    .landing .cta {
+      display: flex;
+      gap: var(--dm-space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--dm-space-md);
+    }
+    .badges {
+      display: flex;
+      gap: var(--dm-space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: var(--dm-space-lg) 0;
+      font-size: 0.85rem;
+    }
+    .badges .badge {
+      border: 1px solid var(--dm-border);
+      padding: 4px 10px;
+      background: var(--dm-bg);
+      color: var(--dm-text-muted);
+    }
+    .quickstart {
+      border: var(--dm-border-width) solid var(--dm-border);
+      padding: var(--dm-space-md);
+      background: var(--dm-bg);
+      box-shadow:
+        inset 0 1px 0 var(--dm-border-light),
+        0 2px 0 var(--dm-border-dark);
+      margin: var(--dm-space-md) 0;
+    }
+    .quickstart h2 { margin-top: 0; }
+    .quickstart pre {
+      background: var(--dm-surface-2);
+      border: 1px solid var(--dm-border);
+      padding: var(--dm-space-sm);
+      margin: var(--dm-space-sm) 0;
+    }
     .blink { animation: bl 0.8s step-end infinite; }
-    @keyframes bl { 50% { opacity: 0; } }
+    @keyframes bl { 50%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body { padding: var(--dm-space-md); }
+      .landing h1 { font-size: 1.6rem; }
+      .landing .cta { flex-direction: column; align-items: stretch; }
+      .landing .cta a, .landing .cta button { width: 100%; }
+    }
   </style>
 </head>
 <body data-texture="paper">
-  <h1>► dotmatrix.css</h1>
-  <p>Loading showcase<span class="blink">_</span></p>
-  <p>If you're not redirected: <a href="showcase/">click here</a></p>
+
+  <section class="landing" data-texture="halftone">
+    <h1>► dotmatrix.css</h1>
+    <p class="tagline">
+      Classless pixel-art CSS framework with textures and bevels.
+      Write semantic HTML. Get a retro CRT interface for free.
+      <strong>~5KB gzipped. Zero JavaScript.</strong>
+    </p>
+    <div class="cta">
+      <a role="button" href="showcase/">VIEW SHOWCASE →</a>
+      <a role="button" href="https://github.com/Trongar/dotmatrix.css">GITHUB REPO</a>
+      <a role="button" href="demo.html">SEE COMPONENTS</a>
+    </div>
+    <div class="badges">
+      <span class="badge">v0.2.0</span>
+      <span class="badge">MIT License</span>
+      <span class="badge">8 Textures</span>
+      <span class="badge">2 Bevels</span>
+      <span class="badge">10 Demos</span>
+      <span class="badge">0 JS</span>
+    </div>
+  </section>
+
+  <section class="quickstart">
+    <h2>► Quick Start</h2>
+    <p>Three ways to install:</p>
+
+    <h3>CDN</h3>
+<pre><code>&lt;link rel="stylesheet"
+      href="https://unpkg.com/dotmatrix.css/dotmatrix.css"&gt;</code></pre>
+
+    <h3>npm</h3>
+<pre><code>npm install dotmatrix.css
+import 'dotmatrix.css/dotmatrix.css';</code></pre>
+
+    <h3>Manual</h3>
+    <p>Download <a href="dotmatrix.css">dotmatrix.css</a> and link it:</p>
+<pre><code>&lt;link rel="stylesheet" href="dotmatrix.css"&gt;</code></pre>
+
+    <h3>Apply a texture</h3>
+<pre><code>&lt;article data-texture="paper"&gt;...&lt;/article&gt;
+&lt;section data-texture="dots"&gt;...&lt;/section&gt;
+&lt;button data-bevel="out"&gt;Raised&lt;/button&gt;</code></pre>
+
+    <p>
+      <a href="showcase/">▶ See all 10 demo apps →</a> ·
+      <a href="https://github.com/Trongar/dotmatrix.css">★ Star on GitHub</a> ·
+      <a href="README.md">📖 Read the docs</a>
+    </p>
+  </section>
+
+  <footer style="text-align: center; padding: var(--dm-space-md); font-size: 0.85rem; color: var(--dm-text-muted);">
+    <p>© 2026 Trongar · Released under MIT ·
+       <a href="https://github.com/Trongar/dotmatrix.css">github.com/Trongar/dotmatrix.css</a></p>
+  </footer>
 </body>
 </html>
