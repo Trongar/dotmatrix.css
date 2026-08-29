@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stride — Running Tracker</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 10: Verde fosforescente night mode — GPS/runner vibes -->
+  <style>
+    :root {
+      --crt-bg: #051410;
+      --crt-surface: #0a2418;
+      --crt-surface-2: #0f3022;
+      --crt-border: #1a4a30;
+      --crt-border-light: #2a6a48;
+      --crt-border-dark: #021008;
+      --crt-text: #b8ffd8;
+      --crt-text-muted: #5a8a70;
+      --crt-accent: #39ff14;
+      --crt-accent-dim: #20a00a;
+      --crt-accent-alt: #ffd700;
+      --crt-danger: #ff4444;
+      --crt-success: #39ff14;
+      --crt-font: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+      --crt-font-size: 13px;
+      --crt-border-width: 1px;
+      --crt-scanlines: 1;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(57, 255, 20, 0.06);
+      --crt-max-width: 1500px;
+      color-scheme: dark;
+    }
+
+    /* Header with user greeting */
+    .runner-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--crt-space-sm) var(--crt-space-md);
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-surface);
+      margin-bottom: var(--crt-space-md);
+    }
+    .runner-bar .greeting {
+      color: var(--crt-text-muted);
+      font-size: 0.9rem;
+    }
+    .runner-bar .greeting strong { color: var(--crt-accent); }
+
+    /* 4-column dashboard */
+    .runner-shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: var(--crt-space-md);
+      margin-bottom: var(--crt-space-md);
+    }
+    .stat-card {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-md);
+      background: var(--crt-surface);
+      position: relative;
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 2px 0 var(--crt-border-dark);
+    }
+    .stat-card .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--crt-text-muted);
+      letter-spacing: 0.15em;
+    }
+    .stat-card .value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--crt-accent);
+      line-height: 1.2;
+      margin-top: 4px;
+    }
+    .stat-card .unit {
+      font-size: 0.85rem;
+      color: var(--crt-text-muted);
+      margin-left: 2px;
+    }
+    .stat-card .trend {
+      font-size: 0.75rem;
+      margin-top: var(--crt-space-xs);
+    }
+    .stat-card .trend.up { color: var(--crt-success); }
+    .stat-card .trend.down { color: var(--crt-danger); }
+
+    /* Main 2-col: map + activities */
+    .main-cols {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--crt-space-md);
+    }
+
+    /* GPS Map — CSS-only stylized map */
+    .map-panel {
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-surface);
+      padding: var(--crt-space-md);
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 2px 0 var(--crt-border-dark);
+    }
+    .map-panel > header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--crt-border);
+      padding-bottom: var(--crt-space-sm);
+      margin-bottom: var(--crt-space-md);
+    }
+    .map-panel > header h2 { margin: 0; font-size: 1rem; }
+
+    .gps-map {
+      position: relative;
+      width: 100%;
+      height: 360px;
+      background-color: var(--crt-bg);
+      border: var(--crt-border-width) solid var(--crt-border);
+      overflow: hidden;
+      background-image:
+        radial-gradient(circle, rgba(57, 255, 20, 0.08) 1px, transparent 1px),
+        linear-gradient(var(--crt-border) 1px, transparent 1px) 0 0 / 30px 30px,
+        linear-gradient(90deg, var(--crt-border) 1px, transparent 1px) 0 0 / 30px 30px;
+      background-size: 6px 6px, auto, auto;
+    }
+    /* CSS-drawn route path */
+    .gps-map svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .gps-map svg .route-path {
+      fill: none;
+      stroke: var(--crt-accent);
+      stroke-width: 3;
+      stroke-dasharray: 4 2;
+      filter: drop-shadow(0 0 4px var(--crt-accent));
+    }
+    .gps-map svg .route-filled {
+      fill: rgba(57, 255, 20, 0.15);
+      stroke: none;
+    }
+    .gps-map svg .start-marker { fill: var(--crt-success); }
+    .gps-map svg .end-marker { fill: var(--crt-danger); }
+    .gps-map svg .label {
+      fill: var(--crt-accent);
+      font-size: 10px;
+      font-family: var(--crt-font);
+    }
+    /* Map overlays */
+    .map-legend {
+      position: absolute;
+      bottom: var(--crt-space-sm);
+      left: var(--crt-space-sm);
+      background: var(--crt-bg);
+      border: 1px solid var(--crt-border);
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+    }
+    .map-coords {
+      position: absolute;
+      top: var(--crt-space-sm);
+      right: var(--crt-space-sm);
+      background: var(--crt-bg);
+      border: 1px solid var(--crt-border);
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      color: var(--crt-accent);
+    }
+
+    /* Splits table */
+    .splits {
+      margin-top: var(--crt-space-md);
+    }
+    .splits table { font-size: 0.8rem; }
+
+    /* Calendar / training plan */
+    .training-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-top: var(--crt-space-sm);
+    }
+    .training-day {
+      aspect-ratio: 1;
+      border: 1px solid var(--crt-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      background: var(--crt-bg);
+    }
+    .training-day.completed { background: var(--crt-accent-dim); color: var(--crt-bg); }
+    .training-day.today { border-color: var(--crt-accent-alt); border-width: 2px; color: var(--crt-accent-alt); }
+    .training-day.rest { background: transparent; }
+    .training-day .icon { font-size: 0.9rem; }
+
+    /* Recent activities list */
+    .activity {
+      padding: var(--crt-space-sm) 0;
+      border-bottom: 1px dashed var(--crt-border);
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: var(--crt-space-sm);
+      align-items: center;
+    }
+    .activity:last-child { border-bottom: none; }
+    .activity .icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--crt-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--crt-bg);
+    }
+    .activity.run .icon { background: var(--crt-accent); }
+    .activity.long .icon { background: var(--crt-accent-alt); }
+    .activity.rest .icon { background: var(--crt-text-muted); }
+    .activity .name { font-weight: 700; color: var(--crt-accent); font-size: 0.9rem; }
+    .activity .stats { font-size: 0.75rem; color: var(--crt-text-muted); }
+    .activity .time { font-size: 0.75rem; color: var(--crt-text-muted); text-align: right; }
+
+    /* ── Responsive (desktop-first: stats 4→2→1, map full-width, calendar keeps grid) */
+    @media (max-width: 1100px) {
+      .main-cols { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .runner-shell { grid-template-columns: repeat(2, 1fr); }
+      .splits { display: block; overflow-x: auto; }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .runner-shell { grid-template-columns: 1fr; }
+      .stat-card .value { font-size: 1.6rem; }
+      .gps-map { height: 240px; }
+      .training-day { font-size: 0.6rem; }
+      .training-day .icon { font-size: 0.7rem; }
+      header nav ul { flex-wrap: wrap; font-size: 0.8rem; }
+      .activity { grid-template-columns: 24px 1fr; }
+      .activity .time { grid-column: 1 / -1; text-align: left; padding-left: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="runner-bar">
+    <span class="greeting">Good morning, <strong>Marisol</strong> · 2026-08-29 06:14</span>
+    <span style="color: var(--crt-success); font-size: 0.85rem;">● GPS LOCKED</span>
+  </div>
+
+  <header>
+    <h1>► STRIDE</h1>
+    <nav>
+      <ul>
+        <li><a href="#" aria-current="page">Dashboard</a></li>
+        <li><a href="#">Activities</a></li>
+        <li><a href="#">Training</a></li>
+        <li><a href="#">Routes</a></li>
+        <li><a href="#">Stats</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- WEEKLY STATS -->
+    <section class="runner-shell">
+      <article class="stat-card">
+        <div class="label">THIS WEEK</div>
+        <div class="value">42.8<span class="unit">km</span></div>
+        <div class="trend up">▲ 6.2 vs last week</div>
+      </article>
+      <article class="stat-card">
+        <div class="label">AVG PACE</div>
+        <div class="value">5:12<span class="unit">/km</span></div>
+        <div class="trend up">▼ 8s (faster)</div>
+      </article>
+      <article class="stat-card">
+        <div class="label">RUNS</div>
+        <div class="value">5<span class="unit">runs</span></div>
+        <div class="trend">3 remaining this week</div>
+      </article>
+      <article class="stat-card">
+        <div class="label">ELEVATION</div>
+        <div class="value">342<span class="unit">m</span></div>
+        <div class="trend down">▼ 18%</div>
+      </article>
+    </section>
+
+    <!-- MAP + ACTIVITIES -->
+    <section class="main-cols">
+      <article class="map-panel">
+        <header>
+          <h2>◆ LAST RUN · MORNING LOOP</h2>
+          <span style="font-size: 0.75rem; color: var(--crt-text-muted);">
+            2026-08-29 · 06:14–07:02 · 8.4 km · 5:08/km
+          </span>
+        </header>
+
+        <div class="gps-map">
+          <svg viewBox="0 0 400 360" preserveAspectRatio="xMidYMid meet">
+            <!-- Filled route area -->
+            <path class="route-filled" d="M 50 280 L 80 240 L 130 220 L 180 180 L 220 140 L 260 100 L 290 80 L 320 90 L 340 130 L 320 170 L 280 200 L 230 230 L 180 250 L 130 260 L 90 290 L 60 300 Z"/>
+            <!-- Route path -->
+            <path class="route-path" d="M 50 280 L 80 240 L 130 220 L 180 180 L 220 140 L 260 100 L 290 80 L 320 90 L 340 130 L 320 170 L 280 200 L 230 230 L 180 250 L 130 260 L 90 290 L 60 300 L 50 280"/>
+            <!-- Markers -->
+            <circle class="start-marker" cx="50" cy="280" r="6"/>
+            <circle class="end-marker" cx="50" cy="280" r="6"/>
+            <text class="label" x="60" y="275">START / FINISH</text>
+            <!-- KM markers along route -->
+            <circle cx="130" cy="220" r="3" fill="var(--crt-accent-alt)"/>
+            <text class="label" x="135" y="215">2K</text>
+            <circle cx="220" cy="140" r="3" fill="var(--crt-accent-alt)"/>
+            <text class="label" x="225" y="135">4K</text>
+            <circle cx="320" cy="90" r="3" fill="var(--crt-accent-alt)"/>
+            <text class="label" x="325" y="85">6K</text>
+            <!-- Compass -->
+            <g transform="translate(360, 30)">
+              <circle r="14" fill="none" stroke="var(--crt-accent)" stroke-width="1"/>
+              <path d="M 0 -10 L 3 0 L 0 10 L -3 0 Z" fill="var(--crt-accent)"/>
+              <text class="label" x="-3" y="-18">N</text>
+            </g>
+          </svg>
+          <div class="map-coords">N 4.7110° · W 74.0721° · ALT 2,640m</div>
+          <div class="map-legend">▬ Route · ● Waypoint · ◆ Start</div>
+        </div>
+
+        <div class="splits">
+          <h3>Splits (per km)</h3>
+          <caption>Data table</caption>
+  
+            <thead>
+              <tr>
+                <th>KM</th>
+                <th>Pace</th>
+                <th>Elev</th>
+                <th>HR</th>
+                <th>Cadence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>5:24</td><td>+12m</td><td>148 bpm</td><td>178 spm</td></tr>
+              <tr><td>2</td><td>5:18</td><td>+18m</td><td>152 bpm</td><td>180 spm</td></tr>
+              <tr><td>3</td><td>5:10</td><td>+24m</td><td>155 bpm</td><td>182 spm</td></tr>
+              <tr><td>4</td><td>5:04</td><td>+8m</td><td>158 bpm</td><td>184 spm</td></tr>
+              <tr><td>5</td><td>5:06</td><td>-6m</td><td>159 bpm</td><td>184 spm</td></tr>
+              <tr><td>6</td><td>5:02</td><td>-14m</td><td>162 bpm</td><td>186 spm</td></tr>
+              <tr><td>7</td><td>5:00</td><td>-22m</td><td>164 bpm</td><td>188 spm</td></tr>
+              <tr><td>8</td><td>4:58</td><td>-12m</td><td>166 bpm</td><td>190 spm</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <article class="map-panel" style="margin-bottom: var(--crt-space-md);">
+          <header>
+            <h2>◆ RECENT ACTIVITIES</h2>
+            <a href="#" style="font-size: 0.75rem;">view all →</a>
+          </header>
+          <div class="activity run">
+            <div class="icon">►</div>
+            <div>
+              <div class="name">Morning Loop</div>
+              <div class="stats">8.4 km · 5:08/km · 48:22</div>
+            </div>
+            <div class="time">TODAY<br>06:14</div>
+          </div>
+          <div class="activity long">
+            <div class="icon">▣</div>
+            <div>
+              <div class="name">Sunday Long Run</div>
+              <div class="stats">21.2 km · 5:24/km · 1:54:18</div>
+            </div>
+            <div class="time">SUN<br>07:02</div>
+          </div>
+          <div class="activity run">
+            <div class="icon">►</div>
+            <div>
+              <div class="name">Recovery Jog</div>
+              <div class="stats">5.1 km · 6:12/km · 31:42</div>
+            </div>
+            <div class="time">FRI<br>18:45</div>
+          </div>
+          <div class="activity run">
+            <div class="icon">►</div>
+            <div>
+              <div class="name">Tempo Run</div>
+              <div class="stats">10.0 km · 4:48/km · 48:00</div>
+            </div>
+            <div class="time">THU<br>06:30</div>
+          </div>
+          <div class="activity rest">
+            <div class="icon">—</div>
+            <div>
+              <div class="name">Rest Day</div>
+              <div class="stats">Recovery · stretching</div>
+            </div>
+            <div class="time">WED<br>—</div>
+          </div>
+        </article>
+
+        <article class="map-panel">
+          <header>
+            <h2>◆ AUGUST TRAINING</h2>
+            <span style="font-size: 0.75rem; color: var(--crt-text-muted);">17/31 days</span>
+          </header>
+          <div style="font-size: 0.75rem; color: var(--crt-text-muted); display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 2px;">
+            <div style="text-align:center;">M</div>
+            <div style="text-align:center;">T</div>
+            <div style="text-align:center;">W</div>
+            <div style="text-align:center;">T</div>
+            <div style="text-align:center;">F</div>
+            <div style="text-align:center;">S</div>
+            <div style="text-align:center;">S</div>
+          </div>
+          <div class="training-grid">
+            <div class="training-day completed"><div class="icon">►</div>1</div>
+            <div class="training-day completed"><div class="icon">►</div>2</div>
+            <div class="training-day rest">3</div>
+            <div class="training-day completed"><div class="icon">►</div>4</div>
+            <div class="training-day completed"><div class="icon">►</div>5</div>
+            <div class="training-day completed"><div class="icon">▣</div>6</div>
+            <div class="training-day completed"><div class="icon">▣</div>7</div>
+            <div class="training-day completed"><div class="icon">►</div>8</div>
+            <div class="training-day completed"><div class="icon">►</div>9</div>
+            <div class="training-day rest">10</div>
+            <div class="training-day completed"><div class="icon">►</div>11</div>
+            <div class="training-day completed"><div class="icon">►</div>12</div>
+            <div class="training-day completed"><div class="icon">►</div>13</div>
+            <div class="training-day completed"><div class="icon">▣</div>14</div>
+            <div class="training-day completed"><div class="icon">►</div>15</div>
+            <div class="training-day completed"><div class="icon">►</div>16</div>
+            <div class="training-day rest">17</div>
+            <div class="training-day completed"><div class="icon">►</div>18</div>
+            <div class="training-day completed"><div class="icon">►</div>19</div>
+            <div class="training-day rest">20</div>
+            <div class="training-day completed"><div class="icon">►</div>21</div>
+            <div class="training-day completed"><div class="icon">►</div>22</div>
+            <div class="training-day completed"><div class="icon">►</div>23</div>
+            <div class="training-day completed"><div class="icon">▣</div>24</div>
+            <div class="training-day completed"><div class="icon">►</div>25</div>
+            <div class="training-day completed"><div class="icon">►</div>26</div>
+            <div class="training-day rest">27</div>
+            <div class="training-day completed"><div class="icon">►</div>28</div>
+            <div class="training-day today">29</div>
+            <div class="training-day">30</div>
+            <div class="training-day">31</div>
+          </div>
+          <p style="margin-top: var(--crt-space-sm); font-size: 0.75rem; color: var(--crt-text-muted);">
+            Goal: 180 km/month · Progress: 138.4 km (77%)
+          </p>
+          <progress value="138" max="180" style="margin-top: 4px;"></progress>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Stride v3.2.1 · <a href="../showcase/index.html">← back to showcase</a> · <span style="color: var(--crt-success);">● SYNC OK</span></p>
+  </footer>
+</body>
+</html>

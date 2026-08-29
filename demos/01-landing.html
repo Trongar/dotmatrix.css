@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelForge — Build retro UIs in minutes</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 1: Verde CRT clásico (default + overrides mínimos) -->
+  <style>
+    :root {
+      --crt-bg: #f0f0e8;
+      --crt-surface: #e0e0d0;
+      --crt-surface-2: #d0d0c0;
+      --crt-border: #8a8a7a;
+      --crt-border-light: #c8c8b8;
+      --crt-border-dark: #5a5a4a;
+      --crt-text: #1a1a1a;
+      --crt-text-muted: #606060;
+      --crt-accent: #006600;
+      --crt-accent-alt: #aa6600;
+      --crt-danger: #cc0000;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(0, 80, 0, 0.1);
+    }
+    /* Demo-only layouts — no toques al framework */
+    .hero {
+      text-align: center;
+      padding: var(--crt-space-xl) var(--crt-space-md);
+      border: var(--crt-border-width) solid var(--crt-border);
+      margin: var(--crt-space-lg) 0;
+      background: var(--crt-surface);
+      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 4px 0 var(--crt-border-dark);
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      margin-top: 0;
+      border-bottom: none;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--crt-text-muted);
+      max-width: 600px;
+      margin: var(--crt-space-md) auto var(--crt-space-lg);
+    }
+    .hero .cta-row {
+      display: flex;
+      gap: var(--crt-space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--crt-space-md);
+      margin: var(--crt-space-lg) 0;
+    }
+    .feature {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-md);
+      background: var(--crt-surface);
+      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 2px 0 var(--crt-border-dark);
+    }
+    .feature h3 {
+      margin-top: 0;
+      font-size: 1rem;
+    }
+    .feature p {
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--crt-space-lg);
+      justify-content: center;
+      align-items: center;
+      padding: var(--crt-space-md);
+      color: var(--crt-text-muted);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .testimonial {
+      border-left: 4px solid var(--crt-accent);
+      padding: var(--crt-space-md);
+      background: var(--crt-surface);
+      margin: var(--crt-space-md) 0;
+    }
+    .testimonial cite {
+      display: block;
+      margin-top: var(--crt-space-sm);
+      font-size: 0.85rem;
+      color: var(--crt-text-muted);
+    }
+
+    /* ── Responsive (desktop-first: stack only when grids break) */
+    @media (max-width: 900px) {
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero h1 { font-size: 1.8rem; }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .hero { padding: var(--crt-space-lg) var(--crt-space-sm); }
+      .hero h1 { font-size: 1.4rem; }
+      .hero .cta-row { flex-direction: column; align-items: stretch; }
+      .hero .cta-row a, .hero .cta-row button { width: 100%; text-align: center; }
+      .features { grid-template-columns: 1fr; }
+      header nav ul { flex-direction: column; gap: 2px; }
+      header nav li { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PIXELFORGE</h1>
+    <nav>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#docs">Docs</a></li>
+        <li><a href="#login">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" data-texture="halftone">
+      <h1>BUILD RETRO UIs<br>IN MINUTES, NOT MONTHS</h1>
+      <p>PixelForge is the classless CSS framework that turns semantic HTML into pixel-perfect retro interfaces. No build step. No JavaScript. Just <code>&lt;link&gt;</code> and ship.</p>
+      <div class="cta-row">
+        <button type="submit">GET STARTED FREE</button>
+        <a role="button" href="#docs">READ THE DOCS</a>
+      </div>
+      <p style="margin-top: var(--crt-space-md); font-size: 0.8rem; color: var(--crt-text-muted);">
+        v0.1.0 · ~6KB gzipped · MIT licensed
+      </p>
+    </section>
+
+    <section>
+      <h2 id="features">Why PixelForge</h2>
+      <div class="features">
+        <article class="feature">
+          <h3>◆ Classless</h3>
+          <p>Your HTML tags already have semantic meaning. We style them directly. Zero classes required.</p>
+        </article>
+        <article class="feature">
+          <h3>◆ Themeable</h3>
+          <p>Override a handful of CSS variables and the entire aesthetic changes. No preprocessor needed.</p>
+        </article>
+        <article class="feature">
+          <h3>◆ 6KB Total</h3>
+          <p>One CSS file. No JS. No build pipeline. Drop it in any HTML page and it works.</p>
+        </article>
+        <article class="feature">
+          <h3>◆ Accessible</h3>
+          <p>Keyboard focus rings, semantic structure, screen-reader friendly. Retro doesn't mean broken.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Trusted by builders at</h2>
+      <div class="logo-row">
+        <span>RETROSOFT</span>
+        <span>PIXEL.WORKS</span>
+        <span>8BIT.CO</span>
+        <span>ARCADE.DEV</span>
+        <span>TERMINAL.IO</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>What people say</h2>
+      <blockquote class="testimonial">
+        <p>"Replaced 40KB of Bootstrap with 6KB of PixelForge. Our designers actually smiled for the first time in years."</p>
+        <cite>— J. Wong, Lead Engineer at Retrosoft</cite>
+      </blockquote>
+      <blockquote class="testimonial">
+        <p>"Finally, a CSS framework that doesn't feel like it was designed by a committee of enterprise architects."</p>
+        <cite>— M. Reyes, Indie Dev</cite>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2 id="pricing">Pricing</h2>
+      <p>Free forever for personal projects. Paid plans for teams.</p>
+      <caption>Data table</caption>
+  
+        <thead>
+          <tr><th>Plan</th><th>Price</th><th>Sites</th><th>Support</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hobby</td><td>$0</td><td>1</td><td>Community</td></tr>
+          <tr><td>Pro</td><td>$9/mo</td><td>10</td><td>Email</td></tr>
+          <tr><td>Team</td><td>$49/mo</td><td>Unlimited</td><td>Priority + Slack</td></tr>
+        </tbody>
+      </table>
+      <p><button type="submit">START FREE TRIAL</button></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 PixelForge · <a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="../showcase/index.html">← back to showcase</a></p>
+  </footer>
+</body>
+</html>

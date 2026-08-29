@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olde Books — Library Catalog</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 6: Pergamino / vintage brown -->
+  <style>
+    :root {
+      --crt-bg: #efe2c2;
+      --crt-surface: #e3d4ad;
+      --crt-surface-2: #d8c79a;
+      --crt-border: #6b4a2a;
+      --crt-border-light: #a08560;
+      --crt-border-dark: #3d2810;
+      --crt-text: #2d1f12;
+      --crt-text-muted: #5d4530;
+      --crt-accent: #6b3410;
+      --crt-accent-dim: #4a2308;
+      --crt-accent-alt: #a06020;
+      --crt-danger: #8b1a1a;
+      --crt-success: #4a6b1a;
+      --crt-font: 'Bookman Old Style', 'Iowan Old Style', 'Georgia', serif;
+      --crt-heading-font: 'Bookman Old Style', 'Trajan Pro', 'Georgia', serif;
+      --crt-font-size: 14px;
+      --crt-border-width: 2px;
+      --crt-scanlines: 0;
+      --crt-texture: 2;
+      --crt-texture-color: rgba(80, 50, 20, 0.18);
+      --crt-max-width: 1400px;
+    }
+
+    .library-shell {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: var(--crt-space-lg);
+      margin: var(--crt-space-md) 0;
+    }
+    .filters {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-md);
+      background: var(--crt-surface);
+      align-self: start;
+      position: sticky;
+      top: var(--crt-space-md);
+    }
+    .filters h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      margin-top: var(--crt-space-md);
+      margin-bottom: var(--crt-space-xs);
+      color: var(--crt-accent);
+      border-bottom: 1px solid var(--crt-border);
+      padding-bottom: 2px;
+    }
+    .filters h3:first-child { margin-top: 0; }
+    .filters ul { list-style: none; padding: 0; }
+    .filters li { margin: 2px 0; font-size: 0.9rem; }
+    .filters li a { border-bottom: none; color: var(--crt-text); }
+    .filters li a:hover { color: var(--crt-accent); }
+    .filters .count { color: var(--crt-text-muted); font-size: 0.8em; }
+    .filters input[type="search"] { margin: 0 0 var(--crt-space-sm); }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--crt-space-sm) var(--crt-space-md);
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-surface);
+      margin-bottom: var(--crt-space-md);
+    }
+    .toolbar .results { font-size: 0.9rem; color: var(--crt-text-muted); }
+    .toolbar .sort { display: flex; gap: var(--crt-space-sm); align-items: center; }
+    .toolbar .sort select { width: auto; display: inline-block; margin: 0; padding: 2px 24px 2px 6px; font-size: 0.85rem; }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--crt-space-md);
+    }
+    .book {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-sm);
+      background: var(--crt-bg);
+      text-align: center;
+      transition: transform 0.1s, box-shadow 0.1s;
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 3px 0 var(--crt-border-dark);
+    }
+    .book:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--crt-border);
+    }
+    /* CSS-only "spine" art */
+    .book .spine {
+      width: 60px;
+      height: 120px;
+      margin: 0 auto var(--crt-space-sm);
+      border: 2px solid var(--crt-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-family: var(--crt-heading-font);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 6px 0;
+    }
+    .book .spine.dark { background: var(--crt-accent); color: var(--crt-bg); border-color: var(--crt-accent-dim); }
+    .book .spine.brown { background: #8b4513; color: #f4e9d0; }
+    .book .spine.burgundy { background: #6b1f1f; color: #f4e9d0; }
+    .book .spine.forest { background: #2d4a2d; color: #f4e9d0; }
+    .book .spine.navy { background: #1f2d5b; color: #f4e9d0; }
+    .book .spine.tan { background: #b08960; color: #2d1f12; }
+
+    .book .title {
+      font-family: var(--crt-heading-font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: var(--crt-space-xs) 0 2px;
+      min-height: 2.5em;
+    }
+    .book .author {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--crt-text-muted);
+      margin-bottom: var(--crt-space-xs);
+    }
+    .book .meta {
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px dashed var(--crt-border);
+      padding-top: 4px;
+      margin-top: var(--crt-space-xs);
+    }
+    .book .meta .status.avail { color: var(--crt-success); }
+    .book .meta .status.out { color: var(--crt-danger); }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: var(--crt-space-xs);
+      margin: var(--crt-space-xl) 0;
+    }
+    .pagination a, .pagination span {
+      padding: 4px 10px;
+      border: 1px solid var(--crt-border);
+      font-size: 0.85rem;
+    }
+    .pagination a[aria-current="page"] {
+      background: var(--crt-accent);
+      color: var(--crt-bg);
+      border-color: var(--crt-accent-dim);
+    }
+
+    /* ── Responsive (desktop-first: filters go on top as scrollable row) */
+    @media (max-width: 900px) {
+      .library-shell { grid-template-columns: 1fr; }
+      .filters {
+        position: static;
+        max-height: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--crt-space-md);
+      }
+      .filters h3 { grid-column: 1 / -1; }
+      .filters input[type="search"] { grid-column: 1 / -1; }
+      .filters ul { columns: 2; }
+      .book-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .filters { grid-template-columns: 1fr; }
+      .filters ul { columns: 1; }
+      .book-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--crt-space-sm); }
+      .book .spine { width: 40px; height: 90px; font-size: 0.7rem; }
+      .pagination { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body data-texture-preset="vintage">
+  <header>
+    <h1 style="font-style: italic;">◆ OLDE BOOKS ◆</h1>
+    <p style="margin: 0; font-style: italic; color: var(--crt-text-muted);">
+      A digital catalogue of antiquarian volumes · est. 1892
+    </p>
+    <nav>
+      <ul>
+        <li><a href="#" aria-current="page">Catalogue</a></li>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Rare & Collectible</a></li>
+        <li><a href="#">My Loans</a></li>
+        <li><a href="#">Membership</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <span class="results">Showing <strong>1–24</strong> of <strong>3,847</strong> titles</span>
+      <div class="sort">
+        <label for="sort" style="display:inline; margin:0; font-size:0.85rem;">Sort:</label>
+        <select id="sort">
+          <option>Title (A–Z)</option>
+          <option>Title (Z–A)</option>
+          <option>Author</option>
+          <option>Publication year</option>
+          <option>Recently added</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="library-shell">
+      <!-- FILTER SIDEBAR -->
+      <aside class="filters">
+        <h3>SEARCH</h3>
+        <input type="search" placeholder="Title, author, ISBN...">
+
+        <h3>GENRE</h3>
+        <ul>
+          <li><a href="#">Fiction <span class="count">(412)</span></a></li>
+          <li><a href="#" aria-current="page">Mystery <span class="count">(189)</span></a></li>
+          <li><a href="#">Sci-Fi <span class="count">(247)</span></a></li>
+          <li><a href="#">History <span class="count">(298)</span></a></li>
+          <li><a href="#">Biography <span class="count">(165)</span></a></li>
+          <li><a href="#">Poetry <span class="count">(94)</span></a></li>
+          <li><a href="#">Philosophy <span class="count">(132)</span></a></li>
+        </ul>
+
+        <h3>CENTURY</h3>
+        <ul>
+          <li><a href="#">18th century</a></li>
+          <li><a href="#">19th century</a></li>
+          <li><a href="#">20th century</a></li>
+          <li><a href="#">Contemporary</a></li>
+        </ul>
+
+        <h3>CONDITION</h3>
+        <label style="font-size:0.85rem; text-transform:none; letter-spacing:0; display:block; margin-bottom:4px;">
+          <input type="checkbox" checked> Mint
+        </label>
+        <label style="font-size:0.85rem; text-transform:none; letter-spacing:0; display:block; margin-bottom:4px;">
+          <input type="checkbox" checked> Very good
+        </label>
+        <label style="font-size:0.85rem; text-transform:none; letter-spacing:0; display:block; margin-bottom:4px;">
+          <input type="checkbox"> Good
+        </label>
+        <label style="font-size:0.85rem; text-transform:none; letter-spacing:0; display:block;">
+          <input type="checkbox"> Reading copy
+        </label>
+
+        <h3>AVAILABILITY</h3>
+        <label style="font-size:0.85rem; text-transform:none; letter-spacing:0; display:block;">
+          <input type="radio" name="avail" checked> All
+        </label>
+        <label style="font-size:0.85rem; text-transform:none; letter-spacing:0; display:block;">
+          <input type="radio" name="avail"> On shelf only
+        </label>
+      </aside>
+
+      <!-- BOOK GRID -->
+      <section>
+        <div class="book-grid">
+          <article class="book">
+            <div class="spine dark">THE MYSTERIOUS AFFAIR AT STYLES</div>
+            <p class="title">The Mysterious Affair at Styles</p>
+            <p class="author">Agatha Christie</p>
+            <p class="meta"><span>1920</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine burgundy">MURDER ON THE ORIENT EXPRESS</div>
+            <p class="title">Murder on the Orient Express</p>
+            <p class="author">Agatha Christie</p>
+            <p class="meta"><span>1934</span><span class="status out">● Loaned</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine brown">THE ADVENTURES OF SHERLOCK HOLMES</div>
+            <p class="title">The Adventures of Sherlock Holmes</p>
+            <p class="author">A. Conan Doyle</p>
+            <p class="meta"><span>1892</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine forest">THE HOUND OF THE BASKERVILLES</div>
+            <p class="title">The Hound of the Baskervilles</p>
+            <p class="author">A. Conan Doyle</p>
+            <p class="meta"><span>1902</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine navy">THE BIG SLEEP</div>
+            <p class="title">The Big Sleep</p>
+            <p class="author">Raymond Chandler</p>
+            <p class="meta"><span>1939</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine tan">THE MALTESE FALCON</div>
+            <p class="title">The Maltese Falcon</p>
+            <p class="author">Dashiell Hammett</p>
+            <p class="meta"><span>1930</span><span class="status out">● Loaned</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine dark">AND THEN THERE WERE NONE</div>
+            <p class="title">And Then There Were None</p>
+            <p class="author">Agatha Christie</p>
+            <p class="meta"><span>1939</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine burgundy">THE WOMAN IN WHITE</div>
+            <p class="title">The Woman in White</p>
+            <p class="author">Wilkie Collins</p>
+            <p class="meta"><span>1859</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine brown">REBECCA</div>
+            <p class="title">Rebecca</p>
+            <p class="author">Daphne du Maurier</p>
+            <p class="meta"><span>1938</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine forest">GONE GIRL</div>
+            <p class="title">Gone Girl</p>
+            <p class="author">Gillian Flynn</p>
+            <p class="meta"><span>2012</span><span class="status out">● Loaned</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine navy">THE SILENCE OF THE LAMBS</div>
+            <p class="title">The Silence of the Lambs</p>
+            <p class="author">Thomas Harris</p>
+            <p class="meta"><span>1988</span><span class="status avail">● Available</span></p>
+          </article>
+
+          <article class="book">
+            <div class="spine tan">THE DA VINCI CODE</div>
+            <p class="title">The Da Vinci Code</p>
+            <p class="author">Dan Brown</p>
+            <p class="meta"><span>2003</span><span class="status avail">● Available</span></p>
+          </article>
+        </div>
+
+        <nav class="pagination" aria-label="Pagination">
+          <a href="#">← Prev</a>
+          <a href="#" aria-current="page">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <span>…</span>
+          <a href="#">161</a>
+          <a href="#">Next →</a>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 1892–2026 Olde Books · <a href="../showcase/index.html">← back to showcase</a></p>
+  </footer>
+</body>
+</html>

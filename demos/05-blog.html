@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The History of Retro Computing · PixelForge Blog</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 5: Sepia lectura — paper / book vibes -->
+  <style>
+    :root {
+      --crt-bg: #f4ecd8;
+      --crt-surface: #ebe0c5;
+      --crt-surface-2: #e0d2ad;
+      --crt-border: #8b7355;
+      --crt-border-light: #b8a382;
+      --crt-border-dark: #5a4a35;
+      --crt-text: #3a2f20;
+      --crt-text-muted: #6b5a40;
+      --crt-accent: #8b4513;
+      --crt-accent-dim: #5d2f0c;
+      --crt-accent-alt: #b8860b;
+      --crt-danger: #8b0000;
+      --crt-success: #556b2f;
+      --crt-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --crt-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --crt-font-size: 16px;
+      --crt-line-height: 1.75;
+      --crt-border-width: 1px;
+      --crt-radius: 0px;
+      --crt-scanlines: 0;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(120, 70, 30, 0.15);
+      --crt-max-width: 1200px;
+    }
+    .article-shell {
+      display: grid;
+      grid-template-columns: 220px 1fr 240px;
+      gap: var(--crt-space-xl);
+      margin: var(--crt-space-lg) 0;
+    }
+    .toc {
+      border-right: 1px solid var(--crt-border);
+      padding-right: var(--crt-space-md);
+      font-size: 0.85rem;
+      position: sticky;
+      top: var(--crt-space-md);
+      align-self: start;
+    }
+    .toc h3 {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--crt-text-muted);
+      margin-top: 0;
+    }
+    .toc ol { padding-left: var(--crt-space-md); }
+    .toc li { margin-bottom: 4px; }
+    .toc a { border-bottom: none; }
+    .toc a:hover { color: var(--crt-accent-alt); }
+
+    article.body {
+      font-size: 1rem;
+      max-width: 700px;
+    }
+    article.body h2 {
+      margin-top: var(--crt-space-xl);
+      font-size: 1.4rem;
+      border-bottom: 1px solid var(--crt-border);
+      padding-bottom: 4px;
+    }
+    article.body h3 {
+      margin-top: var(--crt-space-lg);
+      font-size: 1.15rem;
+      color: var(--crt-accent);
+    }
+    article.body p {
+      margin-bottom: var(--crt-space-md);
+    }
+    article.body figure {
+      margin: var(--crt-space-lg) 0;
+      padding: var(--crt-space-md);
+      background: var(--crt-surface);
+      border: 1px solid var(--crt-border);
+    }
+    article.body figcaption {
+      text-align: left;
+      font-style: italic;
+      margin-top: var(--crt-space-sm);
+    }
+    article.body blockquote {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--crt-text);
+      border-left-width: 2px;
+      padding: var(--crt-space-md) var(--crt-space-lg);
+    }
+
+    aside.related {
+      font-size: 0.85rem;
+      position: sticky;
+      top: var(--crt-space-md);
+      align-self: start;
+    }
+    aside.related h3 {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--crt-text-muted);
+      margin-top: 0;
+    }
+    .related-post {
+      padding: var(--crt-space-sm) 0;
+      border-bottom: 1px dashed var(--crt-border);
+    }
+    .related-post:last-child { border-bottom: none; }
+    .related-post time {
+      display: block;
+      color: var(--crt-text-muted);
+      font-size: 0.75rem;
+    }
+
+    .comments {
+      margin-top: var(--crt-space-xl);
+      padding-top: var(--crt-space-lg);
+      border-top: 1px solid var(--crt-border);
+    }
+    .comment {
+      padding: var(--crt-space-md) 0;
+      border-bottom: 1px solid var(--crt-border);
+    }
+    .comment .author {
+      font-weight: 700;
+      color: var(--crt-accent);
+    }
+    .comment time {
+      font-size: 0.8rem;
+      color: var(--crt-text-muted);
+      margin-left: var(--crt-space-sm);
+    }
+    .comment .body {
+      margin-top: 4px;
+      font-size: 0.95rem;
+    }
+    .comment.reply {
+      margin-left: var(--crt-space-lg);
+      border-left: 2px solid var(--crt-border);
+      padding-left: var(--crt-space-md);
+    }
+
+    /* ── Responsive (desktop-first: 3-col collapses but keeps reading width) */
+    @media (max-width: 1000px) {
+      .article-shell { grid-template-columns: 1fr; }
+      .toc {
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--crt-border);
+        padding: var(--crt-space-md);
+      }
+      .toc ol { columns: 2; }
+      aside.related { position: static; }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .toc ol { columns: 1; }
+      .article-body h1 { font-size: 1.6rem; }
+      .article-body { font-size: 0.95rem; }
+      .comment.reply { margin-left: var(--crt-space-md); }
+      .see-also ul { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="font-style: italic;">PIXELFORGE JOURNAL</h1>
+    <nav>
+      <ul>
+        <li><a href="01-landing.html">Home</a></li>
+        <li><a href="#" aria-current="page">Articles</a></li>
+        <li><a href="#">Newsletter</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="article-shell">
+      <!-- TABLE OF CONTENTS -->
+      <aside class="toc" data-texture="dots">
+        <h3>CONTENTS</h3>
+        <ol>
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#origins">Origins (1960s–70s)</a></li>
+          <li><a href="#boom">The Home Boom (80s)</a></li>
+          <li><a href="#decline">Decline & Revival</a></li>
+          <li><a href="#today">Today</a></li>
+          <li><a href="#refs">References</a></li>
+        </ol>
+      </aside>
+
+      <!-- ARTICLE BODY -->
+      <article class="body" data-texture="paper">
+        <header style="border-bottom: 1px solid var(--crt-border); padding-bottom: var(--crt-space-md); margin-bottom: var(--crt-space-lg);">
+          <p style="color: var(--crt-text-muted); font-size: 0.85rem; margin: 0;">
+            ESSAY · 14 MIN READ · <time datetime="2026-08-15">AUGUST 15, 2026</time>
+          </p>
+          <h1 style="font-size: 2rem; line-height: 1.2; margin: var(--crt-space-sm) 0; border: none; padding: 0;">
+            The History of Retro Computing: From Mainframes to Pixel Art
+          </h1>
+          <p style="font-size: 1.05rem; color: var(--crt-text-muted); margin: 0;">
+            How a generation of engineers, hobbyists, and dreamers built the constraints we still romanticize today.
+          </p>
+          <p style="margin-top: var(--crt-space-md); font-size: 0.85rem;">
+            By <strong>Marisol Vega</strong> · <a href="#">Follow</a>
+          </p>
+        </header>
+
+        <section id="intro">
+          <h2>Introduction</h2>
+          <p>
+            There is a particular quality to the glow of a CRT monitor — a hum, a flicker, a warmth — that no flat panel has ever quite replicated. It is the quality of <em>presence</em>: the sense that the machine is doing something <em>right here, right now</em>, not streaming a performance from somewhere else. The aesthetic of retro computing draws its power from this presence.
+          </p>
+          <p>
+            This article traces the lineage of that aesthetic — from the room-sized mainframes of the 1960s to the pixel-art CSS frameworks of today. We will not romanticize; we will <em>contextualize</em>. Every constraint that produced the retro look was, at the time, a <em>limitation</em>.
+          </p>
+        </section>
+
+        <section id="origins">
+          <h2>Origins (1960s–70s)</h2>
+          <p>
+            The earliest computer displays were oscilloscopes repurposed to draw characters. The <strong>TX-0</strong> at MIT (1956) and the <strong>PDP-1</strong> (1960) used vector displays — the electron beam drew lines directly, producing the iconic game <em>Spacewar!</em> in 1962.
+          </p>
+          <blockquote>
+            <p>"The machine had no graphics. We had to <em>imagine</em> the screen into existence. Every pixel was a decision."</p>
+            <cite>— Stephen Russell, creator of Spacewar!</cite>
+          </blockquote>
+
+          <figure>
+            <pre style="text-align: center; background: #2a1f10; color: #ffb000; font-size: 0.7rem; line-height: 1; padding: var(--crt-space-md);">
+    ▄▄▄████▄▄▄
+    ██░░░░░░██
+    ██░░▄▄░░██
+    ██░░██░░██
+    ▀▀▀▀▀▀▀▀▀▀
+   SPACEWAR! 1962
+            </pre>
+            <figcaption>Fig. 1 — ASCII rendering of the original Spacewar! title screen.</figcaption>
+          </figure>
+
+          <p>
+            Character-based terminals followed: the <strong>ADM-3A</strong> (1976) popularized the 80×24 grid we still associate with green-screen terminals. Its keyboard layout — including the <code>HOME</code>, <code>ESC</code>, and arrow keys — became the <em>de facto</em> standard.
+          </p>
+        </section>
+
+        <section id="boom">
+          <h2>The Home Boom (1980s)</h2>
+          <p>
+            The 1980s saw the migration of pixel art from research labs to living rooms. Three machines defined the era:
+          </p>
+          <h3>The Apple II (1977)</h3>
+          <p>
+            The Apple II brought color graphics (limited to 6 colors via NTSC artifacting) into homes. Games like <em>Castle Wolfenstein</em> (1981) and <em>Prize Mansion</em> (1982) showed what could be done with creative palette abuse.
+          </p>
+
+          <h3>The Commodore 64 (1982)</h3>
+          <p>
+            The C64's <strong>VIC-II</strong> chip powered 16 colors, hardware sprites, and a SID audio chip that defined an entire generation of chiptune music. Its <em>sprite multiplexing</em> technique allowed more than 8 sprites on screen — a hack that became an art form.
+          </p>
+
+          <h3>The Nintendo Entertainment System (1985)</h3>
+          <p>
+            The NES 2A03 chip enforced <em>tile-based rendering</em>: 8×8 pixel tiles composed larger backgrounds. This constraint produced the chunky, readable aesthetic of games like <em>Super Mario Bros.</em> and <em>The Legend of Zelda</em>.
+          </p>
+
+          <p>
+            NES.css, Pico.css, and other modern frameworks inherit this aesthetic consciously — but the constraints of the original hardware were not <em>chosen</em>. They were <em>dictated</em> by 6502 assembly code budgets and 2KB of working RAM.
+          </p>
+        </section>
+
+        <section id="decline">
+          <h2>Decline & Revival</h2>
+          <p>
+            By the mid-1990s, 3D acceleration (3dfx Voodoo, 1996) and CD-ROM storage killed the pixel-art mainstream. The aesthetic became a <em>meme</em> — ironic, nostalgic, kitsch.
+          </p>
+          <p>
+            Then, around 2010, three things happened:
+          </p>
+          <ol>
+            <li><strong>Indie games</strong> like <em>Shovel Knight</em> and <em>Stardew Valley</em> revived pixel art as a <em>deliberate</em> choice.</li>
+            <li><strong>CSS art communities</strong> on CodePen and Reddit rediscovered the aesthetic as a constraint exercise.</li>
+            <li><strong>Frameworks like NES.css</strong> (2018) packaged the look into reusable design systems.</li>
+          </ol>
+        </section>
+
+        <section id="today">
+          <h2>Today: The Classless Revival</h2>
+          <p>
+            PixelForge is part of a third wave: <em>classless</em> retro frameworks. Where NES.css requires explicit classes (<code>&lt;button class="nes-btn is-primary"&gt;</code>), classless frameworks like Pico, Water, and PixelForge apply styles based on semantic HTML tags alone.
+          </p>
+          <p>
+            This shift mirrors a deeper change in web architecture: the move from <em>imperative class application</em> to <em>declarative semantic markup</em>. The HTML5 spec's push toward meaningful tags (<code>article</code>, <code>aside</code>, <code>nav</code>) gave classless frameworks something to work with that didn't exist in the HTML 4 era.
+          </p>
+          <blockquote>
+            <p>"A button doesn't need a class to be a button. It needs to <em>be</em> a button."</p>
+          </blockquote>
+        </section>
+
+        <section id="refs">
+          <h2>References</h2>
+          <ol>
+            <li>Russell, S. (2001). <em>Programming the PDP-1</em>. Computer History Museum.</li>
+            <li>Mortensen, T. (2018). <em>NES.css: 8-bit CSS framework</em>. GitHub.</li>
+            <li>Lacina, F. (2020). <em>The Sprite Multiplexing Trick</em>. Retro Gamer Magazine #212.</li>
+            <li>Holwerda, T. (2012). <em>The Pixel Art Renaissance</em>. OSNews.</li>
+          </ol>
+        </section>
+
+        <!-- AUTHOR + COMMENTS -->
+        <section class="comments">
+          <h2>Comments (12)</h2>
+
+          <div class="comment">
+            <span class="author">retro_owl</span> <time>2026-08-16 09:14</time>
+            <p class="body">Great write-up. I'd add that the VIC-II's <em>color bleeding</em> (NTSC artifacts) gave the C64 a unique "warm" look that pure RGB emulators lose.</p>
+          </div>
+
+          <div class="comment">
+            <span class="author">pixel_farmer</span> <time>2026-08-16 14:22</time>
+            <p class="body">Counter-point: not all constraints were aesthetic. The 8×8 tile grid was <em>speed</em>, not <em>style</em>. Saying otherwise is survivorship bias.</p>
+          </div>
+
+          <div class="comment reply">
+            <span class="author">msolV</span> <time>2026-08-16 15:01</time>
+            <p class="body">@pixel_farmer — fair, I allude to this in §2 ("were not chosen — they were dictated"). The piece argues the aesthetic is <em>derivative</em>, not <em>intentional</em>.</p>
+          </div>
+
+          <div class="comment">
+            <span class="author">dfloer</span> <time>2026-08-17 02:48</time>
+            <p class="body">Would love a follow-up on the demoscene. The Amiga's HAM mode produced 4096-color images in 1989 — that constraint <em>was</em> an art form.</p>
+          </div>
+
+          <h3 style="margin-top: var(--crt-space-lg);">Leave a comment</h3>
+          <form>
+            <label for="c-name">Name</label>
+            <input type="text" id="c-name" placeholder="your handle">
+            <label for="c-body">Comment</label>
+            <textarea id="c-body" rows="5" placeholder="Markdown is not supported..."></textarea>
+            <label><input type="checkbox"> Notify me of replies by email</label>
+            <button type="submit">POST COMMENT</button>
+          </form>
+        </section>
+      </article>
+
+      <!-- RELATED POSTS -->
+      <aside class="related">
+        <h3>RELATED</h3>
+        <div class="related-post">
+          <a href="#">Why Classless Frameworks Win</a>
+          <time>Aug 22, 2026</time>
+        </div>
+        <div class="related-post">
+          <a href="#">CSS Variables: A Deep Dive</a>
+          <time>Aug 8, 2026</time>
+        </div>
+        <div class="related-post">
+          <a href="#">The 6KB Framework Myth</a>
+          <time>Jul 30, 2026</time>
+        </div>
+        <div class="related-post">
+          <a href="#">Chiptune in the Browser</a>
+          <time>Jul 12, 2026</time>
+        </div>
+
+        <h3 style="margin-top: var(--crt-space-xl);">NEWSLETTER</h3>
+        <p style="font-size: 0.85rem;">One essay per month. No spam.</p>
+        <form>
+          <input type="email" placeholder="your@email.com">
+          <button type="submit">SUBSCRIBE</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 PixelForge Journal · <a href="../showcase/index.html">← back to showcase</a></p>
+  </footer>
+</body>
+</html>

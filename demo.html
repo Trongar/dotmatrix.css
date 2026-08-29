@@ -5,251 +5,311 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>crt.css — Demo</title>
   <link rel="stylesheet" href="crt.css">
+  <style>
+    :root {
+      --crt-bg: #f4ecd8;
+      --crt-surface: #ebe0c5;
+      --crt-surface-2: #e0d2ad;
+      --crt-border: #8b7355;
+      --crt-border-light: #b8a382;
+      --crt-border-dark: #5a4a35;
+      --crt-text: #2d1f12;
+      --crt-text-muted: #6b5a40;
+      --crt-accent: #6b3410;
+      --crt-accent-dim: #4a2308;
+      --crt-accent-alt: #a06020;
+      --crt-danger: #8b0000;
+      --crt-success: #4a6b1a;
+      --crt-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --crt-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --crt-font-size: 15px;
+      --crt-line-height: 1.7;
+      --crt-border-width: 2px;
+      --crt-radius: 0px;
+      --crt-scanlines: 0;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(120, 70, 30, 0.18);
+      --crt-max-width: 1200px;
+    }
+    .texture-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--crt-space-md);
+      margin: var(--crt-space-md) 0;
+    }
+    .texture-card {
+      padding: var(--crt-space-md);
+      border: var(--crt-border-width) solid var(--crt-border);
+      box-shadow: inset 0 1px 0 var(--crt-border-light);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .texture-card strong { color: var(--crt-accent); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
+    .texture-card code { font-family: var(--crt-font); font-size: 0.8rem; }
+
+    .intro-block {
+      padding: var(--crt-space-xl);
+      border: var(--crt-border-width) solid var(--crt-border);
+      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 4px 0 var(--crt-border-dark);
+      margin-bottom: var(--crt-space-xl);
+      text-align: center;
+    }
+    .intro-block h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      border: none;
+    }
+    .intro-block p {
+      max-width: 700px;
+      margin: var(--crt-space-md) auto;
+      color: var(--crt-text-muted);
+      font-size: 1.05rem;
+    }
+
+    .two-up {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--crt-space-md);
+    }
+    .panel {
+      padding: var(--crt-space-md);
+      border: var(--crt-border-width) solid var(--crt-border);
+      box-shadow: inset 0 1px 0 var(--crt-border-light);
+    }
+    .panel h3 {
+      margin-top: 0;
+      color: var(--crt-accent);
+    }
+
+    /* ── Responsive (desktop-first: two-up stacks, hero shrinks) */
+    @media (max-width: 900px) {
+      .texture-grid { grid-template-columns: repeat(2, 1fr); }
+      .two-up { grid-template-columns: 1fr; }
+      .intro-block h1 { font-size: 1.8rem; }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .texture-grid { grid-template-columns: 1fr; }
+      .intro-block { padding: var(--crt-space-lg) var(--crt-space-sm); }
+      .intro-block h1 { font-size: 1.4rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
 </head>
-<body>
-  <header>
+<body data-texture-preset="sepia">
+
+  <div class="intro-block" data-texture="paper">
     <h1>⚡ CRT.CSS DEMO</h1>
-    <p>Semantic HTML. Zero classes. Retro pixel interface.</p>
-    <nav>
-      <ul>
-        <li><a href="#typography">Typography</a></li>
-        <li><a href="#forms">Forms</a></li>
-        <li><a href="#tables">Tables</a></li>
-        <li><a href="#components">Components</a></li>
-      </ul>
-    </nav>
-  </header>
+    <p>Semantic HTML. Zero classes. Retro pixel interface with rich textures.</p>
+    <p><small>v0.1.0 · ~7KB · 8 textures · 0 JavaScript</small></p>
+  </div>
 
   <main>
-    <section id="typography">
+    <section>
+      <h2>Textures — opt-in via [data-texture]</h2>
+      <p>Eight patterns baked into the framework. Apply any of them to any element with a single attribute. No new classes, no extra CSS.</p>
+
+      <div class="texture-grid">
+        <div class="texture-card" data-texture="paper" style="background-color: var(--crt-bg);">
+          <div>
+            <strong>paper</strong><br>
+            <small>newsprint grain</small>
+          </div>
+          <code>data-texture="paper"</code>
+        </div>
+
+        <div class="texture-card" data-texture="dots" style="background-color: var(--crt-bg);">
+          <div>
+            <strong>dots</strong><br>
+            <small>graph paper</small>
+          </div>
+          <code>data-texture="dots"</code>
+        </div>
+
+        <div class="texture-card" data-texture="stripes" style="background-color: var(--crt-bg);">
+          <div>
+            <strong>stripes</strong><br>
+            <small>45° hatched</small>
+          </div>
+          <code>data-texture="stripes"</code>
+        </div>
+
+        <div class="texture-card" data-texture="hatch" style="background-color: var(--crt-bg);">
+          <div>
+            <strong>hatch</strong><br>
+            <small>cross-weave</small>
+          </div>
+          <code>data-texture="hatch"</code>
+        </div>
+
+        <div class="texture-card" data-texture="halftone" style="background-color: var(--crt-bg);">
+          <div>
+            <strong>halftone</strong><br>
+            <small>newsprint photo</small>
+          </div>
+          <code>data-texture="halftone"</code>
+        </div>
+
+        <div class="texture-card" data-texture="noise" style="background-color: var(--crt-bg);">
+          <div>
+            <strong>noise</strong><br>
+            <small>xerox / photocopy</small>
+          </div>
+          <code>data-texture="noise"</code>
+        </div>
+
+        <div class="texture-card" data-texture="carbon" style="background-color: var(--crt-bg);">
+          <div>
+            <strong>carbon</strong><br>
+            <small>gradient + grain</small>
+          </div>
+          <code>data-texture="carbon"</code>
+        </div>
+
+        <div class="texture-card" data-texture="phosphor" data-texture-preset="phosphor" style="background-color: #0a1a14;">
+          <div style="color: #00ff41;">
+            <strong>phosphor</strong><br>
+            <small>CRT RGB dots</small>
+          </div>
+          <code style="color: #00ff41;">data-texture="phosphor"</code>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bevel — pressed/raised 3D look</h2>
+      <p>Use <code>data-bevel="in"</code> for sunken (input fields) or <code>data-bevel="out"</code> for raised (buttons, panels). Works alongside borders and textures.</p>
+
+      <div class="two-up">
+        <div class="panel" data-bevel="out">
+          <h3>Raised panel</h3>
+          <p>data-bevel="out" — looks like it's sticking out toward you. Great for cards and callouts.</p>
+          <button type="submit">ACTION</button>
+        </div>
+
+        <div class="panel" data-bevel="in">
+          <h3>Sunken panel</h3>
+          <p>data-bevel="in" — looks pressed in. Perfect for input areas, terminal windows, wells.</p>
+          <pre style="background: var(--crt-bg); margin: 0;">&gt; system.status
+[OK] all services running</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <h2>Typography</h2>
-      
-      <h3>Headings</h3>
-      <p>Regular paragraph text with <strong>bold</strong>, <em>italic</em>, and <mark>highlighted</mark> content. Links look like <a href="#">this example</a>.</p>
-      
-      <h4>Smaller Heading</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      
-      <blockquote>
-        <p>"The best interface is no interface."</p>
-        <p>— Golden Krishna</p>
-      </blockquote>
-      
-      <p>Code snippets render as <code>inline-code</code> and blocks look like this:</p>
-      
-      <pre><code>// Boot sequence
+      <div class="two-up">
+        <article data-texture="paper" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+          <h3>Headings</h3>
+          <p>Regular paragraph with <strong>bold</strong>, <em>italic</em>, and <mark>highlight</mark>. Links look <a href="#">like this</a>.</p>
+          <blockquote>
+            <p>"The best interface is no interface."</p>
+            <p>— Golden Krishna</p>
+          </blockquote>
+        </article>
+
+        <article data-texture="dots" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+          <h3>Code</h3>
+          <p>Inline <code>var(--crt-accent)</code> renders with the accent color.</p>
+          <pre><code>// Boot sequence
 function init() {
   console.log('[OK] System ready');
   console.log('[OK] CRT.CSS loaded');
 }</code></pre>
+        </article>
+      </div>
     </section>
 
-    <section id="lists">
-      <h2>Lists</h2>
-      
-      <h3>Unordered</h3>
-      <ul>
-        <li>Write semantic HTML</li>
-        <li>Link crt.css</li>
-        <li>Get retro UI for free</li>
-      </ul>
-      
-      <h3>Ordered</h3>
-      <ol>
-        <li>First step</li>
-        <li>Second step</li>
-        <li>Profit</li>
-      </ol>
-      
-      <h3>Definition</h3>
-      <dl>
-        <dt>Classless</dt>
-        <dd>No utility classes needed</dd>
-        
-        <dt>Semantic</dt>
-        <dd>Uses HTML tags as intended</dd>
-      </dl>
+    <section>
+      <h2>Forms — semantic, accessible</h2>
+      <article data-texture="carbon" style="padding: var(--crt-space-lg); border: var(--crt-border-width) solid var(--crt-border);">
+        <form>
+          <fieldset>
+            <legend>Contact Info</legend>
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="John Connor" data-bevel="in">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="john@skynet.net" data-bevel="in">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="••••••••" data-bevel="in">
+          </fieldset>
+
+          <fieldset>
+            <legend>Preferences</legend>
+            <label><input type="checkbox" checked> Enable scanlines</label>
+            <label><input type="checkbox" checked> Light mode (default)</label>
+            <label><input type="radio" name="theme" checked> Green on cream</label>
+            <label><input type="radio" name="theme"> Dark terminal</label>
+            <label for="volume">Volume</label>
+            <input type="range" id="volume" min="0" max="100" value="70">
+          </fieldset>
+
+          <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
+        </form>
+      </article>
     </section>
 
-    <section id="forms">
-      <h2>Forms</h2>
-      
-      <form>
-        <fieldset>
-          <legend>Contact Info</legend>
-          
-          <label for="name">Name</label>
-          <input type="text" id="name" placeholder="John Connor">
-          
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="john@skynet.net">
-          
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="••••••••">
-          
-          <label for="bio">Bio</label>
-          <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
-          
-          <label for="role">Role</label>
-          <select id="role">
-            <option>Developer</option>
-            <option>Designer</option>
-            <option>Hacker</option>
-          </select>
-          
-          <label for="date">Date</label>
-          <input type="date" id="date">
-        </fieldset>
-        
-        <fieldset>
-          <legend>Preferences</legend>
-          
-          <label>
-            <input type="checkbox"> Enable scanlines
-          </label>
-          
-          <label>
-            <input type="checkbox" checked> Light mode (default)
-          </label>
-          
-          <label>
-            <input type="radio" name="theme" checked> Green on cream
-          </label>
-          <label>
-            <input type="radio" name="theme"> Dark terminal
-          </label>
-          
-          <label for="volume">Volume</label>
-          <input type="range" id="volume" min="0" max="100" value="70">
-          
-          <label for="avatar">Avatar</label>
-          <input type="file" id="avatar" accept="image/*">
-        </fieldset>
-        
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-        <button disabled>Disabled</button>
-      </form>
-    </section>
+    <section>
+      <h2>Components</h2>
 
-    <section id="tables">
-      <h2>Tables</h2>
-      
-      <table>
+      <div class="two-up">
+        <article data-texture="paper" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+          <h3>Details / Accordion</h3>
+          <details open>
+            <summary>What is crt.css?</summary>
+            <p>A classless CSS framework that turns semantic HTML into a retro pixel-art interface.</p>
+          </details>
+          <details>
+            <summary>Why "classless"?</summary>
+            <p>Because <code>class="btn btn-primary"</code> on every button is silly.</p>
+          </details>
+        </article>
+
+        <article data-texture="dots" style="padding: var(--crt-space-md); border: var(--crt-border-width) solid var(--crt-border);">
+          <h3>Progress & Meter</h3>
+          <label>Download progress</label>
+          <progress value="70" max="100">70%</progress>
+          <label>Disk usage</label>
+          <meter value="0.6" min="0" max="1">60%</meter>
+
+          <h3 style="margin-top: var(--crt-space-md);">Status badges</h3>
+          <p>
+            <mark>CONFIRMED</mark>
+            <mark>RUMORED</mark>
+            <mark>EVENT</mark>
+          </p>
+        </article>
+      </div>
+
+      <h3 style="margin-top: var(--crt-space-lg);">Tables — striped, dense</h3>
+      <table data-texture="dots" style="background: var(--crt-bg);">
+        <caption>CSS framework comparison</caption>
         <thead>
           <tr>
             <th>Framework</th>
             <th>Style</th>
             <th>Classless</th>
             <th>Size</th>
+            <th>Textures</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>crt.css</strong></td>
-            <td>Pixel/8-bit</td>
-            <td>Yes</td>
-            <td>6KB</td>
-          </tr>
-          <tr>
-            <td>NES.css</td>
-            <td>8-bit</td>
-            <td>No</td>
-            <td>23KB</td>
-          </tr>
-          <tr>
-            <td>Pico CSS</td>
-            <td>Modern</td>
-            <td>Yes</td>
-            <td>10KB</td>
-          </tr>
-          <tr>
-            <td>Water.css</td>
-            <td>Minimal</td>
-            <td>Yes</td>
-            <td>2KB</td>
-          </tr>
+          <tr><td><strong>crt.css</strong></td><td>Pixel/8-bit</td><td>Yes</td><td>7KB</td><td>8</td></tr>
+          <tr><td>NES.css</td><td>8-bit</td><td>No</td><td>23KB</td><td>0</td></tr>
+          <tr><td>Pico CSS</td><td>Modern</td><td>Yes</td><td>10KB</td><td>0</td></tr>
+          <tr><td>Water.css</td><td>Minimal</td><td>Yes</td><td>2KB</td><td>0</td></tr>
         </tbody>
       </table>
-    </section>
-
-    <section id="components">
-      <h2>Components</h2>
-      
-      <h3>Details / Accordion</h3>
-      <details>
-        <summary>What is crt.css?</summary>
-        <p>A classless CSS framework that turns semantic HTML into a retro pixel-art interface. Just write normal HTML and link the stylesheet.</p>
-      </details>
-      
-      <details>
-        <summary>Why "classless"?</summary>
-        <p>Because you shouldn't need to add <code>class="btn btn-primary"</code> to every button. Your HTML tags already have meaning — let them style themselves.</p>
-      </details>
-      
-      <details open>
-        <summary>Can I customize it?</summary>
-        <p>Yes! Override CSS variables on <code>:root</code> or use <code>data-theme="dark"</code> for a built-in dark theme.</p>
-      </details>
-      
-      <h3>Progress & Meter</h3>
-      <label>Download progress</label>
-      <progress value="70" max="100">70%</progress>
-      
-      <label>Disk usage</label>
-      <meter value="0.6" min="0" max="1">60%</meter>
-      
-      <h3>Dialog</h3>
-      <p>
-        <button onclick="document.querySelector('dialog').showModal()">Open Dialog</button>
-      </p>
-      
-      <dialog>
-        <h3>⚠ System Alert</h3>
-        <p>This is a modal dialog. Press ESC or click the button to close.</p>
-        <button onclick="this.closest('dialog').close()">Close</button>
-      </dialog>
-      
-      <h3>Images</h3>
-      <figure>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%2300ff41' width='200' height='100'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23000' font-family='monospace' font-size='20'%3EPIXEL ART%3C/text%3E%3C/svg%3E" alt="Pixel art placeholder">
-        <figcaption>Images render with pixelated edges</figcaption>
-      </figure>
-      
-      <h3>Horizontal Rule</h3>
-      <hr>
-      
-      <h3>Status Badges</h3>
-      <p>
-        <mark>CONFIRMED</mark>
-        <mark>RUMORED</mark>
-        <mark>EVENT</mark>
-      </p>
-    </section>
-
-    <section>
-      <h2>Nested Sections</h2>
-      
-      <article>
-        <header>
-          <h3>Article Title</h3>
-          <p><small>Posted on <time datetime="2026-08-28">Aug 28, 2026</time></small></p>
-        </header>
-        <p>Articles get bordered cards automatically. Headers are separated from content.</p>
-        <p>This is perfect for blog posts, changelogs, or activity feeds.</p>
-      </article>
-      
-      <article>
-        <header>
-          <h3>Another Article</h3>
-        </header>
-        <p>Multiple articles stack naturally. No classes needed for layout.</p>
-      </article>
     </section>
   </main>
 
   <footer>
-    <p>crt.css — classless pixel-art CSS framework</p>
+    <p>crt.css — classless pixel-art CSS framework with textures.</p>
     <p>Written in semantic HTML. Styled by the browser. No JavaScript required.</p>
   </footer>
 </body>

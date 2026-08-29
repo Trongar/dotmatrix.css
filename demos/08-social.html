@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEONet — IRC / BBS Network</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 8: Magenta synthwave / vaporwave -->
+  <style>
+    :root {
+      --crt-bg: #1a0a2e;
+      --crt-surface: #2a1245;
+      --crt-surface-2: #3a1a55;
+      --crt-border: #4a2070;
+      --crt-border-light: #6a4090;
+      --crt-border-dark: #0a0420;
+      --crt-text: #f0e6ff;
+      --crt-text-muted: #9080b0;
+      --crt-accent: #ff00aa;
+      --crt-accent-dim: #aa0077;
+      --crt-accent-alt: #00f0ff;
+      --crt-danger: #ff3060;
+      --crt-success: #00ff88;
+      --crt-font-size: 13px;
+      --crt-border-width: 2px;
+      --crt-scanlines: 2;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(255, 0, 170, 0.06);
+      --crt-max-width: 1500px;
+      color-scheme: dark;
+    }
+
+    /* Top status bar — like an old BBS */
+    .bbs-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px var(--crt-space-md);
+      background: var(--crt-accent-dim);
+      color: var(--crt-bg);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      border: var(--crt-border-width) solid var(--crt-border);
+      border-left: none;
+      border-right: none;
+    }
+    .bbs-bar .blink { animation: crt-blink 0.8s step-end infinite; }
+
+    /* IRC-style 3-column layout */
+    .irc-shell {
+      display: grid;
+      grid-template-columns: 200px 1fr 280px;
+      gap: 0;
+      margin: var(--crt-space-md) 0;
+      border: var(--crt-border-width) solid var(--crt-border);
+      min-height: 600px;
+    }
+    .channel-list {
+      background: var(--crt-surface);
+      border-right: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-sm);
+      font-size: 0.85rem;
+    }
+    .channel-list h3 {
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      letter-spacing: 0.15em;
+      margin: var(--crt-space-md) 0 var(--crt-space-xs);
+      text-transform: uppercase;
+    }
+    .channel-list h3:first-child { margin-top: 0; }
+    .channel-list ul { list-style: none; padding: 0; margin: 0; }
+    .channel-list li {
+      padding: 2px 6px;
+      color: var(--crt-text-muted);
+      cursor: pointer;
+    }
+    .channel-list li:hover { background: var(--crt-bg); color: var(--crt-accent); }
+    .channel-list li.active { background: var(--crt-accent); color: var(--crt-bg); font-weight: 700; }
+    .channel-list li .count { float: right; font-size: 0.75rem; }
+
+    .chat-pane {
+      display: flex;
+      flex-direction: column;
+      background: var(--crt-bg);
+    }
+    .chat-header {
+      padding: var(--crt-space-sm) var(--crt-space-md);
+      border-bottom: var(--crt-border-width) solid var(--crt-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-header h2 {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--crt-accent-alt);
+    }
+    .chat-header .topic {
+      font-size: 0.8rem;
+      color: var(--crt-text-muted);
+      font-style: italic;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: var(--crt-space-sm) var(--crt-space-md);
+      overflow-y: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .msg { margin-bottom: 4px; }
+    .msg time { color: var(--crt-text-muted); font-size: 0.75rem; margin-right: var(--crt-space-xs); }
+    .msg .nick { font-weight: 700; }
+    .msg .nick.op { color: var(--crt-success); }
+    .msg .nick.voice { color: var(--crt-accent-alt); }
+    .msg .nick.user { color: var(--crt-accent); }
+    .msg.system { color: var(--crt-text-muted); font-style: italic; padding-left: var(--crt-space-md); }
+    .msg .highlight { background: var(--crt-accent-dim); color: var(--crt-bg); padding: 0 4px; }
+
+    .chat-input {
+      display: flex;
+      padding: var(--crt-space-sm);
+      border-top: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-surface);
+      gap: var(--crt-space-xs);
+    }
+    .chat-input input {
+      flex: 1;
+      margin: 0;
+      font-family: var(--crt-font);
+    }
+    .chat-input button { margin: 0; }
+
+    /* Right sidebar — user list / who-is-online */
+    .user-list {
+      background: var(--crt-surface);
+      border-left: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-sm);
+      font-size: 0.85rem;
+    }
+    .user-list h3 {
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      letter-spacing: 0.15em;
+      margin: 0 0 var(--crt-space-xs);
+    }
+    .user-list .user {
+      padding: 2px 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .user-list .user .status {
+      font-size: 0.7rem;
+    }
+    .user-list .user .status.online { color: var(--crt-success); }
+    .user-list .user .status.away { color: var(--crt-accent-alt); }
+    .user-list .user .status.offline { color: var(--crt-text-muted); }
+
+    /* Forum thread section */
+    .thread {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-md);
+      background: var(--crt-surface);
+      margin-bottom: var(--crt-space-md);
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 3px 0 var(--crt-border-dark);
+    }
+    .thread .meta {
+      display: flex;
+      gap: var(--crt-space-md);
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--crt-text-muted);
+      margin-bottom: var(--crt-space-sm);
+    }
+    .thread .avatar {
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--crt-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--crt-bg);
+      background: var(--crt-accent-alt);
+    }
+    .thread h3 { margin: var(--crt-space-sm) 0; font-size: 1.1rem; }
+    .thread .stats {
+      display: flex;
+      gap: var(--crt-space-md);
+      font-size: 0.8rem;
+      color: var(--crt-text-muted);
+      border-top: 1px solid var(--crt-border);
+      padding-top: var(--crt-space-sm);
+      margin-top: var(--crt-space-sm);
+    }
+
+    /* ── Responsive (desktop-first: IRC channels become horizontal tabs, users inline) */
+    @media (max-width: 1100px) {
+      .irc-shell { grid-template-columns: 160px 1fr; }
+      .user-list { display: none; }
+    }
+    @media (max-width: 700px) {
+      body { padding: 0; }
+      .bbs-bar { font-size: 0.65rem; flex-wrap: wrap; }
+      .irc-shell { grid-template-columns: 1fr; min-height: auto; }
+      .channel-list {
+        border-right: none;
+        border-bottom: 1px solid var(--crt-border);
+        max-height: 100px;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+      .channel-list ul {
+        display: flex;
+        gap: 4px;
+        padding: 4px 8px;
+      }
+      .channel-list li { white-space: nowrap; padding: 4px 8px; }
+      .channel-list h3 { display: none; }
+      .chat-messages { font-size: 0.8rem; }
+      header h1 { font-size: 1.2rem; }
+      header nav ul { flex-wrap: wrap; font-size: 0.8rem; }
+      .thread { padding: var(--crt-space-sm); }
+      .thread h3 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top BBS-style bar -->
+  <div class="bbs-bar">
+    <span>◆ NEONet v2.4.1 — ONLINE</span>
+    <span class="blink">● 1,247 USERS CONNECTED</span>
+    <span>UPTIME: 142d 08h 22m · SYSOP: <a href="#" style="color: var(--crt-bg); border-bottom-color: var(--crt-bg);">@neon_witch</a></span>
+  </div>
+
+  <header>
+    <h1>NEONET</h1>
+    <nav>
+      <ul>
+        <li><a href="#" aria-current="page">IRC</a></li>
+        <li><a href="#forums">Forums</a></li>
+        <li><a href="#files">Files</a></li>
+        <li><a href="#doorm">Door Games</a></li>
+        <li><a href="#mail">Mail</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>#retro-computing · 142 users</h2>
+      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+        Topic: discussing the new PixelForge v0.1 framework. Be kind, no bots.
+      </p>
+
+      <div class="irc-shell">
+        <!-- LEFT: Channel list -->
+        <aside class="channel-list">
+          <h3>CHANNELS</h3>
+          <ul>
+            <li class="active">#retro-computing <span class="count">142</span></li>
+            <li>#synthwave <span class="count">87</span></li>
+            <li>#pixel-art <span class="count">203</span></li>
+            <li>#crts-and-monitors <span class="count">64</span></li>
+            <li>#demoscene <span class="count">91</span></li>
+            <li>#8bit-music <span class="count">58</span></li>
+            <li>#vintage-mac <span class="count">29</span></li>
+          </ul>
+          <h3>PRIVATE</h3>
+          <ul>
+            <li>@neon_witch</li>
+            <li>@pixel_farmer</li>
+            <li>@retro_owl</li>
+          </ul>
+        </aside>
+
+        <!-- CENTER: Chat -->
+        <div class="chat-pane" data-texture="phosphor" data-texture-preset="phosphor">
+          <div class="chat-header">
+            <h2># retro-computing</h2>
+            <span class="topic">"CRT gang rise up"</span>
+          </div>
+          <div class="chat-messages">
+            <div class="msg system">[14:21] — @pixel_farmer joined #retro-computing</div>
+            <div class="msg"><time>14:21</time><span class="nick op">@sysop</span> welcome @pixel_farmer</div>
+            <div class="msg"><time>14:22</time><span class="nick user">@retro_owl</span> anyone tried the new <span class="highlight">crt.css</span> framework? it's classless</div>
+            <div class="msg"><time>14:23</time><span class="nick voice">@neon_witch</span> just dropped 0.1.0. 6KB gzipped, semantic html only</div>
+            <div class="msg"><time>14:24</time><span class="nick user">@pixel_farmer</span> nice. does it do the scanline overlay thing?</div>
+            <div class="msg"><time>14:24</time><span class="nick voice">@neon_witch</span> yep, controllable via --crt-scanlines var. 0-2 intensity</div>
+            <div class="msg"><time>14:25</time><span class="nick user">@crash_override</span> my browser doesn't respect font-variant-emoji yet. emoji still colorful in chrome 130</div>
+            <div class="msg"><time>14:25</time><span class="nick voice">@neon_witch</span> try chrome 131+. it's there</div>
+            <div class="msg"><time>14:26</time><span class="nick user">@retro_owl</span> built my BBS in an hour. link in thread 👀</div>
+            <div class="msg"><time>14:27</time><span class="nick user">@mbm</span> <span class="highlight">retroware</span> how does it handle tables tho</div>
+            <div class="msg"><time>14:27</time><span class="nick voice">@neon_witch</span> @mbm works fine, striped rows by default, semantic &lt;table&gt;&lt;thead&gt;&lt;tbody&gt; styling</div>
+            <div class="msg"><time>14:28</time><span class="nick user">@pixel_farmer</span> gonna fork it and add a vim mode theme</div>
+            <div class="msg"><time>14:29</time><span class="nick op">@sysop</span> remember to keep it classless. that's the whole point</div>
+          </div>
+          <form class="chat-input">
+            <input type="text" placeholder="Type a message... (Tab to autocomplete nick)">
+            <button type="submit">SEND</button>
+          </form>
+        </div>
+
+        <!-- RIGHT: User list -->
+        <aside class="user-list">
+          <h3>USERS · 142</h3>
+          <div class="user"><span>@sysop</span><span class="status online">●</span></div>
+          <div class="user"><span>@neon_witch</span><span class="status online">●</span></div>
+          <div class="user"><span>@pixel_farmer</span><span class="status online">●</span></div>
+          <div class="user"><span>@retro_owl</span><span class="status online">●</span></div>
+          <div class="user"><span>@crash_override</span><span class="status online">●</span></div>
+          <div class="user"><span>@mbm</span><span class="status away">●</span></div>
+          <div class="user"><span>@retro_bot</span><span class="status online">●</span></div>
+          <div class="user"><span>@zork</span><span class="status away">●</span></div>
+          <div class="user"><span>@dfloer</span><span class="status offline">○</span></div>
+          <div class="user"><span>@ada_l</span><span class="status offline">○</span></div>
+          <div class="user"><span>@kakihara</span><span class="status offline">○</span></div>
+          <div class="user"><span>+ 132 more</span><span></span></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Forum threads section -->
+    <section id="forums" style="margin-top: var(--crt-space-xl);">
+      <h2>Active threads</h2>
+      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+        Long-form discussions from the forums. Reply by email or jump into IRC.
+      </p>
+
+      <article class="thread" data-texture="hatch">
+        <div class="meta">
+          <span class="avatar">NF</span>
+          <strong>@neon_witch</strong>
+          <span>· posted 2h ago · <a href="#">#frameworks</a></span>
+        </div>
+        <h3>Why I built PixelForge (and why I kept it classless)</h3>
+        <p>
+          I tried NES.css. It was beautiful, but every button required <code>class="nes-btn is-primary"</code>. That's three classes for one button. By the time I had a 50-line form, my markup was unreadable. So I built PixelForge. Same aesthetic, zero classes, semantic HTML only.
+        </p>
+        <div class="stats">
+          <span>▤ 47 replies</span>
+          <span>❤ 89 likes</span>
+          <span>↗ 12 forks</span>
+          <span>★ 4.8 / 5</span>
+        </div>
+      </article>
+
+      <article class="thread" data-texture="hatch">
+        <div class="meta">
+          <span class="avatar" style="background: var(--crt-success);">PF</span>
+          <strong>@pixel_farmer</strong>
+          <span>· posted 5h ago · <a href="#">#show-and-tell</a></span>
+        </div>
+        <h3>I rebuilt my BBS with crt.css in an hour</h3>
+        <p>
+          See attached screenshot. Custom theme overrides, ~10 lines of CSS variables changed the entire look from green CRT to magenta synthwave. The framework is so easy to theme I almost feel guilty.
+        </p>
+        <div class="stats">
+          <span>▤ 23 replies</span>
+          <span>❤ 41 likes</span>
+          <span>↗ 4 forks</span>
+        </div>
+      </article>
+
+      <article class="thread" data-texture="hatch">
+        <div class="meta">
+          <span class="avatar" style="background: var(--crt-danger);">CO</span>
+          <strong>@crash_override</strong>
+          <span>· posted 1d ago · <a href="#">#help</a></span>
+        </div>
+        <h3>font-variant-emoji not working on older Chrome — workaround?</h3>
+        <p>
+          Per the spec, <code>font-variant-emoji: text</code> should force monochrome rendering. But on Chrome 130 it doesn't seem to take effect. Anyone know if there's a fallback?
+        </p>
+        <div class="stats">
+          <span>▤ 8 replies</span>
+          <span>❤ 3 likes</span>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>NEONet · <a href="../showcase/index.html">← back to showcase</a> · <span style="color: var(--crt-accent-alt);">● SERVER OK</span></p>
+  </footer>
+</body>
+</html>

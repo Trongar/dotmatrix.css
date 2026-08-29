@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · RetroCRM</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 3: Ámbar retro computer — desktop app curado estilo 2005 -->
+  <style>
+    :root {
+      --crt-bg: #1a1208;
+      --crt-surface: #2a1f12;
+      --crt-surface-2: #382816;     /* NEW: deeper panel surface */
+      --crt-border: #6a4a20;
+      --crt-border-light: #8a6a40;  /* NEW: highlight border */
+      --crt-border-dark: #2a1810;
+      --crt-text: #ffcb6a;
+      --crt-text-muted: #b08840;
+      --crt-accent: #ffb000;
+      --crt-accent-dim: #cc8800;
+      --crt-accent-alt: #ff8c00;
+      --crt-danger: #ff5530;
+      --crt-success: #88cc44;
+      --crt-font-size: 13px;
+      --crt-border-width: 2px;
+      --crt-pixel: 3px;
+      --crt-max-width: 1500px;
+      --crt-space-md: 14px;
+      --crt-space-lg: 22px;
+      --crt-space-xl: 36px;
+      --crt-radius: 4px;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(255, 176, 0, 0.08);
+      color-scheme: dark;
+    }
+
+    /* ── Window chrome — recuerda al título de ventana de Mac OS X / Win XP */
+    .window-titlebar {
+      background: linear-gradient(180deg, #3a2818 0%, #2a1f12 100%);
+      border-bottom: 2px solid var(--crt-border);
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+    .window-titlebar .dots {
+      display: flex;
+      gap: 6px;
+    }
+    .window-titlebar .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .window-titlebar .dot.close { background: #ff5f56; }
+    .window-titlebar .dot.min { background: #ffbd2e; }
+    .window-titlebar .dot.max { background: #27c93f; }
+    .window-titlebar .title {
+      flex: 1;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--crt-text);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Top toolbar — como iTunes / Outlook */
+    .topbar {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding: 8px 12px;
+      background: linear-gradient(180deg, var(--crt-surface-2) 0%, var(--crt-surface) 100%);
+      border-bottom: 1px solid var(--crt-border);
+    }
+    .topbar .brand {
+      font-weight: 700;
+      color: var(--crt-accent);
+      letter-spacing: 0.05em;
+      padding-right: 12px;
+      border-right: 1px solid var(--crt-border);
+      margin-right: 4px;
+    }
+    .topbar .tool-group {
+      display: flex;
+      gap: 2px;
+      padding-right: 10px;
+      border-right: 1px solid var(--crt-border);
+    }
+    .topbar .tool-group:last-child { border-right: none; }
+    .topbar button.tool {
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      background: var(--crt-surface);
+      border: 1px solid var(--crt-border);
+      color: var(--crt-text);
+    }
+    .topbar input[type="search"] {
+      flex: 1;
+      margin: 0;
+      max-width: 320px;
+      font-size: 0.85rem;
+    }
+    .topbar .user {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding-left: 12px;
+      border-left: 1px solid var(--crt-border);
+      font-size: 0.85rem;
+    }
+    .topbar .avatar {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--crt-accent);
+      color: var(--crt-bg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    /* ── Dashboard shell — sidebar denso como Explorer/Finder */
+    .dashboard {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      margin: 0;
+      border: 1px solid var(--crt-border);
+      border-top: none;
+      min-height: 700px;
+      background: var(--crt-bg);
+    }
+
+    /* ── Sidebar — como SourceTree, Slack, Finder */
+    .sidebar {
+      background: var(--crt-surface);
+      border-right: 1px solid var(--crt-border);
+      padding: 0;
+      overflow-y: auto;
+    }
+    .sidebar-section {
+      border-bottom: 1px solid var(--crt-border);
+    }
+    .sidebar-section h3 {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      padding: 10px 14px 4px;
+      margin: 0;
+      color: var(--crt-text-muted);
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .sidebar-section h3::after {
+      content: '▾';
+      font-size: 0.8rem;
+    }
+    .sidebar nav ul {
+      list-style: none;
+      padding: 4px 0;
+      margin: 0;
+      display: block;
+      flex-direction: column;
+      gap: 0;
+    }
+    .sidebar nav li { margin: 0; }
+    .sidebar nav a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 14px 6px 28px;
+      font-size: 0.85rem;
+      color: var(--crt-text);
+      border-bottom: none;
+      border-left: 3px solid transparent;
+      transition: background 0.05s;
+    }
+    .sidebar nav a:hover {
+      background: rgba(255, 176, 0, 0.08);
+      border-left-color: var(--crt-accent-dim);
+      color: var(--crt-accent);
+    }
+    .sidebar nav a[aria-current="page"] {
+      background: rgba(255, 176, 0, 0.18);
+      border-left-color: var(--crt-accent);
+      color: var(--crt-accent);
+      font-weight: 700;
+    }
+    .sidebar nav .count {
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      background: rgba(255, 176, 0, 0.1);
+      padding: 1px 6px;
+      border-radius: 8px;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    /* ── Main pane — el área de contenido con padding generoso */
+    .main-pane {
+      padding: var(--crt-space-lg);
+      overflow-y: auto;
+      background: var(--crt-bg);
+    }
+    .main-pane > * + * { margin-top: var(--crt-space-lg); }
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--crt-border);
+      margin-bottom: 0;
+    }
+    .page-header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      border: none;
+      letter-spacing: 0.05em;
+    }
+    .page-header .subtitle {
+      color: var(--crt-text-muted);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    /* ── KPI cards — como tarjetas de dashboard reales */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--crt-space-md);
+    }
+    .kpi {
+      background: linear-gradient(180deg, var(--crt-surface-2) 0%, var(--crt-surface) 100%);
+      border: 1px solid var(--crt-border);
+      border-top: 3px solid var(--crt-accent);
+      padding: 16px 18px;
+      position: relative;
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 2px 0 var(--crt-border-dark);
+    }
+    .kpi.danger { border-top-color: var(--crt-danger); }
+    .kpi.success { border-top-color: var(--crt-success); }
+    .kpi.warning { border-top-color: var(--crt-accent-alt); }
+    .kpi .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--crt-text-muted);
+      letter-spacing: 0.12em;
+      display: flex;
+      justify-content: space-between;
+    }
+    .kpi .icon {
+      font-size: 1rem;
+      color: var(--crt-text-muted);
+    }
+    .kpi .value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--crt-accent);
+      line-height: 1.1;
+      margin: 6px 0 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .kpi .delta {
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .kpi .delta.up { color: var(--crt-success); }
+    .kpi .delta.down { color: var(--crt-danger); }
+    .kpi .spark {
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      display: flex;
+      gap: 2px;
+      align-items: flex-end;
+      height: 20px;
+    }
+    .kpi .spark span {
+      width: 3px;
+      background: var(--crt-accent);
+      opacity: 0.4;
+    }
+
+    /* ── Panel — como card de Bootstrap clásico */
+    .panel {
+      background: var(--crt-surface);
+      border: 1px solid var(--crt-border);
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 2px 0 var(--crt-border-dark);
+    }
+    .panel > header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: linear-gradient(180deg, var(--crt-surface-2) 0%, var(--crt-surface) 100%);
+      border-bottom: 1px solid var(--crt-border);
+    }
+    .panel > header h2 {
+      margin: 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      color: var(--crt-text);
+    }
+    .panel > header .tabs {
+      display: flex;
+      gap: 4px;
+    }
+    .panel > header .tab {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      background: transparent;
+      color: var(--crt-text-muted);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .panel > header .tab.active {
+      background: var(--crt-bg);
+      color: var(--crt-accent);
+      border-color: var(--crt-border);
+      border-bottom-color: var(--crt-bg);
+      margin-bottom: -1px;
+    }
+    .panel > .body { padding: 16px; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--crt-space-md);
+    }
+
+    /* ── Chart — CSS bars con gridlines */
+    .chart-wrap {
+      padding: 12px 0;
+    }
+    .chart {
+      position: relative;
+      height: 200px;
+      padding: 20px 0 30px 40px;
+      border-left: 1px solid var(--crt-border);
+      border-bottom: 1px solid var(--crt-border);
+      background:
+        radial-gradient(circle, rgba(255, 176, 0, 0.06) 1.5px, transparent 1.5px),
+        linear-gradient(0deg, transparent 24%, rgba(255, 176, 0, 0.05) 25%, transparent 26%),
+        linear-gradient(0deg, transparent 49%, rgba(255, 176, 0, 0.05) 50%, transparent 51%),
+        linear-gradient(0deg, transparent 74%, rgba(255, 176, 0, 0.05) 75%, transparent 76%);
+      background-size: 6px 6px, auto, auto, auto;
+    }
+    .chart .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 100%;
+      width: 100%;
+    }
+    .chart .bar {
+      flex: 1;
+      background: linear-gradient(180deg, var(--crt-accent) 0%, var(--crt-accent-dim) 100%);
+      border: 1px solid var(--crt-accent-dim);
+      border-bottom: none;
+      position: relative;
+      min-height: 4px;
+      transition: filter 0.1s;
+    }
+    .chart .bar:hover { filter: brightness(1.3); }
+    .chart .bar.peak { background: linear-gradient(180deg, var(--crt-accent-alt) 0%, var(--crt-danger) 100%); }
+    .chart .bar::after {
+      content: attr(data-val);
+      position: absolute;
+      top: -18px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 0.65rem;
+      color: var(--crt-text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .chart .x-labels {
+      position: absolute;
+      bottom: -22px;
+      left: 40px; right: 0;
+      display: flex;
+      gap: 6px;
+    }
+    .chart .x-labels span {
+      flex: 1;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+    }
+    .chart .y-labels {
+      position: absolute;
+      top: 0; bottom: 30px; left: 0;
+      width: 36px;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--crt-text-muted);
+      padding-right: 6px;
+      text-align: right;
+    }
+    .chart-summary {
+      display: flex;
+      gap: var(--crt-space-lg);
+      padding-top: var(--crt-space-sm);
+      font-size: 0.8rem;
+      color: var(--crt-text-muted);
+    }
+    .chart-summary strong { color: var(--crt-accent); font-size: 1rem; }
+
+    /* ── Activity feed — con timestamps y avatares */
+    .feed-item {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 176, 0, 0.1);
+      font-size: 0.85rem;
+      align-items: flex-start;
+    }
+    .feed-item:last-child { border-bottom: none; }
+    .feed-item .avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--crt-accent-dim);
+      color: var(--crt-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .feed-item .avatar.bot { background: var(--crt-success); }
+    .feed-item .avatar.user { background: var(--crt-accent); }
+    .feed-item .when {
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      white-space: nowrap;
+    }
+    .feed-item .who { font-weight: 700; color: var(--crt-accent); }
+
+    /* ── Status bar — como abajo de toda app vieja */
+    .statusbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 12px;
+      background: linear-gradient(180deg, var(--crt-surface) 0%, var(--crt-surface-2) 100%);
+      border-top: 1px solid var(--crt-border);
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+    }
+    .statusbar .item {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding: 0 10px;
+      border-right: 1px solid var(--crt-border);
+    }
+    .statusbar .item:last-child { border-right: none; }
+    .statusbar .item.online::before {
+      content: '●';
+      color: var(--crt-success);
+    }
+
+    /* ── Responsive (desktop-first: keep density, collapse grids) */
+    @media (max-width: 1100px) {
+      .dashboard { grid-template-columns: 200px 1fr; }
+      .topbar .tool-group:nth-of-type(2) { display: none; }
+    }
+    @media (max-width: 900px) {
+      body { padding: 0; }
+      .window-titlebar .title { font-size: 0.75rem; }
+      .topbar { flex-wrap: wrap; gap: 4px; }
+      .topbar .tool-group:first-of-type { display: none; }
+      .topbar input[type="search"] { max-width: 100%; flex-basis: 100%; order: 10; }
+      .topbar .user { padding-left: 0; border-left: none; }
+      .dashboard { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--crt-border);
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .sidebar nav ul {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+      }
+      .sidebar nav a { padding: 6px 10px; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+      .main-pane { padding: var(--crt-space-md); }
+      .page-header { flex-direction: column; align-items: flex-start; gap: var(--crt-space-sm); }
+    }
+    @media (max-width: 600px) {
+      .window-titlebar { padding: 4px 8px; }
+      .kpi-row { grid-template-columns: 1fr; }
+      .kpi .value { font-size: 1.6rem; }
+      .panel > header { flex-direction: column; align-items: flex-start; gap: var(--crt-space-xs); }
+      .panel > header .tabs { width: 100%; overflow-x: auto; }
+      .statusbar { flex-wrap: wrap; gap: 2px; }
+      .statusbar .item { font-size: 0.65rem; padding: 0 4px; }
+      /* Tables get horizontally scrollable instead of cramming */
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Window chrome -->
+  <div class="window-titlebar">
+    <div class="dots">
+      <div class="dot close"></div>
+      <div class="dot min"></div>
+      <div class="dot max"></div>
+    </div>
+    <div class="title">RetroCRM — Dashboard</div>
+    <div style="width: 52px;"></div>
+  </div>
+
+  <!-- Top toolbar -->
+  <div class="topbar">
+    <span class="brand">▣ RETROCRM</span>
+    <div class="tool-group">
+      <button class="tool">File</button>
+      <button class="tool">Edit</button>
+      <button class="tool">View</button>
+      <button class="tool">Reports</button>
+    </div>
+    <div class="tool-group">
+      <button class="tool" type="submit">+ New Deal</button>
+      <button class="tool">Import</button>
+      <button class="tool">Export</button>
+    </div>
+    <input type="search" placeholder="Search customers, deals, invoices...">
+    <div class="user">
+      <span>sarah.k@retrocrm.io</span>
+      <span class="avatar">SK</span>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" data-texture="dots">
+      <div class="sidebar-section">
+        <h3>Workspace</h3>      <nav aria-label="Workspace">
+          <ul>
+            <li><a href="#" aria-current="page">▣ Dashboard</a></li>
+            <li><a href="#">▤ Customers <span class="count">248</span></a></li>
+            <li><a href="#">◆ Deals <span class="count">127</span></a></li>
+            <li><a href="#">▥ Pipeline</a></li>
+            <li><a href="#">▦ Invoices <span class="count">42</span></a></li>
+            <li><a href="#">▧ Tasks <span class="count">18</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="sidebar-section">
+        <h3>Reports</h3>      <nav aria-label="Reports">
+          <ul>
+            <li><a href="#">▤ Revenue</a></li>
+            <li><a href="#">▥ Conversion</a></li>
+            <li><a href="#">▦ Activity</a></li>
+            <li><a href="#">▧ Forecast</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="sidebar-section">
+        <h3>Favorites</h3>      <nav aria-label="Favorites">
+          <ul>
+            <li><a href="#">★ Acme Corp</a></li>
+            <li><a href="#">★ Globex</a></li>
+            <li><a href="#">★ Q4 Forecast</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="sidebar-section">
+        <h3>System</h3>      <nav aria-label="System">
+          <ul>
+            <li><a href="#">▤ Settings</a></li>
+            <li><a href="#">▥ Help</a></li>
+            <li><a href="#">▦ Sign out</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MAIN PANE -->
+    <div class="main-pane">
+      <header class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="subtitle">Last updated: 2026-08-29 14:42 · <a href="#">refresh</a></p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button">Today</button>
+          <button type="button">Week</button>
+          <button type="submit" aria-pressed="true">Month</button>
+          <button type="button">Quarter</button>
+        </div>
+      </header>
+
+      <!-- KPIs -->
+      <section class="kpi-row">
+        <article class="kpi">
+          <div class="label">Monthly Revenue <span class="icon">$</span></div>
+          <div class="value">$48.2K</div>
+          <div class="delta up">▲ 12.4% vs last month</div>
+          <div class="spark">
+            <span style="height: 30%"></span><span style="height: 50%"></span><span style="height: 45%"></span>
+            <span style="height: 70%"></span><span style="height: 85%"></span><span style="height: 100%"></span>
+          </div>
+        </article>
+        <article class="kpi success">
+          <div class="label">Active Deals <span class="icon">◆</span></div>
+          <div class="value">127</div>
+          <div class="delta up">▲ 8 new this week</div>
+          <div class="spark">
+            <span style="height: 40%"></span><span style="height: 55%"></span><span style="height: 60%"></span>
+            <span style="height: 75%"></span><span style="height: 70%"></span><span style="height: 90%"></span>
+          </div>
+        </article>
+        <article class="kpi warning">
+          <div class="label">Conversion Rate <span class="icon">%</span></div>
+          <div class="value">23.8%</div>
+          <div class="delta down">▼ 1.2 pts vs last</div>
+          <div class="spark">
+            <span style="height: 80%"></span><span style="height: 75%"></span><span style="height: 85%"></span>
+            <span style="height: 70%"></span><span style="height: 60%"></span><span style="height: 55%"></span>
+          </div>
+        </article>
+        <article class="kpi danger">
+          <div class="label">Avg. Deal Size <span class="icon">$</span></div>
+          <div class="value">$3.8K</div>
+          <div class="delta up">▲ $420 vs last</div>
+          <div class="spark">
+            <span style="height: 50%"></span><span style="height: 60%"></span><span style="height: 55%"></span>
+            <span style="height: 70%"></span><span style="height: 80%"></span><span style="height: 95%"></span>
+          </div>
+        </article>
+      </section>
+
+      <!-- Charts + Activity -->
+      <section class="two-col">
+        <article class="panel">
+          <header>
+            <h2>Revenue · Last 12 weeks</h2>
+            <div class="tabs">
+              <span class="tab active">Weekly</span>
+              <span class="tab">Daily</span>
+              <span class="tab">Monthly</span>
+            </div>
+          </header>
+          <div class="body">
+            <div class="chart-wrap">
+              <div class="chart">
+                <div class="y-labels">
+                  <span>$60K</span><span>$45K</span><span>$30K</span><span>$15K</span><span>$0</span>
+                </div>
+                <div class="bars">
+                  <div class="bar" style="height: 40%;"></div>
+                  <div class="bar" style="height: 55%;"></div>
+                  <div class="bar" style="height: 48%;"></div>
+                  <div class="bar" style="height: 62%;"></div>
+                  <div class="bar" style="height: 70%;"></div>
+                  <div class="bar" style="height: 58%;"></div>
+                  <div class="bar" style="height: 75%;"></div>
+                  <div class="bar" style="height: 82%;"></div>
+                  <div class="bar" style="height: 68%;"></div>
+                  <div class="bar" style="height: 88%;"></div>
+                  <div class="bar" style="height: 95%;"></div>
+                  <div class="bar peak" style="height: 100%;" data-val="$52K"></div>
+                </div>
+                <div class="x-labels">
+                  <span>W1</span><span>W2</span><span>W3</span><span>W4</span>
+                  <span>W5</span><span>W6</span><span>W7</span><span>W8</span>
+                  <span>W9</span><span>W10</span><span>W11</span><span>W12</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-summary">
+              <span>Peak: <strong>$52.1K</strong></span>
+              <span>Avg: <strong>$42.8K</strong></span>
+              <span>Trend: <strong style="color: var(--crt-success);">▲ 18%</strong></span>
+              <span>Target: <strong>$50K</strong></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <header>
+            <h2>Recent activity</h2>
+            <a href="#" style="font-size: 0.75rem;">view all →</a>
+          </header>
+          <div class="body">
+            <div class="feed-item">
+              <div class="avatar user">SK</div>
+              <div><strong class="who">Sarah K.</strong> closed deal <a href="#">#DEAL-4821</a> for <strong>$12.4K</strong></div>
+              <div class="when">14:38</div>
+            </div>
+            <div class="feed-item">
+              <div class="avatar bot">⚙</div>
+              <div><strong class="who">New lead</strong> from web form: Acme Corp</div>
+              <div class="when">13:12</div>
+            </div>
+            <div class="feed-item">
+              <div class="avatar bot">!</div>
+              <div><strong class="who">Invoice #INV-1102</strong> marked overdue</div>
+              <div class="when">11:55</div>
+            </div>
+            <div class="feed-item">
+              <div class="avatar user">MR</div>
+              <div><strong class="who">Mike R.</strong> moved 3 deals to <mark>Negotiation</mark></div>
+              <div class="when">10:20</div>
+            </div>
+            <div class="feed-item">
+              <div class="avatar bot">📅</div>
+              <div><strong class="who">Meeting</strong> scheduled with Globex — 2026-09-02</div>
+              <div class="when">09:01</div>
+            </div>
+            <div class="feed-item">
+              <div class="avatar user">SK</div>
+              <div><strong class="who">Quote sent</strong> to Initech for $28K package</div>
+              <div class="when">08:44</div>
+            </div>
+            <div class="feed-item">
+              <div class="avatar bot">⚙</div>
+              <div><strong class="who">Auto-reminder</strong>: 5 deals closing this week</div>
+              <div class="when">08:00</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Deals table -->
+      <article class="panel">
+        <header>
+          <h2>Top open deals</h2>
+          <div class="tabs">
+            <span class="tab active">All</span>
+            <span class="tab">My deals</span>
+            <span class="tab">Closing soon</span>
+            <span class="tab">At risk</span>
+          </div>
+        </header>
+        <div class="body" style="padding: 0;">
+          <caption>Data table</caption>
+  
+            <thead>
+              <tr>
+                <th style="width: 30px;"><input type="checkbox"></th>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Stage</th>
+                <th>Value</th>
+                <th>Owner</th>
+                <th>Close Date</th>
+                <th>Probability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td><code>DEAL-4821</code></td>
+                <td>Acme Corp</td>
+                <td><mark>Negotiation</mark></td>
+                <td>$24,500</td>
+                <td>Sarah K.</td>
+                <td>2026-09-15</td>
+                <td>
+                  <progress value="80" max="100" style="height: 8px; width: 80px; margin: 0;"></progress>
+                  80%
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td><code>DEAL-4818</code></td>
+                <td>Globex Industries</td>
+                <td><mark>Proposal</mark></td>
+                <td>$18,200</td>
+                <td>Mike R.</td>
+                <td>2026-09-08</td>
+                <td>
+                  <progress value="60" max="100" style="height: 8px; width: 80px; margin: 0;"></progress>
+                  60%
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td><code>DEAL-4815</code></td>
+                <td>Initech</td>
+                <td><mark>Qualified</mark></td>
+                <td>$42,000</td>
+                <td>Sarah K.</td>
+                <td>2026-10-01</td>
+                <td>
+                  <progress value="40" max="100" style="height: 8px; width: 80px; margin: 0;"></progress>
+                  40%
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td><code>DEAL-4811</code></td>
+                <td>Soylent Corp</td>
+                <td><mark>Contacted</mark></td>
+                <td>$9,800</td>
+                <td>Alex T.</td>
+                <td>2026-09-22</td>
+                <td>
+                  <progress value="20" max="100" style="height: 8px; width: 80px; margin: 0;"></progress>
+                  20%
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td><code>DEAL-4809</code></td>
+                <td>Stark Industries</td>
+                <td><mark>Negotiation</mark></td>
+                <td>$67,500</td>
+                <td>Mike R.</td>
+                <td>2026-09-30</td>
+                <td>
+                  <progress value="85" max="100" style="height: 8px; width: 80px; margin: 0;"></progress>
+                  85%
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span class="item online">Connected</span>
+    <span class="item">Workspace: Acme Corp HQ</span>
+    <span class="item">Selected: 0 of 127 deals</span>
+    <span class="item">Last sync: 14:42:08</span>
+    <span class="item">User: sarah.k@retrocrm.io</span>
+    <span class="item">v3.2.1 · build 4821</span>
+  </div>
+
+  <footer style="text-align: center; padding: 12px; font-size: 0.8rem;">
+    <a href="../showcase/index.html">← back to showcase</a> · <a href="../showcase/index.html">↑ repo root</a>
+  </footer>
+</body>
+</html>

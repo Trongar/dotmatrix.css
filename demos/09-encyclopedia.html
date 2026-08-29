@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelEncyclopedia — Personal Computer (PC)</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 9: Azul/marrón clásico 90s — Encarta vibes -->
+  <style>
+    :root {
+      --crt-bg: #f8f4e8;
+      --crt-surface: #ece4d0;
+      --crt-surface-2: #e0d8c0;
+      --crt-border: #2c4a7c;
+      --crt-border-light: #5478b0;
+      --crt-border-dark: #142850;
+      --crt-text: #1a2540;
+      --crt-text-muted: #5a6a85;
+      --crt-accent: #1e4a8c;
+      --crt-accent-dim: #143666;
+      --crt-accent-alt: #b8860b;
+      --crt-danger: #8b1a1a;
+      --crt-success: #2a5a2a;
+      --crt-font: 'Times New Roman', 'Liberation Serif', serif;
+      --crt-heading-font: 'Times New Roman', 'Liberation Serif', serif;
+      --crt-font-size: 15px;
+      --crt-line-height: 1.65;
+      --crt-border-width: 1px;
+      --crt-scanlines: 0;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(30, 74, 140, 0.08);
+      --crt-max-width: 1300px;
+    }
+    /* Header — like Encarta's masthead */
+    .encarta-masthead {
+      background: var(--crt-accent);
+      color: #f8f4e8;
+      padding: var(--crt-space-md) var(--crt-space-lg);
+      border: var(--crt-border-width) solid var(--crt-accent-dim);
+      margin-bottom: var(--crt-space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .encarta-masthead h1 {
+      color: #f8f4e8;
+      border: none;
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .encarta-masthead .search { display: flex; gap: var(--crt-space-xs); }
+    .encarta-masthead input { margin: 0; background: #f8f4e8; color: var(--crt-text); }
+
+    .alpha-bar {
+      display: flex;
+      gap: 2px;
+      justify-content: center;
+      padding: var(--crt-space-sm);
+      background: var(--crt-surface);
+      border: var(--crt-border-width) solid var(--crt-border);
+      margin-bottom: var(--crt-space-md);
+      font-size: 0.9rem;
+    }
+    .alpha-bar a {
+      padding: 2px 6px;
+      border-bottom: none;
+      color: var(--crt-accent);
+      font-weight: 700;
+    }
+    .alpha-bar a.disabled { color: var(--crt-text-muted); pointer-events: none; }
+    .alpha-bar a[aria-current="page"] {
+      background: var(--crt-accent);
+      color: #f8f4e8;
+    }
+
+    .encarta-shell {
+      display: grid;
+      grid-template-columns: 200px 1fr 220px;
+      gap: var(--crt-space-md);
+    }
+
+    /* LEFT: topic tree */
+    .topic-tree {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-sm);
+      background: var(--crt-surface);
+      align-self: start;
+      position: sticky;
+      top: var(--crt-space-md);
+      font-size: 0.9rem;
+    }
+    .topic-tree h3 {
+      font-size: 0.85rem;
+      color: var(--crt-accent);
+      margin: var(--crt-space-md) 0 var(--crt-space-xs);
+      border-bottom: 1px solid var(--crt-border);
+      padding-bottom: 2px;
+    }
+    .topic-tree h3:first-child { margin-top: 0; }
+    .topic-tree ul { list-style: none; padding: 0; }
+    .topic-tree li { padding: 2px 0; }
+    .topic-tree a { border-bottom: none; }
+    .topic-tree a[aria-current="page"] { color: var(--crt-accent-alt); font-weight: 700; }
+
+    /* CENTER: article */
+    .article-body { max-width: 700px; }
+    .article-body header {
+      border-bottom: 2px solid var(--crt-accent);
+      padding-bottom: var(--crt-space-sm);
+      margin-bottom: var(--crt-space-md);
+    }
+    .article-body .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--crt-text-muted);
+    }
+    .article-body h1 {
+      font-size: 2.2rem;
+      border: none;
+      margin: var(--crt-space-xs) 0;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--crt-accent);
+    }
+    .article-body .pronunciation {
+      font-style: italic;
+      color: var(--crt-text-muted);
+      font-size: 1rem;
+      margin-left: var(--crt-space-sm);
+    }
+    .article-body h2 {
+      color: var(--crt-accent);
+      border-bottom: 1px solid var(--crt-border);
+      padding-bottom: 2px;
+      margin-top: var(--crt-space-lg);
+    }
+
+    /* Info box — like Encarta sidebar panels */
+    .infobox {
+      float: right;
+      width: 260px;
+      border: 2px solid var(--crt-accent);
+      padding: var(--crt-space-sm);
+      background: var(--crt-surface);
+      margin: 0 0 var(--crt-space-md) var(--crt-space-md);
+      font-size: 0.85rem;
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 3px 0 var(--crt-border-dark);
+    }
+    .infobox h3 {
+      background: var(--crt-accent);
+      color: #f8f4e8;
+      padding: 4px 6px;
+      margin: -4px -6px var(--crt-space-xs);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+    .infobox table { font-size: 0.8rem; }
+    .infobox th { background: var(--crt-bg); }
+
+    /* "See also" box */
+    .see-also {
+      border: 1px dashed var(--crt-border);
+      padding: var(--crt-space-sm) var(--crt-space-md);
+      margin: var(--crt-space-md) 0;
+      background: var(--crt-surface);
+    }
+    .see-also h3 {
+      font-size: 0.85rem;
+      color: var(--crt-accent);
+      margin: 0 0 var(--crt-space-xs);
+      text-transform: uppercase;
+    }
+    .see-also ul { columns: 2; padding-left: var(--crt-space-md); margin: 0; }
+
+    /* RIGHT: did you know + media gallery */
+    .encarta-rail {
+      font-size: 0.9rem;
+    }
+    .rail-card {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-md);
+      background: var(--crt-surface);
+      margin-bottom: var(--crt-space-md);
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 2px 0 var(--crt-border-dark);
+    }
+    .rail-card h3 {
+      font-size: 0.95rem;
+      color: var(--crt-accent);
+      margin: 0 0 var(--crt-space-xs);
+      border-bottom: 2px solid var(--crt-accent);
+      padding-bottom: 4px;
+    }
+    .rail-card .dyd {
+      font-style: italic;
+      padding: var(--crt-space-xs) 0;
+      border-bottom: 1px dashed var(--crt-border);
+      font-size: 0.85rem;
+    }
+    .rail-card .dyd:last-child { border-bottom: none; }
+    .rail-card .dyd a { display: block; margin-top: 2px; }
+    .gallery-img {
+      width: 100%;
+      height: 60px;
+      background: var(--crt-accent-dim);
+      border: 1px solid var(--crt-border);
+      margin-bottom: var(--crt-space-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--crt-surface);
+      font-size: 0.7rem;
+    }
+
+    /* ── Responsive (desktop-first: masthead compact, 3-col collapses) */
+    @media (max-width: 1100px) {
+      .encarta-shell { grid-template-columns: 1fr; }
+      .topic-tree {
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--crt-border);
+      }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: var(--crt-space-md) 0;
+      }
+      .encarta-rail {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--crt-space-md);
+      }
+      .alpha-bar { flex-wrap: wrap; }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .encarta-masthead { flex-direction: column; gap: var(--crt-space-sm); padding: var(--crt-space-md); }
+      .encarta-masthead h1 { font-size: 1.4rem; }
+      .encarta-masthead .search { width: 100%; }
+      .encarta-masthead input { width: 100% !important; }
+      .encarta-rail { grid-template-columns: 1fr; }
+      .article-body h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- MASTHEAD -->
+  <header class="encarta-masthead">
+    <h1>◆ PixelEncyclopedia™ 2026 Edition</h1>
+    <form class="search">
+      <input type="search" placeholder="Search 42,118 articles..." style="width: 240px;">
+      <button type="submit" style="background: #f8f4e8; color: var(--crt-accent);">GO</button>
+    </form>
+  </header>
+
+  <!-- A-Z INDEX -->
+  <nav class="alpha-bar" aria-label="Alphabetical index">
+    <a href="#">A</a><a href="#">B</a><a href="#">C</a>
+    <a href="#" aria-current="page">D</a>
+    <a href="#">E</a><a href="#">F</a><a href="#">G</a>
+    <a href="#">H</a><a href="#">I</a><a href="#">J</a>
+    <a href="#" class="disabled">K</a>
+    <a href="#">L</a><a href="#">M</a><a href="#">N</a>
+    <a href="#" class="disabled">O</a>
+    <a href="#">P</a><a href="#" class="disabled">Q</a>
+    <a href="#">R</a><a href="#">S</a><a href="#">T</a>
+    <a href="#" class="disabled">U</a>
+    <a href="#">V</a><a href="#">W</a><a href="#" class="disabled">X</a>
+    <a href="#">Y</a><a href="#" class="disabled">Z</a>
+  </nav>
+
+  <main>
+    <div class="encarta-shell">
+      <!-- LEFT: Topic tree -->
+      <aside class="topic-tree">
+        <h3>TECHNOLOGY</h3>
+        <ul>
+          <li><a href="#">Computers</a></li>
+          <li><a href="#" aria-current="page">» Personal computer</a></li>
+          <li><a href="#">» Mainframe</a></li>
+          <li><a href="#">» Minicomputer</a></li>
+          <li><a href="#">» Microcomputer</a></li>
+          <li><a href="#">» Workstation</a></li>
+          <li><a href="#">» Server</a></li>
+          <li><a href="#">Internet</a></li>
+          <li><a href="#">Software</a></li>
+          <li><a href="#">Programming</a></li>
+        </ul>
+        <h3>HISTORY</h3>
+        <ul>
+          <li><a href="#">Computing history</a></li>
+          <li><a href="#">» 1970s</a></li>
+          <li><a href="#">» 1980s</a></li>
+          <li><a href="#">» 1990s</a></li>
+        </ul>
+      </aside>
+
+      <!-- CENTER: Article -->
+      <article class="article-body" data-texture="paper">
+        <header>
+          <p class="breadcrumb">
+            <a href="#">Home</a> » <a href="#">Technology</a> » <a href="#">Computers</a> » Personal computer
+          </p>
+          <h1>Personal computer<span class="pronunciation">(pur'-suhn-ul kum-pyoo'tur) <em>n.</em></span></h1>
+          <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+            Updated: 2026-08-12 · Last reviewed by: <a href="#">Editorial Board</a>
+          </p>
+        </header>
+
+        <aside class="infobox">
+          <h3>AT A GLANCE</h3>
+          <table>
+            <caption>Personal computer at a glance</caption>
+            <tr><th>Type</th><td>Computing device</td></tr>
+            <tr><th>Invented</th><td>1970s</td></tr>
+            <tr><th>First mass-market</th><td>Apple II (1977)</td></tr>
+            <tr><th>CPU</th><td>Various</td></tr>
+            <tr><th>OS</th><td>Windows, macOS, Linux</td></tr>
+            <tr><th>Users worldwide</th><td>~2.5 billion</td></tr>
+          </table>
+          <p style="margin-top: var(--crt-space-xs);">
+            <strong>See also:</strong><br>
+            <a href="#">Microcomputer</a> · <a href="#">Workstation</a> · <a href="#">Desktop</a>
+          </p>
+        </aside>
+
+        <section>
+          <p>
+            A <strong>personal computer</strong> (PC) is a digital computing device designed for use by a single user at a time. Modern personal computers are versatile, multi-purpose tools capable of running thousands of different software applications for word processing, mathematical computation, entertainment, communication, and many other tasks.
+          </p>
+
+          <p>
+            The personal computer as a category emerged in the early 1970s with the introduction of microprocessors—integrated circuits containing a complete central processing unit on a single chip. Prior to this, computing required expensive mainframes or minicomputers shared among many users.
+          </p>
+        </section>
+
+        <section>
+          <h2>History</h2>
+
+          <h3>Origins (1971–1975)</h3>
+          <p>
+            The <a href="#">Intel 4004</a>, released in 1971, was the first commercial microprocessor. The <a href="#">Altair 8800</a> (1975) was the first personal computer available as a commercial product, sold as a kit to hobbyists. Its success demonstrated demand for computing outside of corporate settings.
+          </p>
+
+          <h3>The home revolution (1977–1985)</h3>
+          <p>
+            Three machines established the personal computer as a consumer product:
+          </p>
+          <ul>
+            <li><strong>Apple II</strong> (1977) — color graphics, expandable via internal slots</li>
+            <li><strong>TRS-80</strong> (1977) — affordable home computer by Tandy/Radio Shack</li>
+            <li><strong>Commodore PET</strong> (1977) — all-in-one design with built-in monitor</li>
+          </ul>
+          <p>
+            The <a href="#">IBM PC</a> (1981) standardized the architecture that would come to dominate business computing. Clones of the IBM PC (often called "PC compatibles") flooded the market, eventually making IBM's own product a minority player.
+          </p>
+
+          <h3>The Macintosh era (1984–1995)</h3>
+          <p>
+            Apple's <a href="#">Macintosh</a> (1984) introduced the graphical user interface (GUI) to the mass market. While technically pioneered at Xerox PARC, the Macintosh made the GUI practical and affordable for home and business users.
+          </p>
+
+          <h3>The internet age (1995–2007)</h3>
+          <p>
+            The widespread adoption of the <a href="#">World Wide Web</a> transformed personal computers from productivity tools into communication devices. Email, instant messaging, and eventually <a href="#">social media</a> became primary use cases.
+          </p>
+
+          <h3>Post-PC era (2007–present)</h3>
+          <p>
+            The introduction of the <a href="#">iPhone</a> in 2007 and subsequent smartphones shifted significant computing activity to mobile devices. Personal computers remain dominant for content creation, software development, gaming, and professional work.
+          </p>
+        </section>
+
+        <section>
+          <h2>Components</h2>
+          <p>A modern personal computer consists of the following major components:</p>
+          <caption>Data table</caption>
+  
+            <thead>
+              <tr><th>Component</th><th>Function</th><th>Common implementations</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>CPU</td><td>Executes instructions</td><td>Intel Core, AMD Ryzen, Apple M-series</td></tr>
+              <tr><td>RAM</td><td>Short-term working memory</td><td>DDR5 (8–128 GB typical)</td></tr>
+              <tr><td>Storage</td><td>Persistent data</td><td>NVMe SSD, SATA SSD, HDD</td></tr>
+              <tr><td>GPU</td><td>Renders graphics</td><td>NVIDIA, AMD, integrated</td></tr>
+              <tr><td>Motherboard</td><td>Connects components</td><td>ATX, Micro-ATX, Mini-ITX</td></tr>
+              <tr><td>PSU</td><td>Converts AC to DC</td><td>80+ Gold certified</td></tr>
+              <tr><td>Cooling</td><td>Dissipates heat</td><td>Air, liquid, passive</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Operating systems</h2>
+          <p>Three operating systems account for over 95% of personal computer use:</p>
+          <ol>
+            <li><strong>Microsoft Windows</strong> — ~75% market share (as of 2026)</li>
+            <li><strong>Apple macOS</strong> — ~16% market share</li>
+            <li><strong>Linux</strong> — ~4% market share (including ChromeOS)</li>
+          </ol>
+        </section>
+
+        <aside class="see-also">
+          <h3>See also</h3>
+          <ul>
+            <li><a href="#">Mainframe computer</a></li>
+            <li><a href="#">Microprocessor</a></li>
+            <li><a href="#">Graphical user interface</a></li>
+            <li><a href="#">IBM PC compatible</a></li>
+            <li><a href="#">Workstation</a></li>
+            <li><a href="#">Desktop computer</a></li>
+            <li><a href="#">Laptop</a></li>
+            <li><a href="#">History of computing</a></li>
+          </ul>
+        </aside>
+
+        <section>
+          <h2>References</h2>
+          <ol style="font-size: 0.9rem;">
+            <li>Ceruzzi, P. (2003). <em>A History of Modern Computing</em>. MIT Press.</li>
+            <li>Freiberger, P. &amp; Swaine, M. (2000). <em>Fire in the Valley: The Making of the Personal Computer</em>. McGraw-Hill.</li>
+            <li>Wikipedia contributors. (2026). "Personal computer." <em>Wikipedia, The Free Encyclopedia</em>.</li>
+            <li>IDC Research. (2026). <em>Worldwide Quarterly Personal Computing Device Tracker</em>.</li>
+          </ol>
+        </section>
+
+        <footer style="border-top: 1px solid var(--crt-border); padding-top: var(--crt-space-sm); margin-top: var(--crt-space-lg); font-size: 0.85rem; color: var(--crt-text-muted);">
+          <p>
+            Citation: <em>Personal computer.</em> (2026). In PixelEncyclopedia. Retrieved 14:42, August 29, 2026.
+          </p>
+          <p>
+            <a href="#">View source</a> · <a href="#">Edit this article</a> · <a href="#">Report an error</a>
+          </p>
+        </footer>
+      </article>
+
+      <!-- RIGHT: Did You Know + Gallery -->
+      <aside class="encarta-rail">
+        <div class="rail-card">
+          <h3>◆ DID YOU KNOW?</h3>
+          <div class="dyd">
+            <p>...that the term "personal computer" was popularized by a 1976 <em>Byte</em> magazine article?</p>
+            <a href="#">Read more →</a>
+          </div>
+          <div class="dyd">
+            <p>...that the Apple I, the first Apple computer, sold for $666.66?</p>
+            <a href="#">Read more →</a>
+          </div>
+          <div class="dyd">
+            <p>...that IBM's first PC used an Intel 8088 because IBM's engineers were familiar with the 8086 instruction set?</p>
+            <a href="#">Read more →</a>
+          </div>
+        </div>
+
+        <div class="rail-card" data-texture="dots">
+          <h3>◆ IMAGE GALLERY</h3>
+          <div class="gallery-img">[IMG: Altair 8800]</div>
+          <div class="gallery-img">[IMG: Apple II]</div>
+          <div class="gallery-img">[IMG: IBM PC 5150]</div>
+          <div class="gallery-img">[IMG: Macintosh 128K]</div>
+          <p style="text-align: center; margin: var(--crt-space-sm) 0 0; font-size: 0.85rem;">
+            <a href="#">View all 24 images →</a>
+          </p>
+        </div>
+
+        <div class="rail-card">
+          <h3>◆ RELATED ARTICLES</h3>
+          <ul style="padding-left: var(--crt-space-md); font-size: 0.85rem;">
+            <li><a href="#">Microprocessor</a></li>
+            <li><a href="#">Apple Inc.</a></li>
+            <li><a href="#">Microsoft Windows</a></li>
+            <li><a href="#">History of the Internet</a></li>
+            <li><a href="#">Hacker culture</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 PixelEncyclopedia · Content under CC-BY-SA · <a href="../showcase/index.html">← back to showcase</a></p>
+  </footer>
+</body>
+</html>

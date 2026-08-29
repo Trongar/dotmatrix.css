@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRT.css — Stress Test Showcase</title>
+  <link rel="stylesheet" href="../crt.css">
+  <style>
+    :root {
+      --crt-bg: #f4ecd8;
+      --crt-surface: #ebe0c5;
+      --crt-surface-2: #e0d2ad;
+      --crt-border: #8b7355;
+      --crt-border-light: #b8a382;
+      --crt-border-dark: #5a4a35;
+      --crt-text: #2d1f12;
+      --crt-text-muted: #6b5a40;
+      --crt-accent: #6b3410;
+      --crt-accent-dim: #4a2308;
+      --crt-accent-alt: #a06020;
+      --crt-danger: #8b0000;
+      --crt-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --crt-heading-font: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+      --crt-font-size: 15px;
+      --crt-line-height: 1.7;
+      --crt-border-width: 2px;
+      --crt-scanlines: 0;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(120, 70, 30, 0.15);
+      --crt-max-width: 1300px;
+    }
+    .intro {
+      text-align: center;
+      padding: var(--crt-space-xl) var(--crt-space-md);
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-surface);
+      margin-bottom: var(--crt-space-xl);
+      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 6px 0 var(--crt-border-dark);
+    }
+    .intro h1 {
+      margin: 0 0 var(--crt-space-sm);
+      font-size: 2.2rem;
+      border: none;
+      font-style: italic;
+    }
+    .intro .lede {
+      max-width: 720px;
+      margin: var(--crt-space-md) auto;
+      color: var(--crt-text-muted);
+      font-size: 1.1rem;
+    }
+    .intro .stats {
+      display: flex;
+      gap: var(--crt-space-xl);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--crt-space-lg);
+      padding: var(--crt-space-md);
+      border-top: 1px dashed var(--crt-border);
+    }
+    .intro .stats div { text-align: center; }
+    .intro .stats .num {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--crt-accent);
+      line-height: 1;
+    }
+    .intro .stats .lbl {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--crt-text-muted);
+    }
+
+    /* Demo card grid */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--crt-space-lg);
+    }
+    .demo-card {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-md);
+      background: var(--crt-bg);
+      display: flex;
+      flex-direction: column;
+      color: var(--crt-text);
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+      border-bottom: var(--crt-border-width) solid var(--crt-border);
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 4px 0 var(--crt-border-dark);
+    }
+    .demo-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        5px 6px 0 var(--crt-border-dark);
+      color: var(--crt-text);
+    }
+    .demo-card .num {
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      letter-spacing: 0.15em;
+      font-family: var(--crt-font);
+    }
+    .demo-card .theme-label {
+      display: inline-block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 1px 6px;
+      border: 1px solid var(--crt-border);
+      margin-top: 2px;
+      background: var(--crt-surface);
+    }
+    .demo-card h2 {
+      margin: var(--crt-space-xs) 0;
+      font-size: 1.25rem;
+      color: var(--crt-accent);
+    }
+    .demo-card p {
+      font-size: 0.88rem;
+      color: var(--crt-text-muted);
+      margin: var(--crt-space-xs) 0;
+      flex: 1;
+    }
+    .demo-card .textures {
+      list-style: none;
+      padding: 0;
+      margin: var(--crt-space-sm) 0 0;
+      font-size: 0.75rem;
+      color: var(--crt-text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .demo-card .textures li {
+      font-family: monospace;
+      background: var(--crt-surface);
+      border: 1px solid var(--crt-border);
+      padding: 1px 6px;
+      font-size: 0.7rem;
+    }
+    .demo-card .textures li.bevel {
+      background: var(--crt-surface-2);
+      border-color: var(--crt-border-dark);
+    }
+    .demo-card .swatch {
+      display: inline-block;
+      width: 12px; height: 12px;
+      vertical-align: middle;
+      margin-right: 4px;
+      border: 1px solid var(--crt-border);
+    }
+
+    /* Texture showcase section */
+    .texture-showcase {
+      margin: var(--crt-space-xl) 0;
+      padding: var(--crt-space-lg);
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-surface);
+      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 4px 0 var(--crt-border-dark);
+    }
+    .texture-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--crt-space-md);
+      margin-top: var(--crt-space-md);
+    }
+    .tex-tile {
+      padding: var(--crt-space-md);
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-bg);
+      text-align: center;
+      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 2px 0 var(--crt-border-dark);
+    }
+    .tex-tile code {
+      font-size: 0.75rem;
+      display: block;
+      margin-top: var(--crt-space-xs);
+      color: var(--crt-accent);
+    }
+    .tex-tile strong {
+      font-size: 0.8rem;
+      color: var(--crt-text);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Bevel comparison */
+    .bevel-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--crt-space-md);
+      margin-top: var(--crt-space-md);
+    }
+    .bevel-compare > div {
+      padding: var(--crt-space-md);
+      border: 1px solid var(--crt-border);
+      background: var(--crt-bg);
+    }
+    .bevel-compare code {
+      font-size: 0.8rem;
+      color: var(--crt-accent);
+      display: block;
+      margin-top: var(--crt-space-xs);
+    }
+
+    /* Philosophy section */
+    .philosophy {
+      margin: var(--crt-space-xl) 0;
+      padding: var(--crt-space-lg);
+      border: var(--crt-border-width) dashed var(--crt-border);
+      background: var(--crt-surface);
+    }
+    .philosophy p {
+      font-size: 1rem;
+      max-width: 800px;
+    }
+
+    /* ── Responsive (desktop-first: tiles stack, demo grid stays) */
+    @media (max-width: 900px) {
+      .texture-tiles { grid-template-columns: repeat(4, 1fr); }
+      .bevel-compare { grid-template-columns: 1fr; }
+      .intro h1 { font-size: 1.6rem; }
+      .intro .stats { gap: var(--crt-space-md); }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .intro { padding: var(--crt-space-lg) var(--crt-space-sm); }
+      .texture-tiles { grid-template-columns: repeat(2, 1fr); }
+      .intro .stats { flex-direction: column; gap: var(--crt-space-sm); padding: var(--crt-space-sm); }
+      header nav ul { flex-direction: column; gap: 2px; }
+      header nav li { margin: 0; }
+    }
+  </style>
+</head>
+<body data-texture-preset="sepia">
+
+  <header>
+    <h1>CRT.CSS · STRESS TEST</h1>
+    <p style="color: var(--crt-text-muted); margin: var(--crt-space-xs) 0 0; font-style: italic;">
+      10 real-world app mocks · 10 unique themes · 1 CSS file · 0 JavaScript
+    </p>
+    <nav>
+      <ul>
+        <li><a href="../crt.css">View framework</a></li>
+        <li><a href="../README.md">README</a></li>
+        <li><a href="../CHANGELOG.md">Changelog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" data-texture="paper">
+      <h1>◆ What happens when you build 10 real apps<br>with one 8KB classless framework?</h1>
+      <p class="lede">
+        Every demo below uses the <strong>exact same</strong> <code>crt.css</code> file linked from the root.
+        Differences are <strong>CSS variable overrides</strong> + <strong>data-texture attributes</strong> in each <code>&lt;style&gt;</code> block.
+        Same HTML semantics, same components, radically different vibes.
+      </p>
+      <div class="stats">
+        <div><div class="num">10</div><div class="lbl">Demo Apps</div></div>
+        <div><div class="num">10</div><div class="lbl">Unique Themes</div></div>
+        <div><div class="num">8</div><div class="lbl">Textures</div></div>
+        <div><div class="num">2</div><div class="lbl">Bevels</div></div>
+        <div><div class="num">1</div><div class="lbl">CSS File</div></div>
+        <div><div class="num">0</div><div class="lbl">JavaScript</div></div>
+      </div>
+    </section>
+
+    <!-- TEXTURES & BEVELS SHOWCASE -->
+    <section class="texture-showcase" data-texture="dots">
+      <h2>◆ The texture system</h2>
+      <p>
+        crt.css ships with <strong>8 textures</strong> and <strong>2 bevels</strong>. Apply them with a single HTML attribute — no classes, no extra CSS.
+      </p>
+
+      <h3 style="margin-top: var(--crt-space-lg); font-size: 0.95rem;">Textures</h3>
+      <div class="texture-tiles">
+        <div class="tex-tile" data-texture="paper">
+          <strong>paper</strong>
+          <code>data-texture="paper"</code>
+        </div>
+        <div class="tex-tile" data-texture="dots">
+          <strong>dots</strong>
+          <code>data-texture="dots"</code>
+        </div>
+        <div class="tex-tile" data-texture="stripes">
+          <strong>stripes</strong>
+          <code>data-texture="stripes"</code>
+        </div>
+        <div class="tex-tile" data-texture="hatch">
+          <strong>hatch</strong>
+          <code>data-texture="hatch"</code>
+        </div>
+        <div class="tex-tile" data-texture="halftone">
+          <strong>halftone</strong>
+          <code>data-texture="halftone"</code>
+        </div>
+        <div class="tex-tile" data-texture="noise">
+          <strong>noise</strong>
+          <code>data-texture="noise"</code>
+        </div>
+        <div class="tex-tile" data-texture="carbon">
+          <strong>carbon</strong>
+          <code>data-texture="carbon"</code>
+        </div>
+        <div class="tex-tile" data-texture="phosphor" data-texture-preset="phosphor" style="background: #0a1a14; color: #00ff41;">
+          <strong style="color: #00ff41;">phosphor</strong>
+          <code style="color: #00ff41;">data-texture="phosphor"</code>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--crt-space-lg); font-size: 0.95rem;">Bevels</h3>
+      <div class="bevel-compare">
+        <div data-bevel="out">
+          <strong>Raised panel</strong>
+          <p style="font-size: 0.85rem; margin: var(--crt-space-xs) 0;">Looks like it's sticking out toward you. Perfect for cards, callouts, buttons.</p>
+          <code>data-bevel="out"</code>
+        </div>
+        <div data-bevel="in">
+          <strong>Sunken panel</strong>
+          <p style="font-size: 0.85rem; margin: var(--crt-space-xs) 0;">Looks pressed into the surface. Perfect for input areas, terminals, wells.</p>
+          <code>data-bevel="in"</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE 10 DEMOS -->
+    <section>
+      <h2>The 10 demos</h2>
+      <p style="color: var(--crt-text-muted);">Each card shows the textures and bevels applied to that demo. Click to explore.</p>
+
+      <div class="demo-grid">
+
+        <a href="../demos/01-landing.html" class="demo-card" data-texture="paper">
+          <div class="num">01 · LANDING</div>
+          <span class="theme-label">Verde CRT (default)</span>
+          <h2>PixelForge marketing site</h2>
+          <p>Hero, feature grid, testimonials, pricing table. Baseline of the framework.</p>
+          <ul class="textures">
+            <li>data-texture="halftone"</li>
+            <li class="bevel">raised bevel</li>
+          </ul>
+        </a>
+
+        <a href="../demos/02-auth.html" class="demo-card" data-texture="paper">
+          <div class="num">02 · AUTH</div>
+          <span class="theme-label">Cyan terminal</span>
+          <h2>Sign-in / Sign-up / 2FA</h2>
+          <p>3 auth flows side-by-side. OTP grid, password strength meter, error banners.</p>
+          <ul class="textures">
+            <li>data-texture="dots"</li>
+            <li class="bevel">raised + cyan glow</li>
+          </ul>
+        </a>
+
+        <a href="../demos/03-dashboard.html" class="demo-card" data-texture="halftone">
+          <div class="num">03 · DASHBOARD</div>
+          <span class="theme-label">Ámbar retro</span>
+          <h2>RetroCRM</h2>
+          <p>Desktop-first CRM. Sidebar nav, KPI cards with sparklines, CSS bar chart, activity feed, deals table.</p>
+          <ul class="textures">
+            <li>data-texture="dots"</li>
+            <li>data-texture="halftone"</li>
+            <li class="bevel">raised KPI cards</li>
+          </ul>
+        </a>
+
+        <a href="../demos/04-pricing.html" class="demo-card" data-texture="halftone">
+          <div class="num">04 · PRICING</div>
+          <span class="theme-label">Verde Nintendo</span>
+          <h2>Pricing tiers + comparison</h2>
+          <p>3 tiers with stepped-shadow featured card, full comparison table, FAQ accordion.</p>
+          <ul class="textures">
+            <li>data-texture="halftone"</li>
+            <li class="bevel">deep raised tiers</li>
+          </ul>
+        </a>
+
+        <a href="../demos/05-blog.html" class="demo-card" data-texture="paper">
+          <div class="num">05 · BLOG</div>
+          <span class="theme-label">Sepia lectura</span>
+          <h2>Long-form essay</h2>
+          <p>3-col desktop layout: TOC, article body, related posts. Threaded comments. Newsletter form.</p>
+          <ul class="textures">
+            <li>data-texture="paper"</li>
+            <li>data-texture="dots"</li>
+          </ul>
+        </a>
+
+        <a href="../demos/06-library.html" class="demo-card" data-texture-preset="vintage">
+          <div class="num">06 · LIBRARY</div>
+          <span class="theme-label">Pergamino / vintage</span>
+          <h2>Olde Books catalogue</h2>
+          <p>Catalog of 12 books with CSS-only spines (vertical-rl writing mode). Filter sidebar + pagination.</p>
+          <ul class="textures">
+            <li>data-texture-preset="vintage"</li>
+            <li class="bevel">raised book cards</li>
+          </ul>
+        </a>
+
+        <a href="../demos/07-cakes.html" class="demo-card" data-texture="dots">
+          <div class="num">07 · BAKERY</div>
+          <span class="theme-label">Rosa chicle</span>
+          <h2>Sweetcrumbs</h2>
+          <p>Pastry shop with CSS-illustrated cakes (layer cake, cupcake, pie variants). Order form + cart.</p>
+          <ul class="textures">
+            <li>data-texture="dots"</li>
+            <li>data-texture="paper"</li>
+            <li class="bevel">deep raised cards</li>
+          </ul>
+        </a>
+
+        <a href="../demos/08-social.html" class="demo-card" data-texture="hatch">
+          <div class="num">08 · SOCIAL</div>
+          <span class="theme-label">Magenta synthwave</span>
+          <h2>NEONet IRC / BBS</h2>
+          <p>3-pane IRC chat: channels / messages / user list. Forum threads below. Synthwave vibes.</p>
+          <ul class="textures">
+            <li>data-texture="phosphor"</li>
+            <li>data-texture="hatch"</li>
+            <li class="bevel">raised threads</li>
+          </ul>
+        </a>
+
+        <a href="../demos/09-encyclopedia.html" class="demo-card" data-texture="paper">
+          <div class="num">09 · ENCYCLOPEDIA</div>
+          <span class="theme-label">Azul clásico 90s</span>
+          <h2>PixelEncyclopedia</h2>
+          <p>Encarta-style article. Masthead, A-Z index, topic tree, infobox float, Did-You-Know sidebar.</p>
+          <ul class="textures">
+            <li>data-texture="paper"</li>
+            <li>data-texture="dots"</li>
+            <li class="bevel">raised infobox</li>
+          </ul>
+        </a>
+
+        <a href="../demos/10-running.html" class="demo-card" data-texture="halftone">
+          <div class="num">10 · RUNNING</div>
+          <span class="theme-label">Verde fosfo night</span>
+          <h2>Stride tracker</h2>
+          <p>GPS running app with SVG-drawn route map, KM splits table, monthly training calendar grid.</p>
+          <ul class="textures">
+            <li>data-texture="halftone"</li>
+            <li>data-texture="dots"</li>
+            <li class="bevel">raised stat cards</li>
+          </ul>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="philosophy" data-texture="dots">
+      <h2>◆ What this proves</h2>
+      <p>
+        Each demo overrides only the CSS variables it needs and applies textures via attributes.
+        <strong>Zero changes to the framework. Zero new classes. Zero JavaScript.</strong>
+      </p>
+      <p>
+        The textures system follows the same philosophy as the rest of crt.css: <strong>semantic, opt-in, zero-cost</strong>.
+        The 8 textures + 2 bevels add ~1.2 KB to the framework. They use <code>radial-gradient</code> and <code>repeating-linear-gradient</code> — no extra HTTP requests, no PNG sprites, no JS lazy-loading.
+      </p>
+      <p>
+        And the bevels? They're a single CSS rule that combines two inset shadows. No images, no border-image, no <code>linear-gradient</code> hacks — just the same border you already have, plus a 1px highlight on one edge and a 1px shadow on the other.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Stress test for <a href="../README.md">crt-design-system</a> · Framework at <a href="../crt.css">crt.css</a></p>
+  </footer>
+</body>
+</html>

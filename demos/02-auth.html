@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in · Terminal Auth</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 2: Cyan/blue terminal — solo overrides de variables -->
+  <style>
+    :root {
+      --crt-bg: #0a1929;
+      --crt-surface: #0f2236;
+      --crt-surface-2: #142b48;
+      --crt-border: #1e3a5f;
+      --crt-border-light: #2e5a8f;
+      --crt-border-dark: #0a1220;
+      --crt-text: #c8e6ff;
+      --crt-text-muted: #5e8bb5;
+      --crt-accent: #00d4ff;
+      --crt-accent-dim: #0099bb;
+      --crt-accent-alt: #ffd700;
+      --crt-danger: #ff5577;
+      --crt-success: #00ff88;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(0, 212, 255, 0.08);
+      color-scheme: dark;
+    }
+    /* Auth-specific layout — no toques al framework */
+    .auth-shell {
+      max-width: 480px;
+      margin: var(--crt-space-xl) auto;
+      border: var(--crt-border-width) solid var(--crt-accent);
+      padding: var(--crt-space-xl);
+      background: var(--crt-surface);
+      box-shadow: inset 0 1px 0 var(--crt-border-light), 0 0 20px rgba(0, 212, 255, 0.1);
+    }
+    .auth-shell h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+    .auth-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: var(--crt-space-lg);
+      border-bottom: var(--crt-border-width) solid var(--crt-border);
+    }
+    .auth-tabs a {
+      flex: 1;
+      text-align: center;
+      padding: var(--crt-space-sm);
+      border-bottom: 3px solid transparent;
+      margin-bottom: calc(-1 * var(--crt-border-width));
+      color: var(--crt-text-muted);
+    }
+    .auth-tabs a[aria-current="page"] {
+      color: var(--crt-accent);
+      border-bottom-color: var(--crt-accent);
+    }
+    .divider {
+      text-align: center;
+      color: var(--crt-text-muted);
+      margin: var(--crt-space-md) 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+    }
+    .input-icon {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--crt-text-muted);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .otp-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--crt-space-sm);
+      margin: var(--crt-space-md) 0;
+    }
+    .otp-grid input {
+      text-align: center;
+      font-size: 1.4rem;
+      padding: var(--crt-space-sm) 0;
+      margin-bottom: 0;
+    }
+    .error-banner {
+      border: 1px solid var(--crt-danger);
+      background: rgba(255, 85, 119, 0.1);
+      padding: var(--crt-space-sm) var(--crt-space-md);
+      color: var(--crt-danger);
+      font-size: 0.85rem;
+      margin-bottom: var(--crt-space-md);
+    }
+    .help-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-top: var(--crt-space-md);
+    }
+
+    /* ── Responsive (desktop-first: shells get wider, font smaller) */
+    @media (max-width: 900px) {
+      .auth-shell {
+        max-width: 100%;
+        margin: var(--crt-space-lg) auto;
+      }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .auth-shell { padding: var(--crt-space-lg) var(--crt-space-md); }
+      .otp-grid { gap: 4px; }
+      .otp-grid input { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TERMINAL.AUTH</h1>
+  </header>
+
+  <main>
+    <div class="auth-shell" data-texture="dots">
+      <!-- TABS: Login | Sign up -->
+      <nav class="auth-tabs" aria-label="Authentication">
+        <a href="#login" aria-current="page">SIGN IN</a>
+        <a href="#signup">CREATE ACCOUNT</a>
+      </nav>
+
+      <h2>Welcome back</h2>
+      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+        Sign in to access your terminal session.
+      </p>
+
+      <div class="error-banner">
+        ⚠ Invalid credentials. Please try again.
+      </div>
+
+      <form>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="user@terminal.io" autocomplete="email">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+
+        <label>
+          <input type="checkbox" checked>
+          Remember this terminal for 30 days
+        </label>
+
+        <button type="submit">SIGN IN →</button>
+
+        <div class="help-row">
+          <a href="#forgot">Forgot password?</a>
+          <a href="#2fa">Use 2FA code</a>
+        </div>
+      </form>
+
+      <p class="divider">— OR —</p>
+
+      <form>
+        <label for="passkey">Passkey</label>
+        <input type="text" id="passkey" placeholder="device-fingerprint-hash" readonly>
+        <button type="button">USE DEVICE PASSKEY</button>
+      </form>
+    </div>
+
+    <!-- 2FA STEP — shown as separate card for the mock -->
+    <div class="auth-shell" data-texture="dots">
+      <h2>Two-factor authentication</h2>
+      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+        Enter the 6-digit code from your authenticator app.
+      </p>
+
+      <form>
+        <div class="otp-grid" role="group" aria-label="One-time code">
+          <input type="text" maxlength="1" value="4">
+          <input type="text" maxlength="1" value="2">
+          <input type="text" maxlength="1" value="7">
+          <input type="text" maxlength="1" value="">
+          <input type="text" maxlength="1" value="">
+          <input type="text" maxlength="1" value="">
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--crt-text-muted); text-align: center;">
+          Code expires in <mark>00:42</mark>
+        </p>
+
+        <button type="submit">VERIFY CODE</button>
+        <p style="text-align: center; font-size: 0.85rem;">
+          <a href="#resend">Resend code</a> · <a href="#backup">Use backup code</a>
+        </p>
+      </form>
+    </div>
+
+    <!-- SIGN UP CARD -->
+    <div class="auth-shell" data-texture="dots">
+      <h2>Create your account</h2>
+      <p style="color: var(--crt-text-muted); font-size: 0.9rem;">
+        Free forever. No credit card required.
+      </p>
+
+      <form>
+        <label for="su-name">Display name</label>
+        <input type="text" id="su-name" placeholder="retro_dev">
+
+        <label for="su-email">Email</label>
+        <input type="email" id="su-email" placeholder="user@domain.com">
+
+        <label for="su-pw">Password</label>
+        <input type="password" id="su-pw" placeholder="min 12 characters">
+
+        <p style="font-size: 0.8rem; color: var(--crt-text-muted);">
+          Strength: <progress value="35" max="100" style="display:inline-block; width: 60%; vertical-align: middle;"></progress> weak
+        </p>
+
+        <label>
+          <input type="checkbox">
+          I agree to the <a href="#terms">terms of service</a> and <a href="#privacy">privacy policy</a>
+        </label>
+
+        <button type="submit">CREATE ACCOUNT</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p><a href="../showcase/index.html">← back to showcase</a> · Need help? <a href="#support">support@terminal.io</a></p>
+  </footer>
+</body>
+</html>

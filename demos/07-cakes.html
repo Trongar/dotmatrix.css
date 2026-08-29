@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweetcrumbs — Handmade Cakes & Pastries</title>
+  <link rel="stylesheet" href="../crt.css">
+  <!-- TEMA 7: Rosa chicle + crema — bakery vibes -->
+  <style>
+    :root {
+      --crt-bg: #fff5e6;
+      --crt-surface: #ffe8d6;
+      --crt-surface-2: #ffddc0;
+      --crt-border: #d9a3b0;
+      --crt-border-light: #f0c4cf;
+      --crt-border-dark: #a06a78;
+      --crt-text: #4a2c3a;
+      --crt-text-muted: #8a6075;
+      --crt-accent: #e91e63;
+      --crt-accent-dim: #ad1457;
+      --crt-accent-alt: #ff80ab;
+      --crt-danger: #c2185b;
+      --crt-success: #2e7d32;
+      --crt-font: 'Quicksand', 'Comfortaa', 'Trebuchet MS', sans-serif;
+      --crt-heading-font: 'Pacifico', 'Brush Script MT', cursive;
+      --crt-font-size: 14px;
+      --crt-border-width: 2px;
+      --crt-radius: 0px;
+      --crt-scanlines: 0;
+      --crt-texture: 1;
+      --crt-texture-color: rgba(233, 30, 99, 0.08);
+      --crt-max-width: 1400px;
+    }
+    /* Decorative header */
+    .bakery-header {
+      text-align: center;
+      padding: var(--crt-space-xl) var(--crt-space-md);
+      background: var(--crt-surface);
+      border: var(--crt-border-width) solid var(--crt-border);
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 4px 0 var(--crt-border-dark);
+      margin-bottom: var(--crt-space-lg);
+    }
+    .bakery-header h1 {
+      font-family: var(--crt-heading-font);
+      font-size: 3rem;
+      color: var(--crt-accent);
+      margin: 0;
+      border: none;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .bakery-header p {
+      font-size: 1.1rem;
+      color: var(--crt-text-muted);
+      margin: var(--crt-space-sm) 0 0;
+      font-style: italic;
+    }
+
+    .nav-pills {
+      display: flex;
+      justify-content: center;
+      gap: var(--crt-space-sm);
+      padding: var(--crt-space-md) 0;
+      flex-wrap: wrap;
+    }
+    .nav-pills a {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-xs) var(--crt-space-md);
+      font-size: 0.9rem;
+      background: var(--crt-bg);
+    }
+    .nav-pills a[aria-current="page"] {
+      background: var(--crt-accent);
+      color: var(--crt-bg);
+      border-color: var(--crt-accent-dim);
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--crt-space-md);
+      margin: var(--crt-space-lg) 0;
+    }
+    .cake-card {
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-bg);
+      padding: var(--crt-space-md);
+      text-align: center;
+      position: relative;
+      box-shadow:
+        inset 0 1px 0 var(--crt-border-light),
+        0 4px 0 var(--crt-border-dark);
+    }
+    .cake-card .badge-new {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--crt-accent-alt);
+      color: var(--crt-bg);
+      padding: 2px 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    /* CSS-only cake illustration */
+    .cake-art {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto var(--crt-space-md);
+      position: relative;
+    }
+    .cake-art .plate {
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      right: 10px;
+      height: 12px;
+      background: var(--crt-surface);
+      border: 2px solid var(--crt-border);
+    }
+    .cake-art .layer {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      border: 2px solid var(--crt-border);
+    }
+    .cake-art .layer-1 {
+      bottom: 12px;
+      height: 30px;
+      background: #f8bbd0;
+    }
+    .cake-art .layer-2 {
+      bottom: 42px;
+      height: 25px;
+      background: #ec407a;
+    }
+    .cake-art .layer-3 {
+      bottom: 67px;
+      height: 20px;
+      background: #f8bbd0;
+    }
+    .cake-art .cherry {
+      position: absolute;
+      bottom: 87px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      background: var(--crt-danger);
+      border: 2px solid var(--crt-border);
+      border-radius: 50%;
+    }
+    .cake-art .candle {
+      position: absolute;
+      bottom: 95px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 10px;
+      background: var(--crt-accent-alt);
+    }
+    /* Variant: cupcake */
+    .cake-art.cupcake .layer-1 { bottom: 12px; height: 18px; left: 35px; right: 35px; }
+    .cake-art.cupcake .layer-2 { bottom: 30px; height: 18px; left: 30px; right: 30px; background: #ec407a; }
+    .cake-art.cupcake .layer-3 { bottom: 48px; height: 22px; left: 25px; right: 25px; background: #fff59d; transform: skewX(-5deg); }
+    .cake-art.cupcake .cherry { bottom: 68px; }
+    .cake-art.cupcake .candle { bottom: 76px; }
+    /* Variant: pie */
+    .cake-art.pie .layer-1 { bottom: 12px; height: 14px; left: 25px; right: 25px; background: #d4a574; }
+    .cake-art.pie .layer-2 { bottom: 26px; height: 30px; left: 25px; right: 25px; background: #b8860b; border-radius: 50% 50% 0 0; }
+
+    .cake-card h3 {
+      font-family: var(--crt-heading-font);
+      font-size: 1.3rem;
+      color: var(--crt-accent);
+      text-transform: none;
+      letter-spacing: 0;
+      margin: var(--crt-space-sm) 0 var(--crt-space-xs);
+    }
+    .cake-card .desc {
+      font-size: 0.85rem;
+      color: var(--crt-text-muted);
+      margin-bottom: var(--crt-space-sm);
+      min-height: 3em;
+    }
+    .cake-card .price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--crt-accent);
+      margin-bottom: var(--crt-space-sm);
+    }
+    .cake-card button {
+      width: 100%;
+      background: var(--crt-accent);
+      color: var(--crt-bg);
+    }
+    .cake-card button:hover {
+      background: var(--crt-accent-alt);
+      border-color: var(--crt-accent-alt);
+    }
+
+    .order-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: var(--crt-space-lg);
+      margin-top: var(--crt-space-xl);
+    }
+    .order-form {
+      border: var(--crt-border-width) solid var(--crt-border);
+      padding: var(--crt-space-lg);
+      background: var(--crt-bg);
+    }
+    .order-form fieldset {
+      margin-bottom: var(--crt-space-md);
+    }
+    .order-form fieldset label {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .order-form .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--crt-space-md);
+    }
+
+    .cart {
+      border: var(--crt-border-width) solid var(--crt-border);
+      background: var(--crt-surface);
+      padding: var(--crt-space-md);
+      align-self: start;
+      position: sticky;
+      top: var(--crt-space-md);
+    }
+    .cart h3 {
+      font-family: var(--crt-heading-font);
+      color: var(--crt-accent);
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+    .cart .item {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--crt-space-xs) 0;
+      border-bottom: 1px dashed var(--crt-border);
+      font-size: 0.9rem;
+    }
+    .cart .item:last-of-type { border-bottom: none; }
+    .cart .total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--crt-accent);
+      margin-top: var(--crt-space-md);
+      padding-top: var(--crt-space-sm);
+      border-top: 2px solid var(--crt-border);
+    }
+
+    /* ── Responsive (desktop-first: keep cakes delightful at any size) */
+    @media (max-width: 900px) {
+      .featured-grid { grid-template-columns: 1fr; max-width: 400px; margin: var(--crt-space-md) auto; }
+      .order-layout { grid-template-columns: 1fr; }
+      .cart { position: static; }
+      .order-form .row { grid-template-columns: 1fr; }
+      .nav-pills { padding: var(--crt-space-sm); }
+    }
+    @media (max-width: 600px) {
+      body { padding: var(--crt-space-md); }
+      .bakery-header h1 { font-size: 2.2rem; }
+      .nav-pills a { font-size: 0.8rem; padding: 4px 10px; }
+      .cake-art { width: 100px; height: 100px; }
+      .cake-art .layer { left: 15px; right: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="bakery-header" data-texture="dots">
+    <h1>Sweetcrumbs</h1>
+    <p>Handmade with love · Est. 2019 · Delivered in Bogotá</p>
+  </header>
+
+  <nav class="nav-pills" aria-label="Sections">
+    <a href="#" aria-current="page">All</a>
+    <a href="#">Birthday Cakes</a>
+    <a href="#">Cupcakes</a>
+    <a href="#">Pies &amp; Tarts</a>
+    <a href="#">Cookies</a>
+    <a href="#">Custom Orders</a>
+    <a href="#">About</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2 style="text-align:center;">Today's featured</h2>
+
+      <div class="featured-grid">
+        <article class="cake-card" data-texture="paper">
+          <span class="badge-new">NEW</span>
+          <div class="cake-art">
+            <div class="layer layer-3"></div>
+            <div class="layer layer-2"></div>
+            <div class="layer layer-1"></div>
+            <div class="plate"></div>
+            <div class="candle"></div>
+            <div class="cherry"></div>
+          </div>
+          <h3>Strawberry Dream</h3>
+          <p class="desc">Three layers of vanilla sponge, fresh strawberries, and pink buttercream.</p>
+          <p class="price">$24.000</p>
+          <button type="button">ADD TO ORDER</button>
+        </article>
+
+        <article class="cake-card" data-texture="paper">
+          <div class="cake-art cupcake">
+            <div class="layer layer-3"></div>
+            <div class="layer layer-2"></div>
+            <div class="layer layer-1"></div>
+            <div class="plate"></div>
+            <div class="candle"></div>
+            <div class="cherry"></div>
+          </div>
+          <h3>Lemon Sunshine Cupcake</h3>
+          <p class="desc">Zesty lemon curd topped with vanilla buttercream and a sugar pearl.</p>
+          <p class="price">$6.500</p>
+          <button type="button">ADD TO ORDER</button>
+        </article>
+
+        <article class="cake-card" data-texture="paper">
+          <span class="badge-new">BESTSELLER</span>
+          <div class="cake-art pie">
+            <div class="layer layer-2"></div>
+            <div class="layer layer-1"></div>
+            <div class="plate"></div>
+          </div>
+          <h3>Apple Crumble Pie</h3>
+          <p class="desc">Local apples, cinnamon, and a buttery oat crumble. Serves 8.</p>
+          <p class="price">$18.000</p>
+          <button type="button">ADD TO ORDER</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="order-layout">
+      <form class="order-form">
+        <h2>Place your order</h2>
+
+        <fieldset>
+          <legend>Contact</legend>
+          <div class="row">
+            <div>
+              <label for="o-name">Your name</label>
+              <input type="text" id="o-name" placeholder="Jane Doe">
+            </div>
+            <div>
+              <label for="o-phone">Phone</label>
+              <input type="tel" id="o-phone" placeholder="+57 300 123 4567">
+            </div>
+          </div>
+          <label for="o-email">Email</label>
+          <input type="email" id="o-email" placeholder="jane@example.com">
+        </fieldset>
+
+        <fieldset>
+          <legend>Delivery</legend>
+          <div class="row">
+            <div>
+              <label for="o-date">Date needed</label>
+              <input type="date" id="o-date">
+            </div>
+            <div>
+              <label for="o-time">Time</label>
+              <select id="o-time">
+                <option>09:00 – 11:00</option>
+                <option>11:00 – 13:00</option>
+                <option>13:00 – 15:00</option>
+                <option>15:00 – 17:00</option>
+                <option>17:00 – 19:00</option>
+              </select>
+            </div>
+          </div>
+          <label for="o-addr">Delivery address</label>
+          <textarea id="o-addr" rows="2" placeholder="Street, number, apartment, neighborhood..."></textarea>
+          <label><input type="checkbox"> This is a gift (add wrapping: +$5.000)</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Custom message on cake</legend>
+          <label for="o-msg">Message (max 40 chars)</label>
+          <input type="text" id="o-msg" maxlength="40" placeholder="Happy birthday Maria!">
+          <p style="font-size: 0.8rem; color: var(--crt-text-muted); margin: 0;">
+            We'll pipe it in chocolate or pink icing — your choice on delivery.
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Payment</legend>
+          <label><input type="radio" name="pay" checked> Cash on delivery</label>
+          <label><input type="radio" name="pay"> Bank transfer (we'll send details)</label>
+          <label><input type="radio" name="pay"> Card on delivery (+$2.000 surcharge)</label>
+        </fieldset>
+
+        <button type="submit">PLACE ORDER →</button>
+      </form>
+
+      <aside class="cart">
+        <h3>Your order</h3>
+        <div class="item">
+          <span>Strawberry Dream × 1</span>
+          <span>$24.000</span>
+        </div>
+        <div class="item">
+          <span>Lemon Sunshine × 4</span>
+          <span>$26.000</span>
+        </div>
+        <div class="item">
+          <span>Apple Crumble × 1</span>
+          <span>$18.000</span>
+        </div>
+        <div class="item" style="color: var(--crt-text-muted); font-size: 0.85rem;">
+          <span>Gift wrapping</span>
+          <span>+$5.000</span>
+        </div>
+        <p class="total">
+          <span>Total</span>
+          <span>$73.000</span>
+        </p>
+        <p style="font-size: 0.75rem; color: var(--crt-text-muted); margin-top: var(--crt-space-sm);">
+          Delivery in Bogotá: free over $50.000 · otherwise $8.000
+        </p>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Sweetcrumbs · <a href="../showcase/index.html">← back to showcase</a> · Made with ♥ in Bogotá</p>
+  </footer>
+</body>
+</html>
