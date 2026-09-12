@@ -33,7 +33,7 @@
       text-align: center;
       padding: var(--dm-space-xl) var(--dm-space-md);
       border: var(--dm-border-width) solid var(--dm-border);
-      background: var(--dm-surface);
+      background-color: var(--dm-surface);
       margin-bottom: var(--dm-space-xl);
       box-shadow: inset 0 1px 0 var(--dm-border-light), 0 6px 0 var(--dm-border-dark);
     }
@@ -81,7 +81,7 @@
     .demo-card {
       border: var(--dm-border-width) solid var(--dm-border);
       padding: var(--dm-space-md);
-      background: var(--dm-bg);
+      background-color: var(--dm-bg);
       display: flex;
       flex-direction: column;
       color: var(--dm-text);
@@ -160,7 +160,7 @@
       margin: var(--dm-space-xl) 0;
       padding: var(--dm-space-lg);
       border: var(--dm-border-width) solid var(--dm-border);
-      background: var(--dm-surface);
+      background-color: var(--dm-surface);
       box-shadow: inset 0 1px 0 var(--dm-border-light), 0 4px 0 var(--dm-border-dark);
     }
     .texture-tiles {
@@ -172,7 +172,7 @@
     .tex-tile {
       padding: var(--dm-space-md);
       border: var(--dm-border-width) solid var(--dm-border);
-      background: var(--dm-bg);
+      background-color: var(--dm-bg);
       text-align: center;
       box-shadow: inset 0 1px 0 var(--dm-border-light), 0 2px 0 var(--dm-border-dark);
     }
@@ -213,7 +213,7 @@
       margin: var(--dm-space-xl) 0;
       padding: var(--dm-space-lg);
       border: var(--dm-border-width) dashed var(--dm-border);
-      background: var(--dm-surface);
+      background-color: var(--dm-surface);
     }
     .philosophy p {
       font-size: 1rem;
@@ -264,7 +264,7 @@
       <div class="stats">
         <div><div class="num">10</div><div class="lbl">Demo Apps</div></div>
         <div><div class="num">10</div><div class="lbl">Unique Themes</div></div>
-        <div><div class="num">8</div><div class="lbl">Textures</div></div>
+        <div><div class="num">10</div><div class="lbl">Textures</div></div>
         <div><div class="num">2</div><div class="lbl">Bevels</div></div>
         <div><div class="num">1</div><div class="lbl">CSS File</div></div>
         <div><div class="num">0</div><div class="lbl">JavaScript</div></div>
@@ -275,7 +275,7 @@
     <section class="texture-showcase" data-texture="dots">
       <h2>◆ The texture system</h2>
       <p>
-        dotmatrix.css ships with <strong>8 textures</strong> and <strong>2 bevels</strong>. Apply them with a single HTML attribute — no classes, no extra CSS.
+        dotmatrix.css ships with <strong>10 textures</strong> and <strong>2 bevels</strong>. Apply them with a single HTML attribute — no classes, no extra CSS.
       </p>
 
       <h3 style="margin-top: var(--dm-space-lg); font-size: 0.95rem;">Textures</h3>
@@ -308,9 +308,17 @@
           <strong>carbon</strong>
           <code>data-texture="carbon"</code>
         </div>
-        <div class="tex-tile" data-texture="phosphor" data-texture-preset="phosphor" style="background: #0a1a14; color: #00ff41;">
+        <div class="tex-tile" data-texture="phosphor" data-texture-preset="phosphor" style="background-color: #0a1a14; color: #00ff41;">
           <strong style="color: #00ff41;">phosphor</strong>
           <code style="color: #00ff41;">data-texture="phosphor"</code>
+        </div>
+        <div class="tex-tile" data-texture="grid">
+          <strong>grid</strong>
+          <code>data-texture="grid"</code>
+        </div>
+        <div class="tex-tile" data-texture="scanlines">
+          <strong>scanlines</strong>
+          <code>data-texture="scanlines"</code>
         </div>
       </div>
 
@@ -463,7 +471,7 @@
       </p>
       <p>
         The textures system follows the same philosophy as the rest of dotmatrix.css: <strong>semantic, opt-in, zero-cost</strong>.
-        The 8 textures + 2 bevels add ~1.2 KB to the framework. They use <code>radial-gradient</code> and <code>repeating-linear-gradient</code> — no extra HTTP requests, no PNG sprites, no JS lazy-loading.
+        The 10 textures + 2 bevels add ~1.2 KB to the framework. They use <code>radial-gradient</code> and <code>repeating-linear-gradient</code> — no extra HTTP requests, no PNG sprites, no JS lazy-loading.
       </p>
       <p>
         And the bevels? They're a single CSS rule that combines two inset shadows. No images, no border-image, no <code>linear-gradient</code> hacks — just the same border you already have, plus a 1px highlight on one edge and a 1px shadow on the other.
