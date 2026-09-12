@@ -79,7 +79,7 @@ That's it. No classes, no JavaScript, no build step.
 
 ## Textures
 
-Apply any of 8 texture patterns to any element with a single attribute:
+Apply any of 10 texture patterns to any element with a single attribute:
 
 ```html
 <article data-texture="paper">...</article>     <!-- recycled paper grain -->
@@ -90,6 +90,8 @@ Apply any of 8 texture patterns to any element with a single attribute:
 <footer data-texture="noise">...</footer>       <!-- xerox grain -->
 <div data-texture="carbon">...</div>            <!-- gradient + grain -->
 <main data-texture="phosphor">...</main>       <!-- CRT RGB dots -->
+<div data-texture="grid">...</div>              <!-- drafting grid -->
+<div data-texture="scanlines">...</div>         <!-- visible CRT lines -->
 ```
 
 ### Presets
@@ -102,6 +104,8 @@ Quick combos for common aesthetics:
 <body data-texture-preset="phosphor"> <!-- for dark themes -->
 <body data-texture-preset="subtle">   <!-- barely there -->
 <body data-texture-preset="strong">   <!-- pronounced -->
+<body data-texture-preset="blueprint"> <!-- cool technical paper -->
+<body data-texture-preset="amber">     <!-- warm terminal paper -->
 ```
 
 ## Bevels

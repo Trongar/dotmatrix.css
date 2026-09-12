@@ -1,207 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PixelForge — Build retro UIs in minutes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="dotmatrix.css: framework CSS classless, pixel-art y retro.">
+  <title>dotmatrix.css — Interfaces retro sin clases</title>
   <link rel="stylesheet" href="../dotmatrix.css">
-  <!-- TEMA 1: Verde CRT clásico (default + overrides mínimos) -->
   <style>
     :root {
-      --dm-bg: #f0f0e8;
-      --dm-surface: #e0e0d0;
-      --dm-surface-2: #d0d0c0;
-      --dm-border: #8a8a7a;
-      --dm-border-light: #c8c8b8;
-      --dm-border-dark: #5a5a4a;
-      --dm-text: #1a1a1a;
-      --dm-text-muted: #606060;
-      --dm-accent: #006600;
-      --dm-accent-alt: #aa6600;
-      --dm-danger: #cc0000;
-      --dm-texture: 1;
-      --dm-texture-color: rgba(0, 80, 0, 0.1);
+      --dm-bg: #f4ecd8;
+      --dm-surface: #ebe0c5;
+      --dm-border: #8b7355;
+      --dm-border-light: #cdbb98;
+      --dm-border-dark: #5a4a35;
+      --dm-text: #2d1f12;
+      --dm-text-muted: #6b5a40;
+      --dm-accent: #6b3410;
+      --dm-accent-dim: #4a2308;
+      --dm-accent-alt: #a06020;
+      --dm-texture-color: rgba(95, 48, 12, .17);
+      --dm-texture: 2;
+      --dm-max-width: 1080px;
+      --dm-font: "Courier New", monospace;
+      --dm-heading-font: "Courier New", monospace;
+      --dm-scanlines: 0;
     }
-    /* Demo-only layouts — no toques al framework */
-    .hero {
-      text-align: center;
-      padding: var(--dm-space-xl) var(--dm-space-md);
-      border: var(--dm-border-width) solid var(--dm-border);
-      margin: var(--dm-space-lg) 0;
-      background: var(--dm-surface);
-      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 4px 0 var(--dm-border-dark);
-    }
-    .hero h1 {
-      font-size: 2.4rem;
-      margin-top: 0;
-      border-bottom: none;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--dm-text-muted);
-      max-width: 600px;
-      margin: var(--dm-space-md) auto var(--dm-space-lg);
-    }
-    .hero .cta-row {
-      display: flex;
-      gap: var(--dm-space-md);
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--dm-space-md);
-      margin: var(--dm-space-lg) 0;
-    }
-    .feature {
-      border: var(--dm-border-width) solid var(--dm-border);
-      padding: var(--dm-space-md);
-      background: var(--dm-surface);
-      box-shadow: inset 0 1px 0 var(--dm-border-light), 0 2px 0 var(--dm-border-dark);
-    }
-    .feature h3 {
-      margin-top: 0;
-      font-size: 1rem;
-    }
-    .feature p {
-      font-size: 0.9rem;
-      margin-bottom: 0;
-    }
-    .logo-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--dm-space-lg);
-      justify-content: center;
-      align-items: center;
-      padding: var(--dm-space-md);
-      color: var(--dm-text-muted);
-      font-weight: 700;
-      letter-spacing: 0.1em;
-    }
-    .testimonial {
-      border-left: 4px solid var(--dm-accent);
-      padding: var(--dm-space-md);
-      background: var(--dm-surface);
-      margin: var(--dm-space-md) 0;
-    }
-    .testimonial cite {
-      display: block;
-      margin-top: var(--dm-space-sm);
-      font-size: 0.85rem;
-      color: var(--dm-text-muted);
-    }
-
-    /* ── Responsive (desktop-first: stack only when grids break) */
-    @media (max-width: 900px) {
-      .features {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .hero h1 { font-size: 1.8rem; }
-    }
-    @media (max-width: 600px) {
-      body { padding: var(--dm-space-md); }
-      .hero { padding: var(--dm-space-lg) var(--dm-space-sm); }
-      .hero h1 { font-size: 1.4rem; }
-      .hero .cta-row { flex-direction: column; align-items: stretch; }
-      .hero .cta-row a, .hero .cta-row button { width: 100%; text-align: center; }
-      .features { grid-template-columns: 1fr; }
-      header nav ul { flex-direction: column; gap: 2px; }
-      header nav li { margin: 0; }
-    }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 20px; }
+    header h1 { margin: 0; border: 0; font-size: 1.2rem; }
+    header nav ul { display: flex; flex-wrap: wrap; gap: 16px; list-style: none; padding: 0; margin: 0; }
+    header nav li { margin: 0; }
+    .hero { padding: clamp(28px, 7vw, 72px) clamp(18px, 6vw, 72px); margin: 12px 0 32px; text-align: center; border: 2px solid var(--dm-border); background-color: var(--dm-surface); box-shadow: 0 6px 0 var(--dm-border-dark); }
+    .hero h2 { margin: 0; border: 0; font-size: clamp(2rem, 6vw, 4.2rem); line-height: 1.05; }
+    .hero p { max-width: 680px; margin: 22px auto; font-size: 1.1rem; }
+    .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .hero-actions a { margin: 0; }
+    .eyebrow { color: var(--dm-accent-alt); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; }
+    .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 24px 0 0; }
+    .badges span { padding: 4px 8px; border: 1px solid var(--dm-border); background: var(--dm-bg); font-size: .75rem; }
+    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 16px 0 36px; }
+    .feature-grid article { min-height: 170px; padding: 18px; border: 2px solid var(--dm-border); background-color: var(--dm-surface); }
+    .feature-grid h3 { margin-top: 0; }
+    .feature-grid p { font-size: .9rem; }
+    .install { padding: 20px; border: 2px solid var(--dm-border); background-color: var(--dm-bg); box-shadow: 0 4px 0 var(--dm-border-dark); }
+    .install h2 { margin-top: 0; }
+    .install pre { margin-bottom: 0; overflow-x: auto; }
+    .comparison { overflow-x: auto; }
+    footer { margin-top: 48px; text-align: center; }
+    @media (max-width: 800px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { header { align-items: flex-start; flex-direction: column; } header nav ul { gap: 8px; } .feature-grid { grid-template-columns: 1fr; } .hero-actions a { width: 100%; text-align: center; } }
   </style>
 </head>
-<body>
+<body data-texture-preset="vintage">
   <header>
-    <h1>PIXELFORGE</h1>
-    <nav>
-      <ul>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#docs">Docs</a></li>
-        <li><a href="#login">Login</a></li>
-      </ul>
-    </nav>
+    <h1>► dotmatrix.css</h1>
+    <nav aria-label="Navegación principal"><ul><li><a href="#features">Características</a></li><li><a href="#install">Instalar</a></li><li><a href="../showcase/">Showcase</a></li><li><a href="https://github.com/Trongar/dotmatrix.css">GitHub</a></li></ul></nav>
   </header>
 
   <main>
-    <section class="hero" data-texture="halftone">
-      <h1>BUILD RETRO UIs<br>IN MINUTES, NOT MONTHS</h1>
-      <p>PixelForge is the classless CSS framework that turns semantic HTML into pixel-perfect retro interfaces. No build step. No JavaScript. Just <code>&lt;link&gt;</code> and ship.</p>
-      <div class="cta-row">
-        <button type="submit">GET STARTED FREE</button>
-        <a role="button" href="#docs">READ THE DOCS</a>
-      </div>
-      <p style="margin-top: var(--dm-space-md); font-size: 0.8rem; color: var(--dm-text-muted);">
-        v0.1.0 · ~6KB gzipped · MIT licensed
-      </p>
+    <section class="hero" data-texture="halftone" data-bevel="out">
+      <p class="eyebrow">CSS RETRO / SIN BUILD STEP</p>
+      <h2>Interfaces con carácter.</h2>
+      <p>Escribe HTML semántico y obtén una interfaz pixel-art con texturas, relieve y estados accesibles. Sin clases utilitarias. Sin JavaScript.</p>
+      <div class="hero-actions"><a role="button" href="../showcase/">Ver showcase →</a><a role="button" href="../demo.html">Ver componentes</a><a role="button" href="https://github.com/Trongar/dotmatrix.css">Código fuente</a></div>
+      <div class="badges"><span>v0.2.0</span><span>MIT</span><span>~5KB gzip</span><span>10 demos</span><span>0 JS</span></div>
     </section>
 
-    <section>
-      <h2 id="features">Why PixelForge</h2>
-      <div class="features">
-        <article class="feature">
-          <h3>◆ Classless</h3>
-          <p>Your HTML tags already have semantic meaning. We style them directly. Zero classes required.</p>
-        </article>
-        <article class="feature">
-          <h3>◆ Themeable</h3>
-          <p>Override a handful of CSS variables and the entire aesthetic changes. No preprocessor needed.</p>
-        </article>
-        <article class="feature">
-          <h3>◆ 6KB Total</h3>
-          <p>One CSS file. No JS. No build pipeline. Drop it in any HTML page and it works.</p>
-        </article>
-        <article class="feature">
-          <h3>◆ Accessible</h3>
-          <p>Keyboard focus rings, semantic structure, screen-reader friendly. Retro doesn't mean broken.</p>
-        </article>
+    <section id="features">
+      <h2>Lo que incluye</h2>
+      <div class="feature-grid">
+        <article data-texture="paper"><h3>Classless</h3><p>Los elementos semánticos reciben estilo directamente. Menos nombres, menos mantenimiento.</p></article>
+        <article data-texture="dots"><h3>Texturas</h3><p>Paper, dots, hatch, halftone, grid, scanlines y más con un solo atributo.</p></article>
+        <article data-texture="stripes"><h3>Relieve</h3><p>Superficies hundidas o elevadas con <code>data-bevel</code>, sin componentes especiales.</p></article>
+        <article data-texture="grid"><h3>Accesible</h3><p>HTML semántico, focus visible, contraste y responsive desde el principio.</p></article>
       </div>
     </section>
 
-    <section>
-      <h2>Trusted by builders at</h2>
-      <div class="logo-row">
-        <span>RETROSOFT</span>
-        <span>PIXEL.WORKS</span>
-        <span>8BIT.CO</span>
-        <span>ARCADE.DEV</span>
-        <span>TERMINAL.IO</span>
-      </div>
+    <section id="install" class="install" data-texture="paper" data-bevel="out">
+      <h2>Empieza en un minuto</h2>
+      <p>Incluye la hoja de estilos y escribe HTML normal:</p>
+      <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/dotmatrix.css@0.2.0/dotmatrix.css"&gt;
+
+&lt;article data-texture="paper" data-bevel="out"&gt;
+  &lt;h2&gt;Mi interfaz retro&lt;/h2&gt;
+&lt;/article&gt;</code></pre>
+      <p><a href="../README.md">Leer la documentación completa →</a></p>
     </section>
 
     <section>
-      <h2>What people say</h2>
-      <blockquote class="testimonial">
-        <p>"Replaced 40KB of Bootstrap with 6KB of PixelForge. Our designers actually smiled for the first time in years."</p>
-        <cite>— J. Wong, Lead Engineer at Retrosoft</cite>
-      </blockquote>
-      <blockquote class="testimonial">
-        <p>"Finally, a CSS framework that doesn't feel like it was designed by a committee of enterprise architects."</p>
-        <cite>— M. Reyes, Indie Dev</cite>
-      </blockquote>
-    </section>
-
-    <section>
-      <h2 id="pricing">Pricing</h2>
-      <p>Free forever for personal projects. Paid plans for teams.</p>
-      <caption>Data table</caption>
-  
-        <thead>
-          <tr><th>Plan</th><th>Price</th><th>Sites</th><th>Support</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Hobby</td><td>$0</td><td>1</td><td>Community</td></tr>
-          <tr><td>Pro</td><td>$9/mo</td><td>10</td><td>Email</td></tr>
-          <tr><td>Team</td><td>$49/mo</td><td>Unlimited</td><td>Priority + Slack</td></tr>
-        </tbody>
-      </table>
-      <p><button type="submit">START FREE TRIAL</button></p>
+      <h2>Planes</h2>
+      <div class="comparison"><table><caption>Todo el framework es gratuito y MIT</caption><thead><tr><th>Edición</th><th>Precio</th><th>Incluye</th></tr></thead><tbody><tr><td>dotmatrix.css</td><td>$0</td><td>CSS, texturas, bevels y demos</td></tr><tr><td>Tu proyecto</td><td>Tu tiempo</td><td>HTML semántico y mucha personalidad</td></tr></tbody></table></div>
     </section>
   </main>
 
-  <footer>
-    <p>© 2026 PixelForge · <a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="../showcase/index.html">← back to showcase</a></p>
-  </footer>
+  <footer><p>dotmatrix.css · escrito en HTML semántico · <a href="../index.html">Inicio</a></p></footer>
 </body>
 </html>
