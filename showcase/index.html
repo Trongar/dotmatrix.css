@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dotmatrix.css — Stress Test Showcase</title>
+  <title>dotmatrix.css — Showcase</title>
   <link rel="stylesheet" href="../dotmatrix.css">
   <style>
     :root {
@@ -240,26 +240,26 @@
 <body data-texture-preset="sepia">
 
   <header>
-    <h1>CRT.CSS · STRESS TEST</h1>
+    <h1>dotmatrix.css · showcase</h1>
     <p style="color: var(--dm-text-muted); margin: var(--dm-space-xs) 0 0; font-style: italic;">
-      10 real-world app mocks · 10 unique themes · 1 CSS file · 0 JavaScript
+      Ten small interfaces · ten themes · one CSS file · no JavaScript
     </p>
     <nav>
       <ul>
-        <li><a href="../dotmatrix.css">View framework</a></li>
-        <li><a href="../README.md">README</a></li>
-        <li><a href="../CHANGELOG.md">Changelog</a></li>
+        <li><a href="../dotmatrix.css">CSS file</a></li>
+        <li><a href="../README.md">Documentation</a></li>
+        <li><a href="../CHANGELOG.md">Changes</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <section class="intro" data-texture="paper">
-      <h1>◆ What happens when you build 10 real apps<br>with one 8KB classless framework?</h1>
+      <h1>Ten interfaces, one stylesheet</h1>
       <p class="lede">
-        Every demo below uses the <strong>exact same</strong> <code>dotmatrix.css</code> file linked from the root.
-        Differences are <strong>CSS variable overrides</strong> + <strong>data-texture attributes</strong> in each <code>&lt;style&gt;</code> block.
-        Same HTML semantics, same components, radically different vibes.
+        Each demo links to the same <code>dotmatrix.css</code> file.
+        The theme changes come from a few CSS variables and <code>data-texture</code> attributes.
+        The HTML stays semantic while the visual tone changes from page to page.
       </p>
       <div class="stats">
         <div><div class="num">10</div><div class="lbl">Demo Apps</div></div>
@@ -271,14 +271,14 @@
       </div>
     </section>
 
-    <!-- TEXTURES & BEVELS SHOWCASE -->
+    <!-- TEXTURES AND BEVELS -->
     <section class="texture-showcase" data-texture="dots">
-      <h2>◆ The texture system</h2>
+      <h2>Textures and bevels</h2>
       <p>
-        dotmatrix.css ships with <strong>10 textures</strong> and <strong>2 bevels</strong>. Apply them with a single HTML attribute — no classes, no extra CSS.
+        There are <strong>10 textures</strong> and <strong>2 bevels</strong>. Add one attribute to an element and the style is ready.
       </p>
 
-      <h3 style="margin-top: var(--dm-space-lg); font-size: 0.95rem;">Textures</h3>
+      <h3 style="margin-top: var(--dm-space-lg); font-size: 0.95rem;">Texture options</h3>
       <div class="texture-tiles">
         <div class="tex-tile" data-texture="paper">
           <strong>paper</strong>
@@ -322,33 +322,33 @@
         </div>
       </div>
 
-      <h3 style="margin-top: var(--dm-space-lg); font-size: 0.95rem;">Bevels</h3>
+      <h3 style="margin-top: var(--dm-space-lg); font-size: 0.95rem;">Bevel options</h3>
       <div class="bevel-compare">
         <div data-bevel="out">
           <strong>Raised panel</strong>
-          <p style="font-size: 0.85rem; margin: var(--dm-space-xs) 0;">Looks like it's sticking out toward you. Perfect for cards, callouts, buttons.</p>
+          <p style="font-size: 0.85rem; margin: var(--dm-space-xs) 0;">Use it on cards, callouts, and buttons that should sit above the page.</p>
           <code>data-bevel="out"</code>
         </div>
         <div data-bevel="in">
           <strong>Sunken panel</strong>
-          <p style="font-size: 0.85rem; margin: var(--dm-space-xs) 0;">Looks pressed into the surface. Perfect for input areas, terminals, wells.</p>
+          <p style="font-size: 0.85rem; margin: var(--dm-space-xs) 0;">Use it for inputs, terminal windows, and areas that should feel recessed.</p>
           <code>data-bevel="in"</code>
         </div>
       </div>
     </section>
 
-    <!-- THE 10 DEMOS -->
+    <!-- DEMO PAGES -->
     <section>
-      <h2>The 10 demos</h2>
-      <p style="color: var(--dm-text-muted);">Each card shows the textures and bevels applied to that demo. Click to explore.</p>
+      <h2>Demo pages</h2>
+      <p style="color: var(--dm-text-muted);">Each page uses the same framework with a different theme and layout.</p>
 
       <div class="demo-grid">
 
         <a href="../demos/01-landing.html" class="demo-card" data-texture="paper">
           <div class="num">01 · LANDING</div>
           <span class="theme-label">Verde CRT (default)</span>
-          <h2>PixelForge marketing site</h2>
-          <p>Hero, feature grid, testimonials, pricing table. Baseline of the framework.</p>
+          <h2>Product landing page</h2>
+          <p>A hero section, feature grid, testimonials, and a pricing table in one page.</p>
           <ul class="textures">
             <li>data-texture="halftone"</li>
             <li class="bevel">raised bevel</li>
@@ -358,8 +358,8 @@
         <a href="../demos/02-auth.html" class="demo-card" data-texture="paper">
           <div class="num">02 · AUTH</div>
           <span class="theme-label">Cyan terminal</span>
-          <h2>Sign-in / Sign-up / 2FA</h2>
-          <p>3 auth flows side-by-side. OTP grid, password strength meter, error banners.</p>
+          <h2>Sign-in, sign-up, and 2FA</h2>
+          <p>Three authentication states with an OTP grid, password feedback, and errors.</p>
           <ul class="textures">
             <li>data-texture="dots"</li>
             <li class="bevel">raised + cyan glow</li>
@@ -370,7 +370,7 @@
           <div class="num">03 · DASHBOARD</div>
           <span class="theme-label">Ámbar retro</span>
           <h2>RetroCRM</h2>
-          <p>Desktop-first CRM. Sidebar nav, KPI cards with sparklines, CSS bar chart, activity feed, deals table.</p>
+          <p>A desktop CRM with sidebar navigation, KPI cards, a bar chart, activity, and deals.</p>
           <ul class="textures">
             <li>data-texture="dots"</li>
             <li>data-texture="halftone"</li>
@@ -381,8 +381,8 @@
         <a href="../demos/04-pricing.html" class="demo-card" data-texture="halftone">
           <div class="num">04 · PRICING</div>
           <span class="theme-label">Verde Nintendo</span>
-          <h2>Pricing tiers + comparison</h2>
-          <p>3 tiers with stepped-shadow featured card, full comparison table, FAQ accordion.</p>
+          <h2>Pricing tiers and comparison</h2>
+          <p>Three plans, a featured card, a comparison table, and an FAQ accordion.</p>
           <ul class="textures">
             <li>data-texture="halftone"</li>
             <li class="bevel">deep raised tiers</li>
@@ -392,8 +392,8 @@
         <a href="../demos/05-blog.html" class="demo-card" data-texture="paper">
           <div class="num">05 · BLOG</div>
           <span class="theme-label">Sepia lectura</span>
-          <h2>Long-form essay</h2>
-          <p>3-col desktop layout: TOC, article body, related posts. Threaded comments. Newsletter form.</p>
+          <h2>Long-form article</h2>
+          <p>A three-column reading layout with a contents list, related posts, comments, and signup.</p>
           <ul class="textures">
             <li>data-texture="paper"</li>
             <li>data-texture="dots"</li>
@@ -403,8 +403,8 @@
         <a href="../demos/06-library.html" class="demo-card" data-texture-preset="vintage">
           <div class="num">06 · LIBRARY</div>
           <span class="theme-label">Pergamino / vintage</span>
-          <h2>Olde Books catalogue</h2>
-          <p>Catalog of 12 books with CSS-only spines (vertical-rl writing mode). Filter sidebar + pagination.</p>
+          <h2>Old book catalogue</h2>
+          <p>Twelve books with CSS-only spines, a filter sidebar, and pagination.</p>
           <ul class="textures">
             <li>data-texture-preset="vintage"</li>
             <li class="bevel">raised book cards</li>
@@ -415,7 +415,7 @@
           <div class="num">07 · BAKERY</div>
           <span class="theme-label">Rosa chicle</span>
           <h2>Sweetcrumbs</h2>
-          <p>Pastry shop with CSS-illustrated cakes (layer cake, cupcake, pie variants). Order form + cart.</p>
+          <p>A pastry shop with CSS cake illustrations, an order form, and a cart.</p>
           <ul class="textures">
             <li>data-texture="dots"</li>
             <li>data-texture="paper"</li>
@@ -427,7 +427,7 @@
           <div class="num">08 · SOCIAL</div>
           <span class="theme-label">Magenta synthwave</span>
           <h2>NEONet IRC / BBS</h2>
-          <p>3-pane IRC chat: channels / messages / user list. Forum threads below. Synthwave vibes.</p>
+          <p>A three-pane chat layout with channels, messages, a user list, and forum threads.</p>
           <ul class="textures">
             <li>data-texture="phosphor"</li>
             <li>data-texture="hatch"</li>
@@ -439,7 +439,7 @@
           <div class="num">09 · ENCYCLOPEDIA</div>
           <span class="theme-label">Azul clásico 90s</span>
           <h2>PixelEncyclopedia</h2>
-          <p>Encarta-style article. Masthead, A-Z index, topic tree, infobox float, Did-You-Know sidebar.</p>
+          <p>An encyclopedia article with a masthead, A–Z index, topic tree, infobox, and sidebar.</p>
           <ul class="textures">
             <li>data-texture="paper"</li>
             <li>data-texture="dots"</li>
@@ -451,7 +451,7 @@
           <div class="num">10 · RUNNING</div>
           <span class="theme-label">Verde fosfo night</span>
           <h2>Stride tracker</h2>
-          <p>GPS running app with SVG-drawn route map, KM splits table, monthly training calendar grid.</p>
+          <p>A running app with an SVG route map, kilometre splits, and a monthly training calendar.</p>
           <ul class="textures">
             <li>data-texture="halftone"</li>
             <li>data-texture="dots"</li>
@@ -462,19 +462,18 @@
       </div>
     </section>
 
-    <!-- PHILOSOPHY -->
+    <!-- DESIGN NOTES -->
     <section class="philosophy" data-texture="dots">
-      <h2>◆ What this proves</h2>
+      <h2>Design notes</h2>
       <p>
-        Each demo overrides only the CSS variables it needs and applies textures via attributes.
-        <strong>Zero changes to the framework. Zero new classes. Zero JavaScript.</strong>
+        Each demo changes only the variables and attributes it needs. The framework stays untouched, and the pages use no JavaScript.
       </p>
       <p>
         The textures system follows the same philosophy as the rest of dotmatrix.css: <strong>semantic, opt-in, zero-cost</strong>.
         The 10 textures + 2 bevels add ~1.2 KB to the framework. They use <code>radial-gradient</code> and <code>repeating-linear-gradient</code> — no extra HTTP requests, no PNG sprites, no JS lazy-loading.
       </p>
       <p>
-        And the bevels? They're a single CSS rule that combines two inset shadows. No images, no border-image, no <code>linear-gradient</code> hacks — just the same border you already have, plus a 1px highlight on one edge and a 1px shadow on the other.
+        A bevel combines two inset shadows. It uses the existing border, a one-pixel highlight, and a one-pixel shadow.
       </p>
     </section>
   </main>
